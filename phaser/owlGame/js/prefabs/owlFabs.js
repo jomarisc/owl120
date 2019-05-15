@@ -15,7 +15,7 @@ function OwlFabs(game, jumpSound, key, frame, scale, rotation)
 
 	// Physics
 	this.AIR_SPEED = 1000;
-	this.GROUND_SPEED = 500;
+	this.GROUND_SPEED = 300;
 	this.JUMP_SPEED = 600;
 	this.ACCELERATION = 3000; // Max Acceleration
 	this.DRAG = 2000;
