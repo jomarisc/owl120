@@ -18,10 +18,10 @@ LevelOne.prototype = {
 		game.load.audio('levelCleared', 'coin.mp3');
 		game.load.audio('jumpSound', 'wingFlap.mp3');
 
-		// Load sprites from a texture atlas
+		
 		game.load.path = 'assets/img/';
 		game.load.atlas('owl', 'owl.png', 'owl.json');
-
+		
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
@@ -53,9 +53,28 @@ LevelOne.prototype = {
 		// Creating the player
 		this.player = new OwlFabs(game, "jumpSound", 'owl', 'owl10000', 0.7, Math.PI / (Math.random() * 3 + 3));
 		game.add.existing(this.player);
-		
+
+		platforms = this.game.add.group();
+		game.physics.enable(platforms);
+		platforms.enableBody = true;
+
+		for(var i = 0; i <= 12; i++){
+			var A = [100, 400, 700, 900, 1400, 1700, 2000, 2300, 2500, 2700, 3000, 3300];
+			var B = [700, 700, 500, 300, 700, 700, 850, 500, 650, 800, 600, 750];
+			ledge = platforms.create(A[i], B[i], 'platform');
+			ledge.body.immovable = true;
+			ledge.body.setSize(128, 20, 0, 56);
+			ledge.anchor.setTo(0.5,0.5);
+		}
+	
 	},
+	/*
+	render: function(){
+		game.debug.body(ledge);
+	},
+	*/
 	update: function() {
+		game.physics.arcade.collide(this.player, platforms);
 		// Allow the camera to follow the player
 		game.camera.follow(this.player);
 		game.camera.deadzone = new Phaser.Rectangle(128 / 2, 450, 50, 350);
@@ -84,16 +103,19 @@ LevelOne.prototype = {
 			{
 				// Set the parallax speed to 0
 				setParallaxValues(this.layerSpeeds, 0);
+				platforms.x += 0;
 			}
 			// LEFT
 			else if(cursors.left.isDown)
 			{
 				parallaxScroll(this.layerArray, this.layerSpeeds, "left");
+				platforms.x += this.layerSpeeds[2];
 			}
 			// RIGHT
 			else if(cursors.right.isDown)
 			{
 				parallaxScroll(this.layerArray, this.layerSpeeds, "right");
+				platforms.x -= this.layerSpeeds[2];
 			}
 			// NO INPUT
 			else
@@ -126,6 +148,7 @@ LevelOne.prototype = {
 			game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 		*/
+
 	},
 	
 	finishFade: function()

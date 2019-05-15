@@ -32,8 +32,28 @@ LevelTwo.prototype = {
 		this.enemy = new Enemy(game, 'owl', 'chadFlex0000', 2, 0);
 		game.add.existing(this.enemy);
 		
+		// Creating platforms template
+		platforms = game.add.group();
+		platforms.enableBody = true;
+		
+		// Creating ground.
+		for (var i = 0; i <= 3200; i = i + 1600){
+			var ground = platforms.create(i, game.world.height-100, "ground");
+			ground.body.immovable = true;
+		}
+		
+		// Creates ledges.
+		for(var i = 0; i <= 12; i++){
+			var A = [100, 400, 700, 900, 1400, 1700, 2000, 2300, 2500, 2700, 3000, 3300];
+			var B = [700, 700, 500, 300, 700, 700, 400, 500, 650, 400, 600, 750];
+			ledge = platforms.create(A[i], B[i], 'platform');
+			ledge.body.immovable = true;
+			ledge.body.setSize(128, 20, 0, 56);
+			ledge.anchor.setTo(0.5,0.5);
+		}
+		
 		// Creating the end token
-		this.endToken = new endToken(game, game.world.width-200, game.world.height-100, 'owl', 'coin0000v3', 1, 0);
+		this.endToken = new endToken(game, game.world.width-200, game.world.height-200, 'owl', 'coin0000v3', 1, 0);
 		game.add.existing(this.endToken);
 		
 		// Creating the player
@@ -55,7 +75,13 @@ LevelTwo.prototype = {
 
 		// Player input checking
 		var cursors = game.input.keyboard.createCursorKeys();
-
+		
+		// Sets collision of sprites with ground
+		var hitPlatform = game.physics.arcade.collide(this.player, platforms);
+		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
+		var powerUpPlatform = game.physics.arcade.collide(this.powerUp, platforms);
+		var enemyPlatform = game.physics.arcade.collide(this.enemy, platforms);
+		
 		// Parallax Scrolling
 		// Check if player is not inside camera deadzone + Camera is not hitting world bounds
 		if((this.player.x - 64 >= game.camera.deadzone.x + game.camera.deadzone.width || this.player.x + 64 <= game.camera.deadzone.x) && game.camera.x + game.camera.width < 3200)

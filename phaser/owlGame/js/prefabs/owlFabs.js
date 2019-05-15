@@ -15,7 +15,7 @@ function OwlFabs(game, jumpSound, key, frame, scale, rotation)
 
 	// Physics
 	this.AIR_SPEED = 1000;
-	this.GROUND_SPEED = 300;
+	this.GROUND_SPEED = 100;
 	this.JUMP_SPEED = 600;
 	this.ACCELERATION = 3000; // Max Acceleration
 	this.DRAG = 2000;
@@ -35,10 +35,16 @@ OwlFabs.prototype.constructor = OwlFabs;
 
 OwlFabs.prototype.update = function()
 {
+	// Sets cap for jumps
+	this.isGrounded = this.body.touching.down;
+	this.isBlockedDown = this.body.blocked.down;
+	
 	// Check if player is airborne or grounded
-	if(this.body.onFloor()) // onFloor() checks if in contact w/ world bounds or tile
+	if(this.isGrounded || this.isBlockedDown) // onFloor() checks if in contact w/ world bounds or tile
 	{
 		this.body.maxVelocity.setTo(this.GROUND_SPEED, this.JUMP_SPEED);
+		this.jumps = 3;
+		this.jumping = false;
 	}
 	else
 	{
@@ -71,10 +77,18 @@ OwlFabs.prototype.update = function()
 	}
 
 	// UP
-	if(cursors.up.downDuration(1)) //  && this.body.touching.down)
+	if(this.jumps > 0 && cursors.up.downDuration(1)) // && this.body.touching.down)
 	{
 		// Jump
 		this.jumpSound.play();
 		this.body.velocity.y = -this.JUMP_SPEED;
+		this.jumping = true;
+	}
+	// Additional check while Owl is in the air
+	if(this.jumping && cursors.up.upDuration(Phaser.Keyboard.UP)) {
+		
+			this.jumps--;
+			this.jumping = false;
+		
 	}
 }

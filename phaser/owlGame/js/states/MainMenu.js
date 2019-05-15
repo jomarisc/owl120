@@ -11,8 +11,13 @@ MainMenu.prototype = {
 		// game.load.image("endToken", "assets/img/coin0000.v3.png");
 		// game.load.image("billboard", "assets/img/cloud20000.png");
 
+		// Load sprites from a texture atlas
 		game.load.path = 'assets/img/';
 		game.load.atlas('owl', 'owl.png', 'owl.json');
+		
+		// Loads images separately from the assets/img folder
+		game.load.image("ground", "urbanGround.png");
+		game.load.image('platform', 'grayPlatform0000.png');
 	},
 	create: function() {
 		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;

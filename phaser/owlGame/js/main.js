@@ -1,3 +1,8 @@
+/* OWLG120
+ * Joel Mariscal, Alex Kuang, Charles Advincula, Jarreau Ortega
+ * Game Build 0.1.4
+ * Git Repository Link: https://github.com/jomarisc/owl120.git
+ */
 //Making sure we're strict on the syntax.
 "use strict";
 //Creating a new instance of the game object.
