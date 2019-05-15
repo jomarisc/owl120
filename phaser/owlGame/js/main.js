@@ -82,8 +82,22 @@ function parallaxScroll(layers, layerSpeeds, characterDirection)
 	}
 }
 
-// Pauses the game
+// Code written by Nathan Altice
+// bind pause key to browser window event
+window.onkeydown = function(event) {
+	// capture keycode (event.which for Firefox compatibility)
+	var keycode = event.keyCode || event.which;	
+	if(keycode === Phaser.Keyboard.P) {
+		pause();
+	}
+}
+
+// This function pauses the game if game.paused is false
+// and unpauses the game if game.paused is true
 function pause()
 {
-	
+	if(game.paused)
+		game.paused = false;
+	else
+		game.paused = true;
 }
