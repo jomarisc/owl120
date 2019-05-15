@@ -81,3 +81,9 @@ function parallaxScroll(layers, layerSpeeds, characterDirection)
 		}
 	}
 }
+
+// Pauses the game
+function pause()
+{
+	
+}
