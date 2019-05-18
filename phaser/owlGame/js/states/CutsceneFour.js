@@ -23,9 +23,9 @@ CutsceneFour.prototype = {
 		// Set up background
 		this.layerArray = [this.sky, this.farBuildings, this.midBuildings, this.closeBuildings];
 		this.layerSpeeds = [this.farParallax, this.midParallax, this.closeParallax];
-		this.keyArray = ['twilightsky0001', 'nightbuild0000', 'nightbuild0001', 'nightbuild0002'];
+		this.keyArray = ["twilightSky", "farBuildings", "midBuildings", "closeBuildings"];
 		// setUpBackground(layerArray, keyArray)
-		setUpBackground(this.layerArray,'owl', this.keyArray);
+		setUpBackground(this.layerArray, this.keyArray);
 
 		menuText1 = game.add.text(game.width / 2, 450, 'This is the fourth cutscene.\nPress F to enter the next state.', {fontsize: '72px', fill: '#000'});
 		menuText1.anchor.setTo(0.5, 0.5);

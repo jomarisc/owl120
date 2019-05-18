@@ -7,7 +7,7 @@ LevelTwo.prototype = {
 		this.keyArray = keyArray;
 	},
 	preload: function() {
-		
+		game.load.image("enemy", "assets/img/chadFlex0000.png");
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
@@ -20,17 +20,21 @@ LevelTwo.prototype = {
 		game.camera.flash(0x000000, 1000, true);
 
 		// Set up background
-		setUpBackground(this.layerArray, 'owl', this.keyArray);
+		setUpBackground(this.layerArray, this.keyArray);
 
 		//Another check
 		menuText1 = game.add.text(game.width / 2, 450, 'This is the second level.\nPress W to enter the next state.', {fontsize: '72px', fill: '#000'});
 		menuText1.anchor.setTo(0.5, 0.5);
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
-
+		
+		enemyGroup = game.add.group() 
 		// Creating the enemy
-		this.enemy = new Enemy(game, 'owl', 'chadFlex0000', 2, 0);
-		game.add.existing(this.enemy);
+		for (var i = 0; i <= 5; i++){
+			this.enemy = new Enemy(game, "enemy", 0, 2, 0);
+			game.add.existing(this.enemy);
+			enemyGroup.add(this.enemy);
+		}
 		
 		// Creating platforms template
 		platforms = game.add.group();
@@ -42,26 +46,16 @@ LevelTwo.prototype = {
 			ground.body.immovable = true;
 		}
 		
-		// Creates ledges.
-		for(var i = 0; i <= 12; i++){
-			var A = [100, 400, 700, 900, 1400, 1700, 2000, 2300, 2500, 2700, 3000, 3300];
-			var B = [700, 700, 500, 300, 700, 700, 400, 500, 650, 400, 600, 750];
-			ledge = platforms.create(A[i], B[i], 'platform');
-			ledge.body.immovable = true;
-			ledge.body.setSize(128, 20, 0, 56);
-			ledge.anchor.setTo(0.5,0.5);
-		}
-		
 		// Creating the end token
-		this.endToken = new endToken(game, game.world.width-200, game.world.height-200, 'owl', 'coin0000v3', 1, 0);
+		this.endToken = new endToken(game, game.world.width-200, game.world.height-200, "endToken", 0, 1, 0);
 		game.add.existing(this.endToken);
 		
 		// Creating the player
-		this.player = new OwlFabs(game, "jumpSound", 'owl', 'owl10000', 0.7, Math.PI / (Math.random() * 3 + 3));
+		this.player = new OwlFabs(game, "jumpSound", "owl", 0, 0.7, Math.PI / (Math.random() * 3 + 3));
 		game.add.existing(this.player);
 
 		// Extra Health Object
-		this.powerUp = new SupportPackage(game, 500, 600, 'owl', 'owl3', 1, 0);
+		this.powerUp = new SupportPackage(game, 500, 600, "support", 0, 1, 0);
 		game.add.existing(this.powerUp);
 		
 		// Creates one image to follow the player
@@ -75,12 +69,11 @@ LevelTwo.prototype = {
 
 		// Player input checking
 		var cursors = game.input.keyboard.createCursorKeys();
-		
-		// Sets collision of sprites with ground
+
 		var hitPlatform = game.physics.arcade.collide(this.player, platforms);
 		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
 		var powerUpPlatform = game.physics.arcade.collide(this.powerUp, platforms);
-		var enemyPlatform = game.physics.arcade.collide(this.enemy, platforms);
+		var enemyPlatform = game.physics.arcade.collide(enemyGroup, platforms);
 		
 		// Parallax Scrolling
 		// Check if player is not inside camera deadzone + Camera is not hitting world bounds
@@ -132,7 +125,7 @@ LevelTwo.prototype = {
 		// Player-Enemy Collision
 		if(this.enemy.canHit)
 		{
-			game.physics.arcade.overlap(this.player, this.enemy, this.enemy.hitPlayer, null, this);
+			game.physics.arcade.overlap(this.player, enemyGroup, this.enemy.hitPlayer, null, this);
 		}
 		
 		// Player-Extra Health Object Collision

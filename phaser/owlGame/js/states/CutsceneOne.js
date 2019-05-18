@@ -21,7 +21,7 @@ CutsceneOne.prototype = {
 		game.camera.flash(0x000000, 1000, true);
 
 		// Set up background
-		setUpBackground(this.layerArray, 'owl', this.keyArray);
+		setUpBackground(this.layerArray, this.keyArray);
 
 		menuText1 = game.add.text(game.width / 2, 450, 'This is the first cutscene.\nPress A to enter the next state.', {fontsize: '72px', fill: '#000'});
 		menuText1.anchor.setTo(0.5, 0.5);
