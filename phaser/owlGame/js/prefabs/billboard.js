@@ -17,8 +17,9 @@ function Billboard(game, key, frame, scale, rotation, targetInterest)
 	this.body.velocity.setTo(0); // Begin w/ billboards at rest
 	this.body.acceleration.setTo(0); // Begin with 0 acceleration
 	this.body.gravity.y = 0; // Gravity will not affect billboards
-	this.body.maxVelocity.setTo(100, 100); // Billboards have slow movement for now
-
+	//this.body.maxVelocity.setTo(100, 100); // Billboards have slow movement for now
+	this.body.maxVelocity.setTo(1000, 1000);
+	
 	// Character
 	this.player = targetInterest;
 }
@@ -35,5 +36,6 @@ Billboard.prototype.update = function()
 
 	// Slowly move towards target interest
 	this.body.y = this.player.y-100;
-	this.body.velocity.setTo(100, 0);
+	//this.body.velocity.setTo(100, 0);
+	this.body.velocity.setTo(600, 600);
 }

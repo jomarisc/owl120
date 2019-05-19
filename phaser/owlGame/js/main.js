@@ -1,8 +1,3 @@
-/* OWLG120
- * Joel Mariscal, Alex Kuang, Charles Advincula, Jarreau Ortega
- * Game Build 0.1.4
- * Git Repository Link: https://github.com/jomarisc/owl120.git
- */
 //Making sure we're strict on the syntax.
 "use strict";
 //Creating a new instance of the game object.
@@ -44,13 +39,13 @@ window.onload = function(){
 //				 3) the first element of layers is a static background image
 //				 4) keys is an array of image keys (i.e. ["sky", "farBuildings"])
 // Postcondition: Creates the background for a game state
-function setUpBackground(layers, atlas, frames)
+function setUpBackground(layers, keys)
 {
 	game.stage.backgroundColor = "#facade";
 
 	for (var i = 0; i < layers.length; i++)
 	{
-		layers[i] = game.add.tileSprite(0, 0, 3200, 900, atlas,frames[i]);
+		layers[i] = game.add.tileSprite(0, 0, 12800, 900, keys[i]);
 	}
 }
 

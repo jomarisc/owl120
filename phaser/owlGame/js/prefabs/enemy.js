@@ -5,7 +5,10 @@
 
 function Enemy(game, key, frame, scale, rotation)
 {
-	Phaser.Sprite.call(this, game, 300, game.height * 2 / 3, key, frame);
+	for(var i = 0; i < 5; i++) {
+		Phaser.Sprite.call(this, game, game.rnd.integerInRange(300, 2800), game.height * 2 / 3, key, frame);
+	}
+	//Phaser.Sprite.call(this, game, 300, game.height * 2 / 3, key, frame);
 
 	// Enemy Properties
 	// Sprite

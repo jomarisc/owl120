@@ -11,6 +11,9 @@ MainMenu.prototype = {
 		game.load.image("endToken", "assets/img/coin0000.v3.png");
 		game.load.image("billboard", "assets/img/cloud20000.png");
 		game.load.image("ground", "assets/img/urbanGround.png");
+		game.load.image("buildingPlatformTop", "assets/img/grayPlatformsStandard.png");
+		game.load.image("buildingPlatformTop2", "assets/img/grayPlatformsLonger.png");
+		game.load.image("buildingPlatform", "assets/img/gPlatform0001.png");
 		game.load.image("roadblock", "assets/img/cloud20000.png");
 	},
 	create: function() {
