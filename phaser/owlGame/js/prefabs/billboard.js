@@ -1,6 +1,6 @@
 // Billboard Prefab
 
-function Billboard(game, key, frame, scale, rotation, targetInterest)
+function Billboard(game, key, frame, scale, rotation, targetInterest, endToken)
 {
 	Phaser.Sprite.call(this, game, targetInterest.x - scale * 64, targetInterest.y, key, frame);
 	
@@ -22,6 +22,7 @@ function Billboard(game, key, frame, scale, rotation, targetInterest)
 	
 	// Character
 	this.player = targetInterest;
+	this.endTokenX = endToken.body.x;
 }
 
 Billboard.prototype = Object.create(Phaser.Sprite.prototype);
@@ -37,5 +38,12 @@ Billboard.prototype.update = function()
 	// Slowly move towards target interest
 	this.body.y = this.player.y-100;
 	//this.body.velocity.setTo(100, 0);
-	this.body.velocity.setTo(600, 600);
+	if(this.body.x <= this.endTokenX - 500)
+	{
+		this.body.velocity.setTo(600, 600);
+	}
+	else
+	{
+		this.body.velocity.setTo(0);
+	}
 }

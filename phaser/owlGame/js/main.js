@@ -14,7 +14,7 @@ var game;
 
 window.onload = function(){
 
-	game = new Phaser.Game(1600, 900, Phaser.AUTO);
+	game = new Phaser.Game(2400, 900, Phaser.CANVAS); // AUTO);
 
 	//Adding all game states to the 'game' object instance.
 	game.state.add('MainMenu', MainMenu);
@@ -41,11 +41,10 @@ window.onload = function(){
 // Postcondition: Creates the background for a game state
 function setUpBackground(layers, keys)
 {
-	game.stage.backgroundColor = "#facade";
-
+	game.stage.backgroundColor = "#0B9CF6";
 	for (var i = 0; i < layers.length; i++)
 	{
-		layers[i] = game.add.tileSprite(0, 0, 12800, 900, keys[i]);
+		layers[i] = game.add.tileSprite(0, game.world.height - 900, 12800, 900, keys[i]);
 	}
 }
 
@@ -69,15 +68,16 @@ function parallaxScroll(layers, layerSpeeds, characterDirection)
 {
 	for(var i = 0; i < layers.length - 1; i++)
 	{
-		if(characterDirection == "left")
-			layers[i + 1].tilePosition.x += layerSpeeds[i];
-		else if(characterDirection == "right")
+		if(characterDirection > 0)
 			layers[i + 1].tilePosition.x -= layerSpeeds[i];
+		else if(characterDirection < 0)
+			layers[i + 1].tilePosition.x += layerSpeeds[i];
 		else
 		{
 			// throw an exception
 			// console.log("Invalid character direction");
-			window.location.href = "Invalid character direction";
+			// window.location.href = "Invalid character direction";
+			layers[i + 1].tilePosition.x += 0;
 		}
 	}
 }

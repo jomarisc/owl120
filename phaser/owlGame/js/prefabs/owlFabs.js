@@ -48,7 +48,7 @@ OwlFabs.prototype.update = function()
 	if(this.isGrounded || this.isBlockedDown) // onFloor() checks if in contact w/ world bounds or tile
 	{
 		this.body.maxVelocity.setTo(this.GROUND_SPEED, this.JUMP_SPEED);
-		this.jumps = 3;
+		this.jumps = 100;
 		this.jumping = false;
 	}
 	else

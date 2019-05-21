@@ -22,7 +22,7 @@ LevelOne.prototype = {
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
-		game.world.setBounds(0, 0, 12800, 900);
+		game.world.setBounds(0, 0, 12800, 1800);
 
 		// Level Sounds
 		this.levelCleared = game.add.audio("levelCleared");
@@ -91,7 +91,7 @@ LevelOne.prototype = {
 		// This platform is 128px long
 		for (var i = 0; i < 1; i++) {	
 			var x = [3000];
-			var y = [650]; // Was initially 600
+			var y = [game.world.height - 250];// 650]; // Was initially 600
 			var ledge = platforms.create(x[i], y[i], "buildingPlatform");
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
@@ -101,8 +101,8 @@ LevelOne.prototype = {
 		// Standard platforms are 256px long
 		for (var i = 0; i < 6; i++) {	
 			var x = [3600, 5600, 8000, 9025, 9450, 11115];
-			var y = [500, 300, 150, 500, 250, 650]; // 550
-			var ledge = platforms.create(x[i], y[i], "buildingPlatformTop");
+			var y = [400, 600, 750, 400, 650, 250]; // [500, 300, 150, 500, 250, 650]; // 550
+			var ledge = platforms.create(x[i], game.world.height - y[i], "buildingPlatformTop");
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
@@ -111,8 +111,8 @@ LevelOne.prototype = {
 		// Longer platforms are 384px long
 		for (var i = 0; i < 5; i++) {	
 			var x = [4150, 4800, 6400, 6784, 8700];
-			var y = [348, 550, 600, 550, 600]; // 450
-			var ledge = platforms.create(x[i], y[i], "buildingPlatformTop2");
+			var y = [552, 350, 300, 350, 300];// [348, 550, 600, 550, 600]; // 450
+			var ledge = platforms.create(x[i], game.world.height - y[i], "buildingPlatformTop2");
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
@@ -120,8 +120,8 @@ LevelOne.prototype = {
 		// Creates intentional concrete buildings for standard platforms
 		for (var i = 0; i < 6; i++) {
 			var x = [3600, 5600, 8000, 9025, 9450, 11115];
-			var y = [525, 325, 175, 525, 275, 675];
-			var ledge = platforms.create(x[i]-(256/2), y[i], "building");
+			var y = [375, 575, 725, 375, 625, 225]; // [525, 325, 175, 525, 275, 675];
+			var ledge = platforms.create(x[i]-(256/2), game.world.height - y[i], "building");
 			// Sets size of placeholder image.
 			ledge.scale.setTo(8);
 			ledge.body.immovable = true;
@@ -131,8 +131,8 @@ LevelOne.prototype = {
 		// Creates intentional concrete buildings for longer platforms
 		for (var i = 0; i < 5; i++) {
 			var x = [4150, 4800, 6400, 6784, 8700];
-			var y = [348+30, 550+30, 600+30, 550+30, 600+30];
-			var ledge = platforms.create(x[i]-(384/2), y[i], "building");
+			var y = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
+			var ledge = platforms.create(x[i]-(384/2), game.world.height - y[i], "building");
 			// Sets size of placeholder image.
 			ledge.scale.setTo(12);
 			ledge.body.immovable = true;
@@ -171,7 +171,7 @@ LevelOne.prototype = {
 		// Allow the camera to follow the player
 		//console.log(this.player.x);
 		game.camera.follow(this.player);
-		game.camera.deadzone = new Phaser.Rectangle(128 / 2, 450, 50, 350);
+		game.camera.deadzone = new Phaser.Rectangle(game.width / 3, game.height / 2, 1, 1);
 
 		// Player input checking
 		var cursors = game.input.keyboard.createCursorKeys();
@@ -182,19 +182,21 @@ LevelOne.prototype = {
 		var roadBlockCollide = game.physics.arcade.collide(roadBlock, [this.player, platforms, deathPlatforms]);
 		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
 
+		// Parallax Speed
+		var parallaxSpeed = this.player.body.velocity.x / 750;
 		// Parallax Scrolling
 		// Check if player is not inside camera deadzone + Camera is not hitting world bounds
-		if((this.player.x - 64 >= game.camera.deadzone.x + game.camera.deadzone.width || this.player.x + 64 <= game.camera.deadzone.x) && game.camera.x + game.camera.width < 3200)
+		if((this.player.x - 64 >= game.camera.deadzone.x + game.camera.deadzone.width || this.player.x + 64 <= game.camera.deadzone.x) && game.camera.x + game.camera.width < game.world.width)
 		{
 			// Check if player is grounded
 			if(this.player.body.onFloor())
 			{
-				setParallaxValues(this.layerSpeeds, 0.1);
+				setParallaxValues(this.layerSpeeds, parallaxSpeed);
 			}
 			// Otherwise player is airborne
 			else
 			{
-				setParallaxValues(this.layerSpeeds, 1);
+				setParallaxValues(this.layerSpeeds, parallaxSpeed);
 			}
 
 			// Player input
@@ -204,20 +206,20 @@ LevelOne.prototype = {
 				// Set the parallax speed to 0
 				setParallaxValues(this.layerSpeeds, 0);
 			}
-			// LEFT
-			else if(cursors.left.isDown)
-			{
-				parallaxScroll(this.layerArray, this.layerSpeeds, "left");
-			}
-			// RIGHT
-			else if(cursors.right.isDown)
-			{
-				parallaxScroll(this.layerArray, this.layerSpeeds, "right");
-			}
+			// // LEFT
+			// else if(cursors.left.isDown)
+			// {
+			// 	parallaxScroll(this.layerArray, this.layerSpeeds, "left");
+			// }
+			// // RIGHT
+			// else if(cursors.right.isDown)
+			// {
+			// 	parallaxScroll(this.layerArray, this.layerSpeeds, "right");
+			// }
 			// NO INPUT
 			else
 			{
-
+				parallaxScroll(this.layerArray, this.layerSpeeds, parallaxSpeed);
 			}
 		}
 		
@@ -229,7 +231,7 @@ LevelOne.prototype = {
 		}
 		
 		// Triggers the start of the next state.
-		if(game.physics.arcade.collide(this.player, this.endToken)) {
+		if(game.physics.arcade.collide(this.player, this.endToken) || game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
 			// Used the below line to remove the hitbox and initiate the transition immediately
 			// OBSERVATION: Noticed the transition would not occur immediately when using
 			//				overlap or collide in the if statement's check.
@@ -237,9 +239,11 @@ LevelOne.prototype = {
 			//				Will continue to look into and change if needed.
 			this.endToken.destroy(); 
 			this.levelCleared.play();
-			// Camera Fade
-			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
+
+			game.state.start("CutsceneOne", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			// // Camera Fade
+			// game.camera.fade(0x000000, 1000, true);
+			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 		
 		// First version of code that ends level and transitions to next state.
@@ -254,10 +258,10 @@ LevelOne.prototype = {
 		*/
 	},
 	
-	finishFade: function()
-	{
-		game.state.start("CutsceneOne", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-	},
+	// finishFade: function()
+	// {
+	// 	game.state.start("CutsceneOne", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	// },
 	
 	restart: function()
 	{

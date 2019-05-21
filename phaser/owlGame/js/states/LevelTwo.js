@@ -11,7 +11,7 @@ LevelTwo.prototype = {
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
-		game.world.setBounds(0, 0, 3200, 900);
+		game.world.setBounds(0, 0, 3200, 1800);
 
 		// Level Sounds
 		this.levelCleared = game.add.audio("levelCleared");
@@ -29,12 +29,12 @@ LevelTwo.prototype = {
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
 		
 		enemyGroup = game.add.group() 
-		// Creating the enemy
-		for (var i = 0; i <= 5; i++){
-			this.enemy = new Enemy(game, "enemy", 0, 2, 0);
-			game.add.existing(this.enemy);
-			enemyGroup.add(this.enemy);
-		}
+		// // Creating the enemy
+		// for (var i = 0; i <= 5; i++){
+		// 	this.enemy = new Enemy(game, "enemy", 0, 2, 0);
+		// 	game.add.existing(this.enemy);
+		// 	enemyGroup.add(this.enemy);
+		// }
 		
 		// Creating platforms template
 		platforms = game.add.group();
@@ -59,7 +59,7 @@ LevelTwo.prototype = {
 		game.add.existing(this.powerUp);
 		
 		// Creates one image to follow the player
-		this.billboard = new Billboard(game, "placeholder", 0, 5, 0, this.player);
+		this.billboard = new Billboard(game, "placeholder", 0, 5, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
 	},
 	update: function() {
@@ -115,18 +115,18 @@ LevelTwo.prototype = {
 		}
 
 		//Triggers the start of the next state.
-		if(game.input.keyboard.isDown(Phaser.Keyboard.W)) {
-			// game.state.start('LevelThree', true);
-			this.levelCleared.play();
-			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
-		}
+		// if(game.input.keyboard.isDown(Phaser.Keyboard.W)) {
+		// 	// game.state.start('LevelThree', true);
+		// 	this.levelCleared.play();
+		// 	game.camera.fade(0x000000, 1000, true);
+		// 	game.camera.onFadeComplete.add(this.finishFade, this);
+		// }
 
-		// Player-Enemy Collision
-		if(this.enemy.canHit)
-		{
-			game.physics.arcade.overlap(this.player, enemyGroup, this.enemy.hitPlayer, null, this);
-		}
+		// // Player-Enemy Collision
+		// if(this.enemy.canHit)
+		// {
+		// 	game.physics.arcade.overlap(this.player, enemyGroup, this.enemy.hitPlayer, null, this);
+		// }
 		
 		// Player-Extra Health Object Collision
 		game.physics.arcade.overlap(this.player, this.powerUp, this.powerUp.increaseMaxHealth, null, this);
@@ -137,7 +137,7 @@ LevelTwo.prototype = {
 		}
 		
 		// Triggers the start of the next state.
-		if(game.physics.arcade.collide(this.player, this.endToken)) {
+		if(game.physics.arcade.collide(this.player, this.endToken) || game.input.keyboard.isDown(Phaser.Keyboard.W)) {
 			// Used the below line to remove the hitbox and initiate the transition immediately
 			// OBSERVATION: Noticed the transition would not occur immediately when using
 			//				overlap or collide in the if statement's check.
@@ -145,16 +145,19 @@ LevelTwo.prototype = {
 			//				Will continue to look into and change if needed.
 			this.endToken.destroy(); 
 			this.levelCleared.play();
-			// Camera Fade
-			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
+
+			game.state.start('CutsceneTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+
+			// // Camera Fade
+			// game.camera.fade(0x000000, 1000, true);
+			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 		
 	},
-	finishFade: function()
-	{
-		game.state.start('CutsceneTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-	},
+	// finishFade: function()
+	// {
+	// 	game.state.start('CutsceneTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	// },
 	restart: function()
 	{
 		console.log("Restart Level 2");

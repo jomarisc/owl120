@@ -7,14 +7,14 @@ LevelThree.prototype = {
 		this.keyArray = keyArray;
 	},
 	preload: function() {
-		game.load.image("redSky", "assets/img/redSky0001.png");
+		game.load.image("redSky", "assets/img/redsky0001.png");
 		game.load.image("farBuildings", "assets/img/redbuildings0000.png");
 		game.load.image("midBuildings", "assets/img/redbuildings0001.png");
 		game.load.image("closeBuildings", "assets/img/redbuildings0002.png");
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
-		game.world.setBounds(0, 0, 9400, 900);
+		game.world.setBounds(0, 0, 9400, 1800);
 
 		// Level Sounds
 		this.levelCleared = game.add.audio("levelCleared");
@@ -26,6 +26,7 @@ LevelThree.prototype = {
 		this.keyArray[0] = "redSky";
 		// setUpBackground(layerArray, keyArray)
 		setUpBackground(this.layerArray, this.keyArray);
+		game.stage.backgroundColor = "#C00A43";
 
 		menuText1 = game.add.text(game.width / 2, 450, 'This is the third level.\nPress E to enter the next state.', {fontsize: '72px', fill: '#000'});
 		menuText1.anchor.setTo(0.5, 0.5);
@@ -51,7 +52,7 @@ LevelThree.prototype = {
 		game.add.existing(this.player);
 		
 		// Creates one image to follow the player
-		this.billboard = new Billboard(game, "placeholder", 0, 5, 0, this.player);
+		this.billboard = new Billboard(game, "placeholder", 0, 5, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
 	},
 	update: function() {
@@ -105,15 +106,15 @@ LevelThree.prototype = {
 		}
 		
 		//Triggers the start of the next state.
-		if(game.input.keyboard.isDown(Phaser.Keyboard.E)) {
-			// game.state.start('LevelFour');
-			this.levelCleared.play();
-			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
-		};
+		// if(game.input.keyboard.isDown(Phaser.Keyboard.E)) {
+		// 	// game.state.start('LevelFour');
+		// 	this.levelCleared.play();
+		// 	game.camera.fade(0x000000, 1000, true);
+		// 	game.camera.onFadeComplete.add(this.finishFade, this);
+		// };
 		
 		// Triggers the start of the next state.
-		if(game.physics.arcade.collide(this.player, this.endToken)) {
+		if(game.physics.arcade.collide(this.player, this.endToken) || game.input.keyboard.isDown(Phaser.Keyboard.E)) {
 			// Used the below line to remove the hitbox and initiate the transition immediately
 			// OBSERVATION: Noticed the transition would not occur immediately when using
 			//				overlap or collide in the if statement's check.
@@ -121,14 +122,17 @@ LevelThree.prototype = {
 			//				Will continue to look into and change if needed.
 			this.endToken.destroy(); 
 			this.levelCleared.play();
+
+			game.state.start('CutsceneThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+
 			// Camera Fade
-			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
+			// game.camera.fade(0x000000, 1000, true);
+			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 		
 	},
-	finishFade: function()
-	{
-		game.state.start('CutsceneThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-	}
+	// finishFade: function()
+	// {
+	// 	game.state.start('CutsceneThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	// }
 };

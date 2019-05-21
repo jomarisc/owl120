@@ -36,13 +36,16 @@ CutsceneTwo.prototype = {
 		//Triggers the start of the next state.
 		if(game.input.keyboard.isDown(Phaser.Keyboard.S)) {
 			// game.state.start('LevelThree', true);
-			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
+
+			game.state.start('LevelThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			
+			// game.camera.fade(0x000000, 1000, true);
+			// game.camera.onFadeComplete.add(this.finishFade, this);
 		}
 	},
 
-	finishFade: function()
-	{
-		game.state.start('LevelThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-	}
+	// finishFade: function()
+	// {
+	// 	game.state.start('LevelThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	// }
 }
