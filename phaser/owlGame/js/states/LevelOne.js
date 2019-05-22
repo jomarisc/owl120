@@ -22,7 +22,7 @@ LevelOne.prototype = {
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
-		game.world.setBounds(0, 0, 12800, 1800);
+		game.world.setBounds(0, 0, 24000, 1800);
 
 		// Level Sounds
 		this.levelCleared = game.add.audio("levelCleared");
@@ -59,11 +59,11 @@ LevelOne.prototype = {
 			var ground = platforms.create(i, game.world.height-100, "ground");
 			ground.body.immovable = true;
 		}
-		for (var i = 3200; i <= 9600; i = i + 1600){
+		for (var i = 3200; i <= (game.world.width - 3200); i = i + 1600){
 			var ground = deathPlatforms.create(i, game.world.height-100, "ground");
 			ground.body.immovable = true;
 		}
-		for (var i = 11200; i <= 11200; i = i + 1600){
+		for (var i = (game.world.width - 1600); i <= (game.world.width - 1600); i = i + 1600){
 			var ground = platforms.create(i, game.world.height-100, "ground");
 			ground.body.immovable = true;
 		}
@@ -74,7 +74,7 @@ LevelOne.prototype = {
 		var block = roadBlock.create(3200, game.world.height-200, "roadblock");
 		block.body.immovable = true;
 		// 2nd potential roadblock may be here. Test by game feel. 
-		var block = roadBlock.create(11200, game.world.height-200, "roadblock");
+		var block = roadBlock.create(game.world.width - 1600, game.world.height-200, "roadblock");
 		block.body.immovable = true;
 		/* 
 		// TESTING CODE: Uncomment this code for testing the placement of the    
@@ -99,9 +99,9 @@ LevelOne.prototype = {
 		
 		// Creates intentional standard platforms 
 		// Standard platforms are 256px long
-		for (var i = 0; i < 6; i++) {	
-			var x = [3600, 5600, 8000, 9025, 9450, 11115];
-			var y = [400, 600, 750, 400, 650, 250]; // [500, 300, 150, 500, 250, 650]; // 550
+		for (var i = 0; i < 7; i++) {	
+			var x = [3600, 5600, 8000, 9025, 9550, 11115, 12565];
+			var y = [400, 530, 700, 400, 550, 250, 250]; // [500, 300, 150, 500, 250, 650]; // 550
 			var ledge = platforms.create(x[i], game.world.height - y[i], "buildingPlatformTop");
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
@@ -116,11 +116,23 @@ LevelOne.prototype = {
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
+
+		// Creates intentional longerer platforms
+		// Longerer platforms are 256 x 4 long
+		var longererX = [14565];
+		var longererY = [550];
+		for(var i = 0; i < longererX.length; i++)
+		{
+			var ledge = platforms.create(longererX[i], game.world.height - longererY[i], "buildingPlatformTop2");
+			ledge.scale.setTo(4, 1);
+			ledge.body.immovable = true;
+			ledge.anchor.setTo(0.5, 0.5);
+		}
 		
 		// Creates intentional concrete buildings for standard platforms
-		for (var i = 0; i < 6; i++) {
-			var x = [3600, 5600, 8000, 9025, 9450, 11115];
-			var y = [375, 575, 725, 375, 625, 225]; // [525, 325, 175, 525, 275, 675];
+		for (var i = 0; i < 7; i++) {
+			var x = [3600, 5600, 8000, 9025, 9550, 11115, 12565];
+			var y = [375, 505, 675, 375, 525, 225, 225]; // [525, 325, 175, 525, 275, 675];
 			var ledge = platforms.create(x[i]-(256/2), game.world.height - y[i], "building");
 			// Sets size of placeholder image.
 			ledge.scale.setTo(8);

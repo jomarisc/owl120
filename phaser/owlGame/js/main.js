@@ -14,7 +14,7 @@ var game;
 
 window.onload = function(){
 
-	game = new Phaser.Game(2400, 900, Phaser.CANVAS); // AUTO);
+	game = new Phaser.Game(24000, 900, Phaser.CANVAS); // AUTO);
 
 	//Adding all game states to the 'game' object instance.
 	game.state.add('MainMenu', MainMenu);
@@ -44,7 +44,7 @@ function setUpBackground(layers, keys)
 	game.stage.backgroundColor = "#0B9CF6";
 	for (var i = 0; i < layers.length; i++)
 	{
-		layers[i] = game.add.tileSprite(0, game.world.height - 900, 12800, 900, keys[i]);
+		layers[i] = game.add.tileSprite(0, game.world.height - 900, 24000, 900, keys[i]);
 	}
 }
 
