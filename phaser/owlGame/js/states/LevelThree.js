@@ -58,7 +58,7 @@ LevelThree.prototype = {
 	update: function() {
 		// Allow the camera to follow the player
 		game.camera.follow(this.player);
-		game.camera.deadzone = new Phaser.Rectangle(128 / 2, 450, 50, 350);
+		game.camera.deadzone = new Phaser.Rectangle(game.width / 3, game.height / 2, 1, 1);
 
 		// Player input checking
 		var cursors = game.input.keyboard.createCursorKeys();
