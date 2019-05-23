@@ -3,13 +3,13 @@
 
 "use strict";
 
-function OwlFabs(game, jumpSound, key, frame, scale, rotation)
+function OwlFabs(game, x, y, jumpSound, key, frame, scale, rotation)
 {// Left most position of sprite
 	//Phaser.Sprite.call(this, game, 128 / 2, game.height * 2 / 3, key, frame);
 	
 	//TESTING CODE: Uncomment this code for testing placement of player
 	//Phaser.Sprite.call(this, game, game.world.width-400, game.height * 2 / 3, key, frame);
-	Phaser.Sprite.call(this, game, 11115, game.height * 2 / 3, key, frame);
+	Phaser.Sprite.call(this, game, x, y, key, frame);
 	//Phaser.Sprite.call(this, game, 5600, 230, key, frame);
 	
 	// OwlFabs Properties

@@ -68,10 +68,10 @@ function parallaxScroll(layers, layerSpeeds, characterDirection)
 {
 	for(var i = 0; i < layers.length - 1; i++)
 	{
-		if(characterDirection > 0)
+		if(characterDirection != 0)
 			layers[i + 1].tilePosition.x -= layerSpeeds[i];
-		else if(characterDirection < 0)
-			layers[i + 1].tilePosition.x += layerSpeeds[i];
+		// else if(characterDirection < 0)
+		// 	layers[i + 1].tilePosition.x += layerSpeeds[i];
 		else
 		{
 			// throw an exception

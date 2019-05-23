@@ -99,27 +99,27 @@ LevelOne.prototype = {
 		
 		// Creates intentional standard platforms 
 		// Standard platforms are 256px long
-		for (var i = 0; i < 7; i++) {	
-			var x = [3600, 5600, 8000, 9025, 9550, 11115, 12565];
-			var y = [400, 530, 700, 400, 550, 250, 250]; // [500, 300, 150, 500, 250, 650]; // 550
-			var ledge = platforms.create(x[i], game.world.height - y[i], "buildingPlatformTop");
+		var standardX = [1200 + (2400 * 1), 700 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5), 1870 + (2400 * 8), 455 + (2400 * 9), 1000 + (2400 * 9), 1000 + (2400 * 9), 2000 + (2400 * 9)];
+		var standardY = [400, 520, 700, 400, 550, 250, 250, 600, 750, 1150, 900, 1000]; // [500, 300, 150, 500, 250, 650]; // 550
+		for (var i = 0; i < standardX.length; i++) {	
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
 		
 		// Creates intentional longer platforms 
 		// Longer platforms are 384px long
-		for (var i = 0; i < 5; i++) {	
-			var x = [4150, 4800, 6400, 6784, 8700];
-			var y = [552, 350, 300, 350, 300];// [348, 550, 600, 550, 600]; // 450
-			var ledge = platforms.create(x[i], game.world.height - y[i], "buildingPlatformTop2");
+		var longerX = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3), 65 + (2400 * 7), 130 + (2400 * 7), 195 + (2400 * 7), 260 + (2400 * 7), 325 + (2400 * 7), 390 + (2400 * 7), 774 + (2400 * 7), 839 + (2400 * 7), 1830 + (2400 * 7), 250 + (2400 * 8), 839 + (2400 * 8), 2190 + (2400 * 9)];
+		var longerY = [552, 350, 300, 350, 300, 300, 350, 400, 450, 500, 550, 550, 500, 300, 400, 500, 1400];// [348, 550, 600, 550, 600]; // 450
+		for (var i = 0; i < longerX.length; i++) {	
+			var ledge = platforms.create(longerX[i], game.world.height - longerY[i], "buildingPlatformTop2");
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
 
 		// Creates intentional longerer platforms
 		// Longerer platforms are 256 x 4 long
-		var longererX = [14565];
+		var longererX = [65 + (2400 * 6)];
 		var longererY = [550];
 		for(var i = 0; i < longererX.length; i++)
 		{
@@ -130,10 +130,10 @@ LevelOne.prototype = {
 		}
 		
 		// Creates intentional concrete buildings for standard platforms
-		for (var i = 0; i < 7; i++) {
-			var x = [3600, 5600, 8000, 9025, 9550, 11115, 12565];
-			var y = [375, 505, 675, 375, 525, 225, 225]; // [525, 325, 175, 525, 275, 675];
-			var ledge = platforms.create(x[i]-(256/2), game.world.height - y[i], "building");
+		var concreteSY = [375, 505, 675, 375, 525, 225, 225]; // [525, 325, 175, 525, 275, 675];
+		for (var i = 0; i < concreteSY.length; i++) {
+			// var x = [1200 + (2400 * 1), 800 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5)];
+			var ledge = platforms.create(standardX[i]-(256/2), game.world.height - concreteSY[i], "building");
 			// Sets size of placeholder image.
 			ledge.scale.setTo(8);
 			ledge.body.immovable = true;
@@ -141,10 +141,10 @@ LevelOne.prototype = {
 			//ledge.anchor.setTo(0.5, 0.5);
 		}
 		// Creates intentional concrete buildings for longer platforms
-		for (var i = 0; i < 5; i++) {
-			var x = [4150, 4800, 6400, 6784, 8700];
-			var y = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
-			var ledge = platforms.create(x[i]-(384/2), game.world.height - y[i], "building");
+		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
+		for (var i = 0; i < concreteLY.length; i++) {
+			// var x = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3)];
+			var ledge = platforms.create(longerX[i]-(384/2), game.world.height - concreteLY[i], "building");
 			// Sets size of placeholder image.
 			ledge.scale.setTo(12);
 			ledge.body.immovable = true;
@@ -175,7 +175,7 @@ LevelOne.prototype = {
 		game.add.existing(this.endToken);
 
 		// Creating the player
-		this.player = new OwlFabs(game, "jumpSound", "owl", 0, 0.7, Math.PI / (Math.random() * 3 + 3));
+		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", 0, 0.7, Math.PI / (Math.random() * 3 + 3));
 		game.add.existing(this.player);
 		
 	},
@@ -196,9 +196,10 @@ LevelOne.prototype = {
 
 		// Parallax Speed
 		var parallaxSpeed = this.player.body.velocity.x / 750;
+		// console.log(parallaxSpeed);
 		// Parallax Scrolling
 		// Check if player is not inside camera deadzone + Camera is not hitting world bounds
-		if((this.player.x - 64 >= game.camera.deadzone.x + game.camera.deadzone.width || this.player.x + 64 <= game.camera.deadzone.x) && game.camera.x + game.camera.width < game.world.width)
+		if((this.player.x - 64 >= game.camera.deadzone.x + game.camera.deadzone.width || this.player.x + 64 <= game.camera.deadzone.x) && game.camera.x + game.camera.width < game.world.width && game.camera.x > 0)
 		{
 			// Check if player is grounded
 			if(this.player.body.onFloor())
