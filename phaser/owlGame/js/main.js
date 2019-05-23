@@ -14,7 +14,7 @@ var game;
 
 window.onload = function(){
 
-	game = new Phaser.Game(1600, 900, Phaser.AUTO);
+	game = new Phaser.Game(24000, 900, Phaser.CANVAS); // AUTO);
 
 	//Adding all game states to the 'game' object instance.
 	game.state.add('MainMenu', MainMenu);
@@ -39,13 +39,12 @@ window.onload = function(){
 //				 3) the first element of layers is a static background image
 //				 4) keys is an array of image keys (i.e. ["sky", "farBuildings"])
 // Postcondition: Creates the background for a game state
-function setUpBackground(layers, atlas, frames)
+function setUpBackground(layers, keys)
 {
-	game.stage.backgroundColor = "#facade";
-
+	game.stage.backgroundColor = "#0B9CF6";
 	for (var i = 0; i < layers.length; i++)
 	{
-		layers[i] = game.add.tileSprite(0, 0, 3200, 900, atlas,frames[i]);
+		layers[i] = game.add.tileSprite(0, game.world.height - 900, 24000, 900, keys[i]);
 	}
 }
 
@@ -69,35 +68,16 @@ function parallaxScroll(layers, layerSpeeds, characterDirection)
 {
 	for(var i = 0; i < layers.length - 1; i++)
 	{
-		if(characterDirection == "left")
-			layers[i + 1].tilePosition.x += layerSpeeds[i];
-		else if(characterDirection == "right")
+		if(characterDirection > 0)
 			layers[i + 1].tilePosition.x -= layerSpeeds[i];
+		else if(characterDirection < 0)
+			layers[i + 1].tilePosition.x += layerSpeeds[i];
 		else
 		{
 			// throw an exception
 			// console.log("Invalid character direction");
-			window.location.href = "Invalid character direction";
+			// window.location.href = "Invalid character direction";
+			layers[i + 1].tilePosition.x += 0;
 		}
 	}
-}
-
-// Code written by Nathan Altice
-// bind pause key to browser window event
-window.onkeydown = function(event) {
-	// capture keycode (event.which for Firefox compatibility)
-	var keycode = event.keyCode || event.which;	
-	if(keycode === Phaser.Keyboard.P) {
-		pause();
-	}
-}
-
-// This function pauses the game if game.paused is false
-// and unpauses the game if game.paused is true
-function pause()
-{
-	if(game.paused)
-		game.paused = false;
-	else
-		game.paused = true;
 }

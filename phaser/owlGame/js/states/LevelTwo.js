@@ -7,11 +7,11 @@ LevelTwo.prototype = {
 		this.keyArray = keyArray;
 	},
 	preload: function() {
-		
+		game.load.image("enemy", "assets/img/chadFlex0000.png");
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
-		game.world.setBounds(0, 0, 3200, 900);
+		game.world.setBounds(0, 0, 3200, 1800);
 
 		// Level Sounds
 		this.levelCleared = game.add.audio("levelCleared");
@@ -20,7 +20,7 @@ LevelTwo.prototype = {
 		game.camera.flash(0x000000, 1000, true);
 
 		// Set up background
-		setUpBackground(this.layerArray, 'owl', this.keyArray);
+		setUpBackground(this.layerArray, this.keyArray);
 
 		//Another check
 		menuText1 = game.add.text(game.width / 2, 450, 'This is the second level.\nPress W to enter the next state.', {fontsize: '72px', fill: '#000'});
@@ -28,33 +28,53 @@ LevelTwo.prototype = {
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
 
-		// Creating the enemy
-		this.enemy = new Enemy(game, 'owl', 'chadFlex0000', 2, 0);
-		game.add.existing(this.enemy);
+
+		enemyGroup = game.add.group() 
+		// // Creating the enemy
+		// for (var i = 0; i <= 5; i++){
+		// 	this.enemy = new Enemy(game, "enemy", 0, 2, 0);
+		// 	game.add.existing(this.enemy);
+		// 	enemyGroup.add(this.enemy);
+		// }
+		
+		// Creating platforms template
+		platforms = game.add.group();
+		platforms.enableBody = true;
+		
+		// Creating ground.
+		for (var i = 0; i <= 3200; i = i + 1600){
+			var ground = platforms.create(i, game.world.height-100, "ground");
+			ground.body.immovable = true;
+		}
 		
 		// Creating the end token
-		this.endToken = new endToken(game, game.world.width-200, game.world.height-100, 'owl', 'coin0000v3', 1, 0);
+		this.endToken = new endToken(game, game.world.width-200, game.world.height-200, "endToken", 0, 1, 0);
 		game.add.existing(this.endToken);
 		
 		// Creating the player
-		this.player = new OwlFabs(game, "jumpSound", 'owl', 'owl10000', 0.7, Math.PI / (Math.random() * 3 + 3));
+		this.player = new OwlFabs(game, "jumpSound", "owl", 0, 0.7, Math.PI / (Math.random() * 3 + 3));
 		game.add.existing(this.player);
 
 		// Extra Health Object
-		this.powerUp = new SupportPackage(game, 500, 600, 'owl', 'owl3', 1, 0);
+		this.powerUp = new SupportPackage(game, 500, 600, "support", 0, 1, 0);
 		game.add.existing(this.powerUp);
 		
 		// Creates one image to follow the player
-		this.billboard = new Billboard(game, "placeholder", 0, 5, 0, this.player);
+		this.billboard = new Billboard(game, "placeholder", 0, 5, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
 	},
 	update: function() {
 		// Allow the camera to follow the player
 		game.camera.follow(this.player);
-		game.camera.deadzone = new Phaser.Rectangle(128 / 2, 450, 50, 350);
+		game.camera.deadzone = new Phaser.Rectangle(game.width / 3, game.height / 2, 1, 1);
 
 		// Player input checking
 		var cursors = game.input.keyboard.createCursorKeys();
+
+		var hitPlatform = game.physics.arcade.collide(this.player, platforms);
+		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
+		var powerUpPlatform = game.physics.arcade.collide(this.powerUp, platforms);
+		var enemyPlatform = game.physics.arcade.collide(enemyGroup, platforms);
 
 		// Parallax Scrolling
 		// Check if player is not inside camera deadzone + Camera is not hitting world bounds
@@ -96,18 +116,18 @@ LevelTwo.prototype = {
 		}
 
 		//Triggers the start of the next state.
-		if(game.input.keyboard.isDown(Phaser.Keyboard.W)) {
-			// game.state.start('LevelThree', true);
-			this.levelCleared.play();
-			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
-		}
+		// if(game.input.keyboard.isDown(Phaser.Keyboard.W)) {
+		// 	// game.state.start('LevelThree', true);
+		// 	this.levelCleared.play();
+		// 	game.camera.fade(0x000000, 1000, true);
+		// 	game.camera.onFadeComplete.add(this.finishFade, this);
+		// }
 
-		// Player-Enemy Collision
-		if(this.enemy.canHit)
-		{
-			game.physics.arcade.overlap(this.player, this.enemy, this.enemy.hitPlayer, null, this);
-		}
+		// // Player-Enemy Collision
+		// if(this.enemy.canHit)
+		// {
+		// 	game.physics.arcade.overlap(this.player, enemyGroup, this.enemy.hitPlayer, null, this);
+		// }
 		
 		// Player-Extra Health Object Collision
 		game.physics.arcade.overlap(this.player, this.powerUp, this.powerUp.increaseMaxHealth, null, this);
@@ -118,7 +138,7 @@ LevelTwo.prototype = {
 		}
 		
 		// Triggers the start of the next state.
-		if(game.physics.arcade.collide(this.player, this.endToken)) {
+		if(game.physics.arcade.collide(this.player, this.endToken) || game.input.keyboard.isDown(Phaser.Keyboard.W)) {
 			// Used the below line to remove the hitbox and initiate the transition immediately
 			// OBSERVATION: Noticed the transition would not occur immediately when using
 			//				overlap or collide in the if statement's check.
@@ -126,16 +146,18 @@ LevelTwo.prototype = {
 			//				Will continue to look into and change if needed.
 			this.endToken.destroy(); 
 			this.levelCleared.play();
-			// Camera Fade
-			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
+			game.state.start('CutsceneTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+
+			// // Camera Fade
+			// game.camera.fade(0x000000, 1000, true);
+			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 		
 	},
-	finishFade: function()
-	{
-		game.state.start('CutsceneTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-	},
+	// finishFade: function()
+	// {
+	// 	game.state.start('CutsceneTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	// },
 	restart: function()
 	{
 		console.log("Restart Level 2");

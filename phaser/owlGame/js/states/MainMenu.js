@@ -5,14 +5,16 @@ MainMenu.prototype = {
 
 	},
 	preload: function() {
-		// game.load.image("owl", "assets/img/owl10000ver.2.png");
-		// game.load.image("enemy", "assets/img/owl12.png");
-		// game.load.image("support", "assets/img/owl3.png");
-		// game.load.image("endToken", "assets/img/coin0000.v3.png");
-		// game.load.image("billboard", "assets/img/cloud20000.png");
-
-		game.load.path = 'assets/img/';
-		game.load.atlas('owl', 'owl.png', 'owl.json');
+		game.load.image("owl", "assets/img/owl10000ver.2.png");
+		game.load.image("enemy", "assets/img/owl12.png");
+		game.load.image("support", "assets/img/owl3.png");
+		game.load.image("endToken", "assets/img/coin0000.v3.png");
+		game.load.image("billboard", "assets/img/cloud20000.png");
+		game.load.image("ground", "assets/img/urbanGround.png");
+		game.load.image("buildingPlatformTop", "assets/img/grayPlatformsStandard.png");
+		game.load.image("buildingPlatformTop2", "assets/img/grayPlatformsLonger.png");
+		game.load.image("buildingPlatform", "assets/img/gPlatform0001.png");
+		game.load.image("roadblock", "assets/img/cloud20000.png");
 	},
 	create: function() {
 		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;

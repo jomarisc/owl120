@@ -4,9 +4,14 @@
 "use strict";
 
 function OwlFabs(game, jumpSound, key, frame, scale, rotation)
-{
-	Phaser.Sprite.call(this, game, 128 / 2, game.height * 2 / 3, key, frame);
-
+{// Left most position of sprite
+	//Phaser.Sprite.call(this, game, 128 / 2, game.height * 2 / 3, key, frame);
+	
+	//TESTING CODE: Uncomment this code for testing placement of player
+	//Phaser.Sprite.call(this, game, game.world.width-400, game.height * 2 / 3, key, frame);
+	Phaser.Sprite.call(this, game, 11115, game.height * 2 / 3, key, frame);
+	//Phaser.Sprite.call(this, game, 5600, 230, key, frame);
+	
 	// OwlFabs Properties
 	
 	// Sprite
@@ -38,11 +43,15 @@ OwlFabs.prototype.constructor = OwlFabs;
 
 OwlFabs.prototype.update = function()
 {
+	this.isGrounded = this.body.touching.down;
+	this.isBlockedDown = this.body.blocked.down;
+	
 	// Check if player is airborne or grounded
-	if(this.body.touching.down || this.body.onFloor()) // onFloor() checks if in contact w/ world bounds or tile
+	if(this.isGrounded || this.isBlockedDown) // onFloor() checks if in contact w/ world bounds or tile
 	{
-		this.jumps = 2;
 		this.body.maxVelocity.setTo(this.GROUND_SPEED, this.JUMP_SPEED);
+		this.jumps = 100;
+		this.jumping = false;
 	}
 	else
 	{
@@ -74,12 +83,36 @@ OwlFabs.prototype.update = function()
 		this.body.acceleration.x = 0;
 	}
 
+
 	// UP
-	if(cursors.up.downDuration(1) && this.jumps > 0) //  && this.body.touching.down)
+	if(this.jumps > 0 && cursors.up.downDuration(1)) // && this.body.touching.down)
 	{
 		// Jump
 		this.jumpSound.play();
 		this.body.velocity.y = -this.JUMP_SPEED;
+// <<<<<<< HEAD
 		this.jumps--;
+		console.log(this.jumps);
+// 	}
+// =======
+	// 	this.jumping = true;
+	// }
+	// // Additional check while Owl is in the air
+	// if(this.jumping && cursors.up.upDuration(Phaser.Keyboard.UP)) {
+		
+	// 		this.jumps--;
+	// 		this.jumping = false;
+		
+	// }
+	/* OLD CODE
+	// UP
+	if(cursors.up.downDuration(1)) //  && this.body.touching.down)
+	{
+		// Jump
+		this.jumpSound.play();
+		this.body.velocity.y = -this.JUMP_SPEED;
 	}
+	*/
+	
+// >>>>>>> TestLevels
 }

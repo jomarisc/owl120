@@ -21,7 +21,7 @@ CutsceneOne.prototype = {
 		game.camera.flash(0x000000, 1000, true);
 
 		// Set up background
-		setUpBackground(this.layerArray, 'owl', this.keyArray);
+		setUpBackground(this.layerArray, this.keyArray);
 
 		menuText1 = game.add.text(game.width / 2, 450, 'This is the first cutscene.\nPress A to enter the next state.', {fontsize: '72px', fill: '#000'});
 		menuText1.anchor.setTo(0.5, 0.5);
@@ -37,14 +37,16 @@ CutsceneOne.prototype = {
 
 		//Triggers the start of the next state.
 		if(game.input.keyboard.isDown(Phaser.Keyboard.A)) {
-			// game.state.start('LevelTwo', true, false, this.sky, this.farBuildings, this.midBuildings, this.closeBuildings);
-			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
+			game.state.start('LevelTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+
+			
+			// game.camera.fade(0x000000, 1000, true);
+			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 	},
 
-	finishFade: function()
-	{
-		game.state.start('LevelTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-	}
+	// finishFade: function()
+	// {
+	// 	game.state.start('LevelTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	// }
 }

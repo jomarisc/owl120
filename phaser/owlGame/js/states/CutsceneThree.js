@@ -23,9 +23,9 @@ CutsceneThree.prototype = {
 		// Set up background
 		this.layerArray = [this.sky, this.farBuildings, this.midBuildings, this.closeBuildings];
 		this.layerSpeeds = [this.farParallax, this.midParallax, this.closeParallax];
-		this.keyArray = ['redsky0001', 'redbuildings0000', 'redbuildings0001', 'redbuildings0002'];
+		this.keyArray = ["redSky", "farBuildings", "midBuildings", "closeBuildings"];
 		// setUpBackground(layerArray, keyArray)
-		setUpBackground(this.layerArray,'owl', this.keyArray);
+		setUpBackground(this.layerArray, this.keyArray);
 
 		menuText1 = game.add.text(game.width / 2, 450, 'This is the third cutscene.\nPress D to enter the next state.', {fontsize: '72px', fill: '#000'});
 		menuText1.anchor.setTo(0.5, 0.5);
@@ -38,13 +38,15 @@ CutsceneThree.prototype = {
 		//Triggers the start of the next state.
 		if(game.input.keyboard.isDown(Phaser.Keyboard.D)) {
 			// game.state.start('LevelFour');
-			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
+			game.state.start('LevelFour', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			
+			// game.camera.fade(0x000000, 1000, true);
+			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 	},
 
-	finishFade: function()
-	{
-		game.state.start('LevelFour', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-	}
+	// finishFade: function()
+	// {
+	// 	game.state.start('LevelFour', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	// }
 }
