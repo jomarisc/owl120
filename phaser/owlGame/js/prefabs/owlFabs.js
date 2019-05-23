@@ -93,7 +93,7 @@ OwlFabs.prototype.update = function()
 // <<<<<<< HEAD
 		this.jumps--;
 		console.log(this.jumps);
-// 	}
+	}
 // =======
 	// 	this.jumping = true;
 	// }
