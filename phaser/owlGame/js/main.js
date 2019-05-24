@@ -81,3 +81,18 @@ function parallaxScroll(layers, layerSpeeds, characterDirection)
 		}
 	}
 }
+
+// Pause code by Nathan Altice
+// bind pause key to browser window event
+window.onkeydown = function(event) {
+	// capture keycode (event.which for Firefox compatibility)
+	var keycode = event.keyCode || event.which;	
+	if(keycode === Phaser.Keyboard.P) {
+		pauseGame();
+	}
+}
+
+function pauseGame() {
+	// toggle game pause
+	game.paused ? game.paused = false : game.paused = true;
+}

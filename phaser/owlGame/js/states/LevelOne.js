@@ -175,6 +175,7 @@ LevelOne.prototype = {
 		game.add.existing(this.endToken);
 
 		// Creating the player
+		// this.sadJump = game.add.animations.add("sadJump", Phaser.Animation.generateFrameNames("64sadOwljumpUP000", 0, 3), 12, false);
 		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", 0, 2, Math.PI / (Math.random() * 3 + 3));
 		game.add.existing(this.player);
 		

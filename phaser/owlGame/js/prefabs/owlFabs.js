@@ -32,6 +32,10 @@ function OwlFabs(game, x, y, jumpSound, key, frame, scale, rotation)
 	this.body.acceleration.setTo(0);
 	this.body.drag.setTo(this.DRAG, 0);
 
+	// Animations
+	// this.animations.add("sadJump", Phaser.Animation.generateFrameNames("64sadOwljumpUP000", 0, 3), 12, false);
+	// this.sadJump = sadJump;
+
 	// Sounds
 	this.jumpSound = game.add.audio(jumpSound);
 
@@ -90,6 +94,8 @@ OwlFabs.prototype.update = function()
 	{
 		// Jump
 		this.jumpSound.play();
+		console.log("Finna play sad jump animation");
+		// this.animations.play("sadJump");
 		this.body.velocity.y = -this.JUMP_SPEED;
 // <<<<<<< HEAD
 		this.jumps--;

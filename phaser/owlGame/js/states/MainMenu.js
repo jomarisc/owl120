@@ -5,6 +5,7 @@ MainMenu.prototype = {
 
 	},
 	preload: function() {
+		game.load.atlas("sadJump", "assets/img/sadJump.png", "assets/img/sadJump.json");
 		game.load.image("owl", "assets/img/64owl0000.png");
 		game.load.image("enemy", "assets/img/owl12.png");
 		game.load.image("support", "assets/img/owl3.png");
