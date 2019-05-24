@@ -175,7 +175,7 @@ LevelOne.prototype = {
 		game.add.existing(this.endToken);
 
 		// Creating the player
-		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", 0, 0.7, Math.PI / (Math.random() * 3 + 3));
+		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", 0, 2, Math.PI / (Math.random() * 3 + 3));
 		game.add.existing(this.player);
 		
 	},

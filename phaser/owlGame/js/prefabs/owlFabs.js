@@ -17,6 +17,7 @@ function OwlFabs(game, x, y, jumpSound, key, frame, scale, rotation)
 	// Sprite
 	this.health = 1;
 	this.anchor.setTo(0.5, 0.5);
+	this.scale.setTo(scale);
 
 	// Physics
 	this.AIR_SPEED = 1000;

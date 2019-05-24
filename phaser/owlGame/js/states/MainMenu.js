@@ -5,7 +5,7 @@ MainMenu.prototype = {
 
 	},
 	preload: function() {
-		game.load.image("owl", "assets/img/owl10000ver.2.png");
+		game.load.image("owl", "assets/img/64owl0000.png");
 		game.load.image("enemy", "assets/img/owl12.png");
 		game.load.image("support", "assets/img/owl3.png");
 		game.load.image("endToken", "assets/img/coin0000.v3.png");
