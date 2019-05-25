@@ -12,7 +12,7 @@ LevelOne.prototype = {
 		this.closeParallax = 5;
 	},
 	preload: function() {
-		game.load.image("blueSky", "assets/img/blueSky0000.png");
+		game.load.image("blueSky", "assets/img/pblueSky0000.png");
 		game.load.image("farBuildings", "assets/img/buildings0000.png");
 		game.load.image("midBuildings", "assets/img/buildings0001.png");
 		game.load.image("closeBuildings", "assets/img/buildings0002.png");
@@ -38,7 +38,7 @@ LevelOne.prototype = {
 		this.keyArray = ["blueSky", "farBuildings", "midBuildings", "closeBuildings"];
 		
 		// setUpBackground(layerArray, keyArray)
-		setUpBackground(this.layerArray, this.keyArray);
+		setUpBackground(this.layerArray, this.keyArray, 1, 1);
 
 		menuText1 = game.add.text(game.width / 2, 450, 'This is the first level.\nPress Q to enter the next state.', {fontsize: '72px', fill: '#000'});
 		menuText1.anchor.setTo(0.5, 0.5);
