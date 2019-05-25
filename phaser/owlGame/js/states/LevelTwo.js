@@ -60,7 +60,9 @@ LevelTwo.prototype = {
 		game.add.existing(this.endToken);
 		
 		// Creating the player
-		this.player = new OwlFabs(game, 0 + (2400 * 0), 200, "jumpSound", "owl", 0, 0.7, Math.PI / (Math.random() * 3 + 3));
+
+		// Slower overall movement for the player in level two
+		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", 0, 0.7, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
 		game.add.existing(this.player);
 
 		// Extra Health Object
