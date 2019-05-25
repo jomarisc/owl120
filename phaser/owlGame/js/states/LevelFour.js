@@ -7,7 +7,7 @@ LevelFour.prototype = {
 		this.keyArray = keyArray;
 	},
 	preload: function() {
-		game.load.image("twilightSky", "assets/img/twilightSky0001.png");
+		game.load.image("twilightSky", "assets/img/ptwilightSky0000.png");
 		game.load.image("farBuildings", "assets/img/nightbuild0000.png");
 		game.load.image("midBuildings", "assets/img/nightbuild0001.png");
 		game.load.image("closeBuildings", "assets/img/nightbuild0002.png");
