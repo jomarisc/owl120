@@ -48,7 +48,8 @@ LevelThree.prototype = {
 		game.add.existing(this.endToken);
 		
 		// Creating the player
-		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", 0, 0.7, Math.PI / (Math.random() * 3 + 3));
+		// More slower overall movement for the player in level three
+		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", 0, 0.7, 1000*(2/4), 300*(2/4), 600*(2/4), 3000*(2/4), 2000*(2/4), 1000*(2/4));
 		game.add.existing(this.player);
 		
 		// Creates one image to follow the player

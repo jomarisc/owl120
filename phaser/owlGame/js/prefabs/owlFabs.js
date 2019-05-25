@@ -3,7 +3,7 @@
 
 "use strict";
 
-function OwlFabs(game, x, y, jumpSound, key, frame, scale, rotation)
+function OwlFabs(game, x, y, jumpSound, key, frame, scale, airSpeed, groundSpeed, jumpSpeed, acceleration, drag, yGravity)
 {// Left most position of sprite
 	//Phaser.Sprite.call(this, game, 128 / 2, game.height * 2 / 3, key, frame);
 	
@@ -19,14 +19,14 @@ function OwlFabs(game, x, y, jumpSound, key, frame, scale, rotation)
 	this.anchor.setTo(0.5, 0.5);
 
 	// Physics
-	this.AIR_SPEED = 1000;
-	this.GROUND_SPEED = 300;
-	this.JUMP_SPEED = 600;
-	this.ACCELERATION = 3000; // Max Acceleration
-	this.DRAG = 2000;
+	this.AIR_SPEED = airSpeed;
+	this.GROUND_SPEED = groundSpeed; // 300
+	this.JUMP_SPEED = jumpSpeed;
+	this.ACCELERATION = acceleration // Max Acceleration
+	this.DRAG = drag;
 	game.physics.enable(this); // Enable Physics Body
 	this.body.collideWorldBounds = true; // Confine Sprite to Game Camera
-	this.body.gravity.y = 1000; // Gravity
+	this.body.gravity.y = yGravity; // Gravity
 	this.body.maxVelocity.setTo(this.GROUND_SPEED, this.JUMP_SPEED);
 	this.body.acceleration.setTo(0);
 	this.body.drag.setTo(this.DRAG, 0);
