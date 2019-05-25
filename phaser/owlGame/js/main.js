@@ -39,12 +39,20 @@ window.onload = function(){
 //				 3) the first element of layers is a static background image
 //				 4) keys is an array of image keys (i.e. ["sky", "farBuildings"])
 // Postcondition: Creates the background for a game state
-function setUpBackground(layers, keys)
+function setUpBackground(layers, keys, scaleX, scaleY)
 {
 	game.stage.backgroundColor = "#0B9CF6";
 	for (var i = 0; i < layers.length; i++)
 	{
-		layers[i] = game.add.tileSprite(0, game.world.height - 900, 24000, 900, keys[i]);
+		if(scaleX === 1 && scaleY === 1)
+		{
+			layers[i] = game.add.tileSprite(0, game.world.height - 900, 24000, 900, keys[i]);
+		}
+		else
+		{
+			layers[i] = game.add.tileSprite(0, 0, 24000, 900, keys[i]);
+		}
+		layers[i].scale.setTo(scaleX, scaleY);
 	}
 }
 

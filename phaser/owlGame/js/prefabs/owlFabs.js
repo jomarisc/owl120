@@ -35,6 +35,8 @@ function OwlFabs(game, x, y, jumpSound, key, frame, scale, airSpeed, groundSpeed
 	this.jumpSound = game.add.audio(jumpSound);
 
 	// Character
+	// Single jump height: ~173px
+	// Double jump height: ~345px
 	this.jumps = 2;
 }
 
@@ -81,6 +83,15 @@ OwlFabs.prototype.update = function()
 	else
 	{
 		this.body.acceleration.x = 0;
+		// Testing for jump height in pixels
+		// if(this.body.velocity.y === 0)
+		// {
+		// 	console.log(this.body.y);
+		// }
+		// if(this.body.velocity.y > 0)
+		// {
+		// 	console.log(this.body.y);
+		// }
 	}
 
 
