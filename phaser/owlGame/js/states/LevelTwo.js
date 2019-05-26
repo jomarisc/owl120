@@ -20,7 +20,7 @@ LevelTwo.prototype = {
 		game.camera.flash(0x000000, 1000, true);
 
 		// Set up background
-		setUpBackground(this.layerArray, this.keyArray);
+		setUpBackground(this.layerArray, this.keyArray, 1, 2);
 
 		//Another check
 		menuText1 = game.add.text(game.width / 2, 450, 'This is the second level.\nPress W to enter the next state.', {fontsize: '72px', fill: '#000'});
@@ -46,13 +46,22 @@ LevelTwo.prototype = {
 			var ground = platforms.create(i, game.world.height-100, "ground");
 			ground.body.immovable = true;
 		}
+
+		var standardX = [0 + (2400 * 0), 525 + (2400 * 0)];
+		var standardY = [1450, 950];  //, 1150]; // [500, 300, 150, 500, 250, 650]; // 550
+		for (var i = 0; i < standardX.length; i++) {	
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
+			ledge.body.immovable = true;
+			ledge.anchor.setTo(0.5, 0.5);
+		}
 		
 		// Creating the end token
 		this.endToken = new endToken(game, game.world.width-200, game.world.height-200, "endToken", 0, 1, 0);
 		game.add.existing(this.endToken);
 		
 		// Creating the player
-		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", 0, 2, Math.PI / (Math.random() * 3 + 3));
+		// Slower overall movement for the player in level two
+		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", "64owl0000", 2, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
 		game.add.existing(this.player);
 
 		// Extra Health Object
@@ -76,19 +85,22 @@ LevelTwo.prototype = {
 		var powerUpPlatform = game.physics.arcade.collide(this.powerUp, platforms);
 		var enemyPlatform = game.physics.arcade.collide(enemyGroup, platforms);
 
+		// Parallax Speed
+		var parallaxSpeed = this.player.body.velocity.x / 750;
+		// console.log(parallaxSpeed);
 		// Parallax Scrolling
 		// Check if player is not inside camera deadzone + Camera is not hitting world bounds
-		if((this.player.x - 64 >= game.camera.deadzone.x + game.camera.deadzone.width || this.player.x + 64 <= game.camera.deadzone.x) && game.camera.x + game.camera.width < 3200)
+		if((this.player.x - 64 >= game.camera.deadzone.x + game.camera.deadzone.width || this.player.x + 64 <= game.camera.deadzone.x) && game.camera.x + game.camera.width < game.world.width && game.camera.x > 0)
 		{
 			// Check if player is grounded
 			if(this.player.body.onFloor())
 			{
-				setParallaxValues(this.layerSpeeds, 0.1);
+				setParallaxValues(this.layerSpeeds, parallaxSpeed);
 			}
 			// Otherwise player is airborne
 			else
 			{
-				setParallaxValues(this.layerSpeeds, 1);
+				setParallaxValues(this.layerSpeeds, parallaxSpeed);
 			}
 
 			// Player input
@@ -98,20 +110,21 @@ LevelTwo.prototype = {
 				// Set the parallax speed to 0
 				setParallaxValues(this.layerSpeeds, 0);
 			}
-			// LEFT
-			else if(cursors.left.isDown)
-			{
-				parallaxScroll(this.layerArray, this.layerSpeeds, "left");
-			}
-			// RIGHT
-			else if(cursors.right.isDown)
-			{
-				parallaxScroll(this.layerArray, this.layerSpeeds, "right");
-			}
+
+			// // LEFT
+			// else if(cursors.left.isDown)
+			// {
+			// 	parallaxScroll(this.layerArray, this.layerSpeeds, "left");
+			// }
+			// // RIGHT
+			// else if(cursors.right.isDown)
+			// {
+			// 	parallaxScroll(this.layerArray, this.layerSpeeds, "right");
+			// }
 			// NO INPUT
 			else
 			{
-
+				parallaxScroll(this.layerArray, this.layerSpeeds, parallaxSpeed);
 			}
 		}
 

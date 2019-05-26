@@ -12,7 +12,7 @@ LevelOne.prototype = {
 		this.closeParallax = 5;
 	},
 	preload: function() {
-		game.load.image("blueSky", "assets/img/blueSky0000.png");
+		game.load.image("blueSky", "assets/img/pblueSky0000.png");
 		game.load.image("farBuildings", "assets/img/buildings0000.png");
 		game.load.image("midBuildings", "assets/img/buildings0001.png");
 		game.load.image("closeBuildings", "assets/img/buildings0002.png");
@@ -38,7 +38,7 @@ LevelOne.prototype = {
 		this.keyArray = ["blueSky", "farBuildings", "midBuildings", "closeBuildings"];
 		
 		// setUpBackground(layerArray, keyArray)
-		setUpBackground(this.layerArray, this.keyArray);
+		setUpBackground(this.layerArray, this.keyArray, 1, 1);
 
 		menuText1 = game.add.text(game.width / 2, 450, 'This is the first level.\nPress Q to enter the next state.', {fontsize: '72px', fill: '#000'});
 		menuText1.anchor.setTo(0.5, 0.5);
@@ -99,8 +99,8 @@ LevelOne.prototype = {
 		
 		// Creates intentional standard platforms 
 		// Standard platforms are 256px long
-		var standardX = [1200 + (2400 * 1), 700 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5), 1620 + (2400 * 8), 205 + (2400 * 9), 1000 + (2400 * 9), 1000 + (2400 * 9), 1000 + (2400 * 9), 1000 + (2400 * 9), 2000 + (2400 * 9), 2000 + (2400 * 9), 2000 + (2400 * 9), 2000 + (2400 * 9)];
-		var standardY = [400, 520, 700, 400, 550, 250, 250, 600, 750, 400, 650, 900, 1150, 250, 500, 750, 1000]; // [500, 300, 150, 500, 250, 650]; // 550
+		var standardX = [1200 + (2400 * 1), 700 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5), 1620 + (2400 * 8), 205 + (2400 * 9), 1000 + (2400 * 9), 1000 + (2400 * 9), 1000 + (2400 * 9), 2000 + (2400 * 9), 2000 + (2400 * 9), 2000 + (2400 * 9)];//, 2000 + (2400 * 9)];
+		var standardY = [400, 520, 700, 400, 550, 250, 250, 450, 350, 250, 500+175, 750+300, 400+125, 650+250, 900+375];  //, 1150]; // [500, 300, 150, 500, 250, 650]; // 550
 		for (var i = 0; i < standardX.length; i++) {	
 			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
 			ledge.body.immovable = true;
@@ -109,8 +109,8 @@ LevelOne.prototype = {
 		
 		// Creates intentional longer platforms 
 		// Longer platforms are 384px long
-		var longerX = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3), 65 + (2400 * 7), 130 + (2400 * 7), 195 + (2400 * 7), 260 + (2400 * 7), 325 + (2400 * 7), 390 + (2400 * 7), 774 + (2400 * 7), 839 + (2400 * 7), 1580 + (2400 * 7), (2400 * 8), 589 + (2400 * 8), 2190 + (2400 * 9)];
-		var longerY = [552, 350, 300, 350, 300, 300, 350, 400, 450, 500, 550, 550, 500, 300, 400, 500, 1400];// [348, 550, 600, 550, 600]; // 450
+		var longerX = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3), 65 + (2400 * 7), 130 + (2400 * 7), 195 + (2400 * 7), 260 + (2400 * 7), 325 + (2400 * 7), 390 + (2400 * 7), 774 + (2400 * 7), 839 + (2400 * 7), 1580 + (2400 * 7), (2400 * 8), 589 + (2400 * 8), 1000 + (2400 * 9)];
+		var longerY = [552, 350, 300, 350, 300, 300, 350, 400, 450, 500, 550, 550, 500, 300, 400, 500, 1000+450];// [348, 550, 600, 550, 600]; // 450
 		for (var i = 0; i < longerX.length; i++) {	
 			var ledge = platforms.create(longerX[i], game.world.height - longerY[i], "buildingPlatformTop2");
 			ledge.body.immovable = true;
@@ -171,12 +171,12 @@ LevelOne.prototype = {
 		*/
 		
 		// Creating the end token
-		this.endToken = new endToken(game, game.world.width-200, 200, "endToken", 0, 1, 0);
+		this.endToken = new endToken(game, 1000 + (2400 * 9), 200, "endToken", 0, 1, 0);
 		game.add.existing(this.endToken);
 
 		// Creating the player
-		// this.sadJump = game.add.animations.add("sadJump", Phaser.Animation.generateFrameNames("64sadOwljumpUP000", 0, 3), 12, false);
-		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", 0, 2, Math.PI / (Math.random() * 3 + 3));
+		// Fast overall movement for the player in level one
+		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 700, "jumpSound", "owl", "64owl0000", 2, 1000, 300, 600, 3000, 2000, 1000);
 		game.add.existing(this.player);
 		
 	},
@@ -192,11 +192,16 @@ LevelOne.prototype = {
 		// Checks collision with sprites and platforms
 		for(var i = 0; i < platforms.length; i++)
 		{
-			// var hitPlatform = game.physics.arcade.collide(this.player, platforms);
-			if(this.player.y < platforms.getAt(i).body.y)
+			if(platforms.getAt(i).body.y < 500)
 			{
 				game.physics.arcade.collide(this.player, platforms.getAt(i));
 			}
+			else if(this.player.y < platforms.getAt(i).body.y)
+			{
+				game.physics.arcade.collide(this.player, platforms.getAt(i));
+			}
+
+
 		}
 		var hitDeathPlatform = game.physics.arcade.collide(this.player, deathPlatforms);
 		var roadBlockCollide = game.physics.arcade.collide(roadBlock, [this.player, platforms, deathPlatforms]);

@@ -7,7 +7,7 @@ LevelFour.prototype = {
 		this.keyArray = keyArray;
 	},
 	preload: function() {
-		game.load.image("twilightSky", "assets/img/twilightSky0001.png");
+		game.load.image("twilightSky", "assets/img/ptwilightSky0000.png");
 		game.load.image("farBuildings", "assets/img/nightbuild0000.png");
 		game.load.image("midBuildings", "assets/img/nightbuild0001.png");
 		game.load.image("closeBuildings", "assets/img/nightbuild0002.png");
@@ -28,7 +28,7 @@ LevelFour.prototype = {
 		// Set up background
 		this.keyArray[0] = "twilightSky";
 		// setUpBackground(layerArray, keyArray)
-		setUpBackground(this.layerArray, this.keyArray);
+		setUpBackground(this.layerArray, this.keyArray, 1, 4);
 		game.stage.backgroundColor = "#2B0865";
 
 		menuText1 = game.add.text(game.width / 2, 450, 'This is the fourth level.\nPress R to enter the next state.', {fontsize: '72px', fill: '#000'});
@@ -51,7 +51,8 @@ LevelFour.prototype = {
 		game.add.existing(this.endToken);
 		
 		// Creating the player
-		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", 0, 0.7, Math.PI / (Math.random() * 3 + 3));
+		// Slowest overall movement for the player in level three
+		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", "64owl0000", 2, 1000*(1/4), 300*(1/4), 600*(1/4), 3000*(1/4), 2000*(1/4), 1000*(1/4));
 		game.add.existing(this.player);
 		
 		// Creates one image to follow the player
@@ -69,19 +70,22 @@ LevelFour.prototype = {
 		var hitPlatform = game.physics.arcade.collide(this.player, platforms);
 		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
 		
+		// Parallax Speed
+		var parallaxSpeed = this.player.body.velocity.x / 750;
+		// console.log(parallaxSpeed);
 		// Parallax Scrolling
 		// Check if player is not inside camera deadzone + Camera is not hitting world bounds
-		if((this.player.x - 64 >= game.camera.deadzone.x + game.camera.deadzone.width || this.player.x + 64 <= game.camera.deadzone.x) && game.camera.x + game.camera.width < 3200)
+		if((this.player.x - 64 >= game.camera.deadzone.x + game.camera.deadzone.width || this.player.x + 64 <= game.camera.deadzone.x) && game.camera.x + game.camera.width < game.world.width && game.camera.x > 0)
 		{
 			// Check if player is grounded
 			if(this.player.body.onFloor())
 			{
-				setParallaxValues(this.layerSpeeds, 0.1);
+				setParallaxValues(this.layerSpeeds, parallaxSpeed);
 			}
 			// Otherwise player is airborne
 			else
 			{
-				setParallaxValues(this.layerSpeeds, 1);
+				setParallaxValues(this.layerSpeeds, parallaxSpeed);
 			}
 
 			// Player input
@@ -91,20 +95,21 @@ LevelFour.prototype = {
 				// Set the parallax speed to 0
 				setParallaxValues(this.layerSpeeds, 0);
 			}
-			// LEFT
-			else if(cursors.left.isDown)
-			{
-				parallaxScroll(this.layerArray, this.layerSpeeds, "left");
-			}
-			// RIGHT
-			else if(cursors.right.isDown)
-			{
-				parallaxScroll(this.layerArray, this.layerSpeeds, "right");
-			}
+
+			// // LEFT
+			// else if(cursors.left.isDown)
+			// {
+			// 	parallaxScroll(this.layerArray, this.layerSpeeds, "left");
+			// }
+			// // RIGHT
+			// else if(cursors.right.isDown)
+			// {
+			// 	parallaxScroll(this.layerArray, this.layerSpeeds, "right");
+			// }
 			// NO INPUT
 			else
 			{
-
+				parallaxScroll(this.layerArray, this.layerSpeeds, parallaxSpeed);
 			}
 		}
 
