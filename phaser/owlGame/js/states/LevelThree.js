@@ -14,7 +14,7 @@ LevelThree.prototype = {
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
-		game.world.setBounds(0, 0, 9400, 1800);
+		game.world.setBounds(0, 0, 24000, 1800);
 
 		// Level Sounds
 		this.levelCleared = game.add.audio("levelCleared");
@@ -36,11 +36,68 @@ LevelThree.prototype = {
 		// Creating platforms template
 		platforms = game.add.group();
 		platforms.enableBody = true;
+		deathPlatforms = game.add.group();
+		deathPlatforms.enableBody = true;
 		
 		// Creating ground.
-		for (var i = 0; i <= 9400; i = i + 1600){
+		for (var i = 0; i <= 1600; i = i + 1600){
 			var ground = platforms.create(i, game.world.height-100, "ground");
 			ground.body.immovable = true;
+		}
+
+		// Creating Death Platforms
+		for (var i = 3200; i <= (game.world.width - 3200); i = i + 1600){
+			var ground = deathPlatforms.create(i, game.world.height-100, "ground");
+			ground.body.immovable = true;
+		}
+
+		// Creates roadblock collidable object
+		roadBlock = game.add.group();
+		roadBlock.enableBody = true;
+		var block = roadBlock.create(3200, game.world.height-200, "roadblock");
+		block.body.immovable = true;
+
+		// Creates intentional standard platforms 
+		// Standard platforms are 256px long
+		var standardX = [1200 + (2400 * 1), 700 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5), 1620 + (2400 * 8), 205 + (2400 * 9), 1000 + (2400 * 9), 1000 + (2400 * 9), 1000 + (2400 * 9), 2000 + (2400 * 9), 2000 + (2400 * 9), 2000 + (2400 * 9)];//, 2000 + (2400 * 9)];
+		var standardY = [400, 520, 700, 400, 550, 250, 250, 450, 350, 250, 500+175, 750+300, 400+125, 650+250, 900+375];  //, 1150]; // [500, 300, 150, 500, 250, 650]; // 550
+		for (var i = 0; i < standardX.length; i++) {	
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
+			ledge.body.immovable = true;
+			ledge.anchor.setTo(0.5, 0.5);
+		}
+		
+		// Creates intentional longer platforms 
+		// Longer platforms are 384px long
+		var longerX = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3), 65 + (2400 * 7), 130 + (2400 * 7), 195 + (2400 * 7), 260 + (2400 * 7), 325 + (2400 * 7), 390 + (2400 * 7), 774 + (2400 * 7), 839 + (2400 * 7), 1580 + (2400 * 7), (2400 * 8), 589 + (2400 * 8), 1000 + (2400 * 9)];
+		var longerY = [552, 350, 300, 350, 300, 300, 350, 400, 450, 500, 550, 550, 500, 300, 400, 500, 1000+450];// [348, 550, 600, 550, 600]; // 450
+		for (var i = 0; i < longerX.length; i++) {	
+			var ledge = platforms.create(longerX[i], game.world.height - longerY[i], "buildingPlatformTop2");
+			ledge.body.immovable = true;
+			ledge.anchor.setTo(0.5, 0.5);
+		}
+
+		// Creates intentional concrete buildings for standard platforms
+		var concreteSY = [375, 505, 675, 375, 525, 225, 225]; // [525, 325, 175, 525, 275, 675];
+		for (var i = 0; i < concreteSY.length; i++) {
+			// var x = [1200 + (2400 * 1), 800 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5)];
+			var ledge = platforms.create(standardX[i]-(256/2), game.world.height - concreteSY[i], "building");
+			// Sets size of placeholder image.
+			ledge.scale.setTo(8);
+			ledge.body.immovable = true;
+			// Setting anchor of image to center
+			//ledge.anchor.setTo(0.5, 0.5);
+		}
+		// Creates intentional concrete buildings for longer platforms
+		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
+		for (var i = 0; i < concreteLY.length; i++) {
+			// var x = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3)];
+			var ledge = platforms.create(longerX[i]-(384/2), game.world.height - concreteLY[i], "building");
+			// Sets size of placeholder image.
+			ledge.scale.setTo(12);
+			ledge.body.immovable = true;
+			// Setting anchor of image to center
+			//ledge.anchor.setTo(0.5, 0.5);
 		}
 		
 		// Creating the end token
@@ -49,7 +106,7 @@ LevelThree.prototype = {
 		
 		// Creating the player
 		// More slower overall movement for the player in level three
-		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", "64owl0000", 2, 1000*(2/4), 300*(2/4), 600*(2/4), 3000*(2/4), 2000*(2/4), 1000*(2/4));
+		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000*(2/4), 300*(2/4), 600*(2/4), 3000*(2/4), 2000*(2/4), 1000*(2/4));
 		game.add.existing(this.player);
 		
 		// Creates one image to follow the player
@@ -64,7 +121,21 @@ LevelThree.prototype = {
 		// Player input checking
 		var cursors = game.input.keyboard.createCursorKeys();
 
-		var hitPlatform = game.physics.arcade.collide(this.player, platforms);
+		// var hitPlatform = game.physics.arcade.collide(this.player, platforms);
+		// Checks collision with sprites and platforms
+		for(var i = 0; i < platforms.length; i++)
+		{
+			if(platforms.getAt(i).body.y < 500)
+			{
+				game.physics.arcade.collide(this.player, platforms.getAt(i));
+			}
+			else if(this.player.y < platforms.getAt(i).body.y)
+			{
+				game.physics.arcade.collide(this.player, platforms.getAt(i));
+			}
+		}
+		var hitDeathPlatform = game.physics.arcade.collide(this.player, deathPlatforms);
+		var roadBlockCollide = game.physics.arcade.collide(roadBlock, [this.player, platforms, deathPlatforms]);
 		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
 		
 		// Parallax Speed
@@ -109,6 +180,13 @@ LevelThree.prototype = {
 				parallaxScroll(this.layerArray, this.layerSpeeds, parallaxSpeed);
 			}
 		}
+
+		if(hitDeathPlatform) {
+			
+			console.log("Touching death platforms");
+			this.restart();
+			
+		}
 		
 		//Triggers the start of the next state.
 		// if(game.input.keyboard.isDown(Phaser.Keyboard.E)) {
@@ -139,4 +217,9 @@ LevelThree.prototype = {
 	// {
 	// 	game.state.start('CutsceneThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 	// }
+	restart: function()
+	{
+		console.log("Restart Level 3");
+		game.state.start("LevelThree", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	},
 };

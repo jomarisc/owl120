@@ -26,6 +26,8 @@ function Friend(game, x, y, key, frame, scale, platformGroup)
 	// Character
 	this.platforms = platformGroup;
 	this.jumps = 1;
+	this.platformQueue = []; // A Queue that keeps track of platforms that the player has collided with
+	console.log(this.platformQueue.length);
 }
 
 Friend.prototype = Object.create(Phaser.Sprite.prototype);
@@ -33,5 +35,21 @@ Friend.prototype.constructor = Friend;
 
 Friend.prototype.update = function()
 {
-	
+	game.physics.arcade.collide(this, this.platforms);
+}
+
+// Takes in the index of a child of a group
+// and enqueues it into the platformQueue
+Friend.prototype.updateQueue = function(platformIndex)
+{
+	if(this.platformQueue.length === 0 || platformIndex === this.platformQueue[length - 1])
+	{
+		console.log(platformIndex);
+		console.log(platformIndex !== this.platformQueue[length - 1]);
+		console.log(platformIndex + this.platformQueue[length - 1]);
+		this.platformQueue.push(platformIndex);
+		console.log(this.platformQueue.length);
+		console.log(this.platformQueue);
+		// pauseGame();
+	}
 }

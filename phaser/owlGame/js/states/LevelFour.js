@@ -45,6 +45,16 @@ LevelFour.prototype = {
 			var ground = platforms.create(i, game.world.height-100, "ground");
 			ground.body.immovable = true;
 		}
+
+		// Creates intentional standard platforms 
+		// Standard platforms are 256px long
+		var standardX = [1800 + (2400 * 1), (2400 * 2), 600 + (2400 * 2), 1200 + (2400 * 2)];//, 2000 + (2400 * 9)];
+		var standardY = [400, 400, 300, 400];  //, 1150]; // [500, 300, 150, 500, 250, 650]; // 550
+		for (var i = 0; i < standardX.length; i++) {	
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
+			ledge.body.immovable = true;
+			ledge.anchor.setTo(0.5, 0.5);
+		}
 		
 		// Creating the end token
 		this.endToken = new endToken(game, game.world.width-200, game.world.height-200, "endToken", 0, 1, 0);
@@ -52,12 +62,16 @@ LevelFour.prototype = {
 		
 		// Creating the player
 		// Slowest overall movement for the player in level three
-		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", "64owl0000", 2, 1000*(1/4), 300*(1/4), 600*(1/4), 3000*(1/4), 2000*(1/4), 1000*(1/4));
+		this.player = new OwlFabs(game,(2400 * 2), game.world.height - 500, "jumpSound", "owl", "64owl0000", 2, 1000*(1/4), 300*(1/4), 600*(1/4), 3000*(1/4), 2000*(1/4), 1000*(1/4));
 		game.add.existing(this.player);
 		
 		// Creates one image to follow the player
 		this.billboard = new Billboard(game, "placeholder", 0, 5, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
+
+		// Creating the friend that chases the player in this level
+		this.friend = new Friend(game, 1200 + (2400 * 2), game.world.height - 500, "friend", 0, 1.5, platforms);
+		game.add.existing(this.friend);
 	},
 	update: function() {
 		// Allow the camera to follow the player
@@ -67,7 +81,18 @@ LevelFour.prototype = {
 		// Player input checking
 		var cursors = game.input.keyboard.createCursorKeys();
 		
-		var hitPlatform = game.physics.arcade.collide(this.player, platforms);
+		// var hitPlatform = game.physics.arcade.collide(this.player, platforms);
+		for(var i = 0; i < platforms.length; i++)
+		{
+			if(platforms.getAt(i).body.y < 500)
+			{
+				game.physics.arcade.collide(this.player, platforms.getAt(i), this.friend.updateQueue(platforms.getAt(i)), null, this);
+			}
+			else if(this.player.y < platforms.getAt(i).body.y)
+			{
+				game.physics.arcade.collide(this.player, platforms.getAt(i), this.friend.updateQueue(platforms.getAt(i)), null, this);
+			}
+		}
 		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
 		
 		// Parallax Speed

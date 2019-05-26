@@ -11,6 +11,7 @@ MainMenu.prototype = {
 		game.load.image("support", "assets/img/owl3.png");
 		game.load.image("endToken", "assets/img/coin0000.v3.png");
 		game.load.image("billboard", "assets/img/cloud20000.png");
+		game.load.image("friend", "assets/img/owlRun10000.png");
 		game.load.image("ground", "assets/img/urbanGround.png");
 		game.load.image("buildingPlatformTop", "assets/img/grayPlatformsStandard.png");
 		game.load.image("buildingPlatformTop2", "assets/img/grayPlatformsLonger.png");
