@@ -11,7 +11,7 @@ LevelTwo.prototype = {
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
-		game.world.setBounds(0, 0, 3200, 1800);
+		game.world.setBounds(0, 0, 24000, 1800);
 
 		// Level Sounds
 		this.levelCleared = game.add.audio("levelCleared");
@@ -40,18 +40,57 @@ LevelTwo.prototype = {
 		// Creating platforms template
 		platforms = game.add.group();
 		platforms.enableBody = true;
+		deathPlatforms = game.add.group();
+		deathPlatforms.enableBody = true;
 		
 		// Creating ground.
+		/*
 		for (var i = 0; i <= 3200; i = i + 1600){
 			var ground = platforms.create(i, game.world.height-100, "ground");
 			ground.body.immovable = true;
 		}
-
-		var standardX = [0 + (2400 * 0), 525 + (2400 * 0)];
-		var standardY = [1450, 950];  //, 1150]; // [500, 300, 150, 500, 250, 650]; // 550
+		*/
+		// Creates death ground
+		for (var i = 0; i <= (game.world.width - 3200); i = i + 1600){
+			var ground = deathPlatforms.create(i, game.world.height-100, "ground");
+			ground.body.immovable = true;
+		}
+		
+		// Creates green platforms
+		var standardX = [300, 2000 + (2400 * 0), 5000 + (2400 * 0)];
+		var standardY = [400, 400 , 300];
+		for (var i = 0; i < standardX.length; i++) {	
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatform");
+			ledge.body.immovable = true;
+			ledge.scale.setTo(3, 1.5);
+			ledge.anchor.setTo(0.5, 0.5);
+		}
+		
+		// Creates standard platforms
+		var standardX = [100 + (2400 * 0), 1025 + (2400 * 0), 100 + (2400 * 0), 1025 + (2400 * 0), 2400 + (2400 * 0), 3000 + (2400 * 0), 4300 + (2400 * 0), 5700 + (2400 * 0),7000 + (2400 * 0), 7000 + (2400 * 0), 7000 + (2400 * 0), 7700 + (2400 * 0), 7700 + (2400 * 0), 8900 + (2400 * 0), 8700 + (2400 * 0), 9300 + (2400 * 0), 12000, 13000];
+		var standardY = [1450, 1250, 1050, 800, 780, 780, 450, 450, 830, 578, 1200, 1070, 1370, 1370, 1070, 830, 730, 600];
 		for (var i = 0; i < standardX.length; i++) {	
 			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
 			ledge.body.immovable = true;
+			ledge.anchor.setTo(0.5, 0.5);
+		}
+		
+		// Creates longer platforms
+		var standardX = [2780 + (2400 * 0), 6500 + (2400 * 0), 9000, 11100];
+		var standardY = [520, 320, 450, 830];
+		for (var i = 0; i < standardX.length; i++) {	
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop2");
+			ledge.body.immovable = true;
+			ledge.anchor.setTo(0.5, 0.5);
+		}
+		
+		// Creates longerer platforms
+		var standardX = [2700 + (2400 * 0), 4500 + (2400 * 0), 5500 + (2400 * 0), 8300 + (2400 * 0)];
+		var standardY = [1050, 800, 800, 1560];
+		for (var i = 0; i < standardX.length; i++) {	
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
+			ledge.body.immovable = true;
+			ledge.scale.setTo(4, 1);
 			ledge.anchor.setTo(0.5, 0.5);
 		}
 		
@@ -60,9 +99,16 @@ LevelTwo.prototype = {
 		game.add.existing(this.endToken);
 		
 		// Creating the player
-
 		// Slower overall movement for the player in level two
+ 
 		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", 0, 2, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
+
+		/*
+		this.player = new OwlFabs(game,  8300 + (2400 * 0), 150, "jumpSound", "owl", "64owl0000", 2, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
+		*/
+		this.player = new OwlFabs(game, 0 + (2400 * 0), 200, "jumpSound", "owl", "64owl0000", 2, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
+		
+
 		game.add.existing(this.player);
 
 		// Extra Health Object
@@ -82,6 +128,7 @@ LevelTwo.prototype = {
 		var cursors = game.input.keyboard.createCursorKeys();
 
 		var hitPlatform = game.physics.arcade.collide(this.player, platforms);
+		var hitDeathPlatform = game.physics.arcade.collide(this.player, deathPlatforms);
 		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
 		var powerUpPlatform = game.physics.arcade.collide(this.powerUp, platforms);
 		var enemyPlatform = game.physics.arcade.collide(enemyGroup, platforms);
@@ -149,6 +196,13 @@ LevelTwo.prototype = {
 		if(this.player.health <= 0)
 		{
 			this.restart();
+		}
+		
+		if(hitDeathPlatform) {
+			
+			console.log("Touching death platforms");
+			this.restart();
+			
 		}
 		
 		// Triggers the start of the next state.
