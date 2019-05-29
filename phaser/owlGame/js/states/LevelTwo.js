@@ -8,6 +8,7 @@ LevelTwo.prototype = {
 	},
 	preload: function() {
 		game.load.image("enemy", "assets/img/chadFlex0000.png");
+		game.load.image("drunk", "assets/img/billboardimages30000.png");
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
@@ -116,7 +117,7 @@ LevelTwo.prototype = {
 		game.add.existing(this.powerUp);
 		
 		// Creates one image to follow the player
-		this.billboard = new Billboard(game, "placeholder", 0, 5, 0, this.player, this.endToken);
+		this.billboard = new Billboard(game, "drunk", 0, 2, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
 	},
 	update: function() {

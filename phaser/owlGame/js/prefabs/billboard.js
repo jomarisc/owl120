@@ -36,13 +36,16 @@ Billboard.prototype.update = function()
 	
 
 	// Slowly move towards target interest
-	//this.body.velocity.setTo(100, 0);
+	this.body.velocity.setTo(100, 0);
 	if(this.body.x <= this.endTokenX - 500)
 	{
 		this.body.velocity.setTo(600, 600);
+		this.body.y = this.player.y;
 	}
 	else
 	{
 		this.body.velocity.setTo(0);
 	}
+
+	
 }

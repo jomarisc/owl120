@@ -11,6 +11,7 @@ LevelThree.prototype = {
 		game.load.image("farBuildings", "assets/img/redbuildings0000.png");
 		game.load.image("midBuildings", "assets/img/redbuildings0001.png");
 		game.load.image("closeBuildings", "assets/img/redbuildings0002.png");
+		game.load.image("streak", "assets/img/billboardimages20000.png");
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
@@ -53,7 +54,7 @@ LevelThree.prototype = {
 		game.add.existing(this.player);
 		
 		// Creates one image to follow the player
-		this.billboard = new Billboard(game, "placeholder", 0, 5, 0, this.player, this.endToken);
+		this.billboard = new Billboard(game, "streak", 0, 2, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
 	},
 	update: function() {

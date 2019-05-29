@@ -11,6 +11,7 @@ LevelFour.prototype = {
 		game.load.image("farBuildings", "assets/img/nightbuild0000.png");
 		game.load.image("midBuildings", "assets/img/nightbuild0001.png");
 		game.load.image("closeBuildings", "assets/img/nightbuild0002.png");
+		game.load.image("coke", "assets/img/billboardimages10000.png");
 	},
 	create: function() {
 		//One more check
@@ -56,7 +57,7 @@ LevelFour.prototype = {
 		game.add.existing(this.player);
 		
 		// Creates one image to follow the player
-		this.billboard = new Billboard(game, "placeholder", 0, 5, 0, this.player, this.endToken);
+		this.billboard = new Billboard(game, "coke", 0, 2, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
 	},
 	update: function() {
