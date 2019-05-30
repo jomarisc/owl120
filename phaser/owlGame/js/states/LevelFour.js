@@ -7,10 +7,6 @@ LevelFour.prototype = {
 		this.keyArray = keyArray;
 	},
 	preload: function() {
-		game.load.image("twilightSky", "assets/img/ptwilightSky0000.png");
-		game.load.image("farBuildings", "assets/img/nightbuild0000.png");
-		game.load.image("midBuildings", "assets/img/nightbuild0001.png");
-		game.load.image("closeBuildings", "assets/img/nightbuild0002.png");
 		game.load.image("coke", "assets/img/billboardimages10000.png");
 	},
 	create: function() {
@@ -53,7 +49,7 @@ LevelFour.prototype = {
 		
 		// Creating the player
 		// Slowest overall movement for the player in level three
-		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", 0, 2, 1000*(1/4), 300*(1/4), 600*(1/4), 3000*(1/4), 2000*(1/4), 1000*(1/4));
+		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", "64owl0000", 2, 1000*(1/4), 300*(1/4), 600*(1/4), 3000*(1/4), 2000*(1/4), 1000*(1/4));
 		game.add.existing(this.player);
 		
 		// Creates one image to follow the player
