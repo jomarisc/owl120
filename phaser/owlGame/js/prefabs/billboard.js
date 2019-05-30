@@ -39,13 +39,33 @@ Billboard.prototype.update = function()
 	this.body.velocity.setTo(100, 0);
 	if(this.body.x <= this.endTokenX - 500)
 	{
-		this.body.velocity.setTo(600, 600);
-		this.body.y = this.player.y;
+		// Describes the horizontal movement of the billboard
+		// this.body.velocity.setTo(600, 600);
+		// this.body.y = this.player.y;
 	}
 	else
 	{
 		this.body.velocity.setTo(0);
 	}
-
 	
+	/*
+	// Defines floaty movement of billboard
+	if(this.body.y < this.player.body.y) {
+		
+		if(this.body.acceleration.y > 0 && this.body.velocity.y == 0) {
+			
+		} else if(this.body.acceleration.y > 0 && this.body.velocity.y > 0) {
+			
+		} else if(this.body.acceleration.y < 0 && this.body.velocity.y == 0) {
+			
+		} else if(this.body.acceleration.y < 0 && this.body.velocity.y < 0) {
+			
+		}
+		
+	} else if(this.body.y > this.player.body.y) {
+		
+	} else {
+		
+	}
+	*/
 }
