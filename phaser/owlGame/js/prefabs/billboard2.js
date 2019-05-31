@@ -1,6 +1,6 @@
 // Billboard Prefab
 
-function Billboard(game, x, y, key, frame, scale, rotation, targetInterest, endToken)
+function Billboard2(game, x, y, dynamicX, dynamicY, key, frame, scale, rotation, targetInterest, endToken)
 {
 	//Phaser.Sprite.call(this, game, targetInterest.x - scale * 64, targetInterest.y, key, frame);
 	Phaser.Sprite.call(this, game, x, y, key, frame);
@@ -25,33 +25,29 @@ function Billboard(game, x, y, key, frame, scale, rotation, targetInterest, endT
 	this.player = targetInterest;
 	this.endTokenX = endToken.body.x;
 	
-	// Referred to this for different billboard behavior
-	// game.physics.arcade.moveToXY(this, this.player.x, this.player.y, 100, 100);
+	// Allows position of hovering images to follow player
+	// at a desired position. This number is added to the player's x and y
+	// position which is referred to in moveToXY().
+	this.DYNAMIC_X = dynamicX;
+	this.DYNAMIC_Y = dynamicY;
+	
 }
 
-Billboard.prototype = Object.create(Phaser.Sprite.prototype);
-Billboard.prototype.constructor = Billboard;
+Billboard2.prototype = Object.create(Phaser.Sprite.prototype);
+Billboard2.prototype.constructor = Billboard2;
 
-Billboard.prototype.update = function()
+Billboard2.prototype.update = function()
 {
 	// Check for collisions with targetInterest
 	game.physics.arcade.collide(this, this.player);
 	//game.physics.arcade.collide(this, this);
 	
 	// MAIN CODE
-	
-	// Moves image to player
-	// moveToObject(displayObject, destination, speed[by pixels/sec], maxTime[by milliseconds])
-	game.physics.arcade.moveToObject(this, this.player, 120, 1000);
 
-	// If image reaches a certain distance away from player, it should speed up to catch to player
-	if(this.body.x <= this.player.x - 300 || this.body.y <= this.player.y - 300 ) {
-		// OLD IF CONDITIONS: this.body.x >= this.player.y + 200 || this.body.y >= this.player.x + 200
-		// The line below sets a higher velocity but does not allow the image to follow the player
-		//body.velocity.setTo(600); 
-		game.physics.arcade.moveToObject(this, this.player, 360, 1000);
-	}
-	
+	// Moves image to specific position around player
+	// moveToXY(displayObject, x, y, speed[by pixels/sec], maxTime[by milliseconds])
+	game.physics.arcade.moveToXY(this, this.player.x + this.DYNAMIC_X, this.player.y + this.DYNAMIC_Y, 100, 100);
+
 	/* SUBJECT TO CHANGE
 	// console.log("Image body.x: " + this.body.x);
 	// console.log("Image body.y: " + this.body.y);
@@ -108,7 +104,7 @@ Billboard.prototype.update = function()
 	}
 	
 	
-	/* SUBJECT TO CHANGE 
+	/* SUBJECT TO CHANGE
 	// Defines floaty movement of billboard
 	if(this.body.y < this.player.body.y) {
 		

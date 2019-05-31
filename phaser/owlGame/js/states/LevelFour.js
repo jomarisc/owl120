@@ -49,12 +49,21 @@ LevelFour.prototype = {
 		
 		// Creating the player
 		// Slowest overall movement for the player in level three
-		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", "64owl0000", 2, 1000*(1/4), 300*(1/4), 600*(1/4), 3000*(1/4), 2000*(1/4), 1000*(1/4));
+		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000*(1/4), 300*(1/4), 600*(1/4), 3000*(1/4), 2000*(1/4), 1000*(1/4));
 		game.add.existing(this.player);
 		
+		// Creates two images to hover near the player
+		this.billboard2 = new Billboard2(game, -1000, -1000, -175, -200, "streak", 0, 2, 0, this.player, this.endToken);
+		// this.player.x -175, this.player.y - 200
+		game.add.existing(this.billboard2);
+		this.billboard3 = new Billboard3(game, 1000, 1000, 175, -200, "drunk", 0, 2, 0, this.player, this.endToken);
 		// Creates one image to follow the player
-		this.billboard = new Billboard(game, "coke", 0, 2, 0, this.player, this.endToken);
+		this.billboard = new Billboard(game, -1000, 0, "coke", 0, 2, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
+		
+		
+		// this.player.x + 175, this.player.y - 200
+		game.add.existing(this.billboard3);
 	},
 	update: function() {
 		// Allow the camera to follow the player
