@@ -12,7 +12,7 @@ LevelTwo.prototype = {
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
-		game.world.setBounds(0, 0, 24000, 1800);
+		game.world.setBounds(0, 0, 16000, 1800); // 24000
 
 		// Level Sounds
 		this.levelCleared = game.add.audio("levelCleared");
@@ -57,6 +57,13 @@ LevelTwo.prototype = {
 			ground.body.immovable = true;
 		}
 		
+		// Creates roadblock collidable object
+		roadBlock = game.add.group();
+		roadBlock.enableBody = true;
+		var block = roadBlock.create(14400, game.world.height-200, "roadblock");
+		block.body.immovable = true;
+		// block.scale.setTo(4);
+		
 		// Creates green platforms
 		var standardX = [300, 2000 + (2400 * 0), 5000 + (2400 * 0)];
 		var standardY = [400, 400 , 300];
@@ -96,20 +103,14 @@ LevelTwo.prototype = {
 		}
 		
 		// Creating the end token
-		this.endToken = new endToken(game, game.world.width-200, game.world.height-200, "endToken", 0, 1, 0);
+		this.endToken = new endToken(game, game.world.width-550, game.world.height-200, "endToken", 0, 1, 0); // 200
 		game.add.existing(this.endToken);
 		
 		// Creating the player
-		// Slower overall movement for the player in level two
- 
-		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", 0, 2, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
-
-		/*
-		this.player = new OwlFabs(game,  8300 + (2400 * 0), 150, "jumpSound", "owl", "64owl0000", 2, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
-		*/
+		// Slower overall movement for the player in level two 
+		// this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", 0, 2, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
+		//this.player = new OwlFabs(game,  8300 + (2400 * 0), 150, "jumpSound", "owl", "64owl0000", 2, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
 		this.player = new OwlFabs(game, 0 + (2400 * 0), 200, "jumpSound", "owl", "64owl0000", 2, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
-		
-
 		game.add.existing(this.player);
 
 		// Extra Health Object
@@ -119,6 +120,7 @@ LevelTwo.prototype = {
 		// Creates one image to follow the player
 		this.billboard = new Billboard(game, "drunk", 0, 2, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
+		
 	},
 	update: function() {
 		// Allow the camera to follow the player
@@ -130,6 +132,7 @@ LevelTwo.prototype = {
 
 		var hitPlatform = game.physics.arcade.collide(this.player, platforms);
 		var hitDeathPlatform = game.physics.arcade.collide(this.player, deathPlatforms);
+		var roadBlockCollide = game.physics.arcade.collide(roadBlock, [this.player, platforms, deathPlatforms]);
 		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
 		var powerUpPlatform = game.physics.arcade.collide(this.powerUp, platforms);
 		var enemyPlatform = game.physics.arcade.collide(enemyGroup, platforms);
@@ -221,6 +224,8 @@ LevelTwo.prototype = {
 			// game.camera.fade(0x000000, 1000, true);
 			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
+		
+		//game.physics.moveToObject(this.billboard, this.player, 100);
 		
 	},
 	// finishFade: function()

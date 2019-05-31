@@ -22,7 +22,10 @@ function Billboard(game, key, frame, scale, rotation, targetInterest, endToken)
 	
 	// Character
 	this.player = targetInterest;
-	this.endTokenX = endToken.body.x;
+	this.endTokenX = endToken.body.x
+	
+	// game.physics.arcade.moveToXY(this, this.player.x, this.player.y, 100, 100);
+	this.far = 0;
 }
 
 Billboard.prototype = Object.create(Phaser.Sprite.prototype);
@@ -34,9 +37,61 @@ Billboard.prototype.update = function()
 	game.physics.arcade.collide(this, this.player);
 	//game.physics.arcade.collide(this, this);
 	
+	// Moves image to player
+	// moveToObject(displayObject, destination, speed[by pixels/sec], maxTime[by milliseconds])
+	game.physics.arcade.moveToObject(this, this.player, 120, 1000);
 
+	// If image reaches a certain distance away from player, it should speed up to catch to player
+	if(this.body.x <= this.player.x - 300 || this.body.y <= this.player.y - 300 ) {
+		//Conditions: this.body.x >= this.player.y + 200 || this.body.y >= this.player.x + 200
+		//body.velocity.setTo(600); // This line sets a higher velocity but does not allow the image to follow the player
+		game.physics.arcade.moveToObject(this, this.player, 360, 1000);
+	}
+	
+	/* OLD CODE
+	// console.log("Image body.x: " + this.body.x);
+	// console.log("Image body.y: " + this.body.y);
+	// console.log("Image player.x: " + this.player.x);
+	// console.log("Image player.y: " + this.player.y);
+	
+	switch(this.far) {
+		
+		case 0:
+			//while(this.body.x <= this.player.x - 1 || this.body.x >= this.player.x + 1 || this.body.y >= this.player.y + 1 || this.body.y <= this.player.y - 1) {
+				game.physics.arcade.moveToObject(this, this.player, 360);
+				if(this.body.x >= this.player.x - 1 || this.body.x <= this.player.x + 1 || this.body.y <= this.player.y + 1 || this.body.y >= this.player.y - 1) {
+					this.far = 1;
+				}
+			//}
+			break;
+		case 1:
+			//while(this.body.x >= this.player.x - 400 || this.body.x <= this.player.x + 400 || this.body.y <= this.player.y + 400 || this.body.y >= this.player.y - 400) {
+				game.physics.arcade.moveToObject(this, this.player, -180);
+				if(this.body.x <= this.player.x - 400 || this.body.x >= this.player.x + 400 || this.body.y >= this.player.y + 400 || this.body.y <= this.player.y - 400) {
+					this.far = 0;
+				}
+			//}
+			break;
+		default:
+			game.physics.arcade.moveToObject(this, this.player, 360);	
+			
+	} 
+	*/
+	// if(this.body.x <= this.player.x - 75 || this.body.x >= this.player.x + 75 || this.body.y >= this.player.y + 75 || this.body.y <= this.player.y - 75) {
+		//  //Conditions: this.body.x >= this.player.y + 200 || this.body.y >= this.player.x + 200
+		//  //body.velocity.setTo(600);
+		// game.physics.arcade.moveToObject(this, this.player, 360);
+		
+		
+	// }
+	// if(this.body.x >= this.player.x - 1 || this.body.x <= this.player.x + 1 || this.body.y <= this.player.y + 1 || this.body.y >= this.player.y - 1) {
+			
+		// game.physics.arcade.moveToObject(this, this.player, -180);
+	
+	// }
+	
 	// Slowly move towards target interest
-	this.body.velocity.setTo(100, 0);
+	//this.body.velocity.setTo(100, 0);
 	if(this.body.x <= this.endTokenX - 500)
 	{
 		// Describes the horizontal movement of the billboard
@@ -48,12 +103,13 @@ Billboard.prototype.update = function()
 		this.body.velocity.setTo(0);
 	}
 	
-	/*
+	
+	/*  
 	// Defines floaty movement of billboard
 	if(this.body.y < this.player.body.y) {
 		
 		if(this.body.acceleration.y > 0 && this.body.velocity.y == 0) {
-			
+			this.body
 		} else if(this.body.acceleration.y > 0 && this.body.velocity.y > 0) {
 			
 		} else if(this.body.acceleration.y < 0 && this.body.velocity.y == 0) {
@@ -67,5 +123,5 @@ Billboard.prototype.update = function()
 	} else {
 		
 	}
-	*/
+	 */
 }
