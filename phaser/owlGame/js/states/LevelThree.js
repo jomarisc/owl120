@@ -54,8 +54,14 @@ LevelThree.prototype = {
 		game.add.existing(this.player);
 		
 		// Creates one image to follow the player
-		this.billboard = new Billboard(game, "streak", 0, 2, 0, this.player, this.endToken);
+		//this.billboard = game.add.group();
+		this.billboard = new Billboard(game, -1000, 0, "streak", 0, 2, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
+		
+		// Creates an additional image to hover near the player
+		this.billboard2 = new Billboard2(game, -1000, -1000, -150, -250, "drunk", 0, 2, 0, this.player, this.endToken);
+		//this.player.x - 150, this.player.y - 250
+		game.add.existing(this.billboard2);
 	},
 	update: function() {
 		// Allow the camera to follow the player

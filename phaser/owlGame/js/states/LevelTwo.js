@@ -118,7 +118,7 @@ LevelTwo.prototype = {
 		game.add.existing(this.powerUp);
 		
 		// Creates one image to follow the player
-		this.billboard = new Billboard(game, "drunk", 0, 2, 0, this.player, this.endToken);
+		this.billboard = new Billboard(game, -1000, -1000, "drunk", 0, 2, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
 		
 	},
