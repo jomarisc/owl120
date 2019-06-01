@@ -56,6 +56,11 @@ LevelTwo.prototype = {
 			var ground = deathPlatforms.create(i, game.world.height-100, "ground");
 			ground.body.immovable = true;
 		}
+		// Creates safe ground
+		for (var i = game.world.width - 3200; i <= game.world.width; i = i + 1600){
+			var ground = platforms.create(i, game.world.height-100, "ground");
+			ground.body.immovable = true;
+		}
 		
 		// Creates roadblock collidable object
 		roadBlock = game.add.group();
