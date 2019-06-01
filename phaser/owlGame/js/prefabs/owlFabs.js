@@ -38,8 +38,10 @@ function OwlFabs(game, x, y, jumpSound, key, frame, scale, airSpeed, groundSpeed
 	this.animations.add("crouch", ["owlCrouch0000"], 1, false);
 	this.animations.add("sadWalk", Phaser.Animation.generateFrameNames("64sadOwlWalk", 1, 4, "", 4), 3, false);
 	this.animations.add("sadWalkLeft", Phaser.Animation.generateFrameNames("64sadOwlWalkLeft", 1, 4, "", 4), 3, false);
-	this.animations.add("sadJump", Phaser.Animation.generateFrameNames("64sadOwlJumpUP", 0, 3, "", 4), 4, false);
-	this.animations.add("sadJumpLeft", Phaser.Animation.generateFrameNames("64sadOwlJumpLeft", 0, 3, "", 4), 4, false);
+	this.sadOwlJump = ["64sadOwlJumpUP0000", "64sadOwlJumpUP0001", "64sadOwlJumpUP0002", "64sadOwlJumpUP0002", "64sadOwlJumpUP0002", "64sadOwlJumpUP0002", "64sadOwlJumpUP0003"];
+	this.sadOwlJumpLeft = ["64sadOwlJumpLeft0000", "64sadOwlJumpLeft0001", "64sadOwlJumpLeft0002", "64sadOwlJumpLeft0002", "64sadOwlJumpLeft0002", "64sadOwlJumpLeft0002", "64sadOwlJumpLeft0003"];
+	this.animations.add("sadJump", this.sadOwlJump, 12, false);
+	this.animations.add("sadJumpLeft", this.sadOwlJumpLeft, 12, false);
 
 	// Sounds
 	this.jumpSound = game.add.audio(jumpSound);
@@ -67,7 +69,9 @@ OwlFabs.prototype.update = function()
 	{
 		this.body.maxVelocity.setTo(this.GROUND_SPEED, this.JUMP_SPEED);
 		this.body.setSize(25, 46);
+
 		this.jumps = 2; //100
+
 		this.jumping = false;
 
 		// LEFT && RIGHT

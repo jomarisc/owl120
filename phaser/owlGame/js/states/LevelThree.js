@@ -106,18 +106,22 @@ LevelThree.prototype = {
 		
 		// Creating the player
 		// More slower overall movement for the player in level three
+
 		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 1000, "jumpSound", "owl", "64owl0000", 2, 1000*(2/4), 300*(2/4), 600*(2/4), 3000*(2/4), 2000*(2/4), 1000*(2/4));
 		// this.player = new OwlFabs(game, 1580 + (2400 * 7), game.world.height - 1000, "jumpSound", "owl", "64owl0000", 2, 1000*(2/4), 300*(2/4), 600*(2/4), 3000*(2/4), 2000*(2/4), 1000*(2/4));
+
 		game.add.existing(this.player);
 		// 1580 + (2400 * 7)
 		
+		// Creates an additional image to hover near the player
+		this.billboard2 = new Billboard2(game, -1000, -1000, -150, -250, "drunk", 0, 2, 0, this.player, this.endToken);
+
 		// Creates one image to follow the player
 		//this.billboard = game.add.group();
 		this.billboard = new Billboard(game, -1000, 0, "streak", 0, 2, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
 		
-		// Creates an additional image to hover near the player
-		this.billboard2 = new Billboard2(game, -1000, -1000, -150, -250, "drunk", 0, 2, 0, this.player, this.endToken);
+		
 		//this.player.x - 150, this.player.y - 250
 		game.add.existing(this.billboard2);
 	},
