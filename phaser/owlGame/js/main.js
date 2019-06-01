@@ -56,6 +56,31 @@ function setUpBackground(layers, keys, scaleX, scaleY)
 	}
 }
 
+function setUpBackground(layers, keys, scaleX, scaleY, x, y, frames)
+{
+	game.stage.backgroundColor = "#0B9CF6";
+	for (var i = 0; i < layers.length; i++)
+	{
+		if(x == null || y == null)
+		{
+			if(scaleX === 1 && scaleY === 1)
+			{
+				layers[i] = game.add.tileSprite(0, game.world.height - 900, 24000, 900, keys[i]);
+			}
+			else
+			{
+				layers[i] = game.add.tileSprite(0, 0, 24000, 900, keys[i]);
+			}
+			layers[i].scale.setTo(scaleX, scaleY);
+		}
+		else
+		{
+			layers[i] = game.add.tileSprite(x, y, 9600, 900, keys, frames[i]);
+			layers[i].scale.setTo(scaleX, scaleY);
+		}
+	}
+}
+
 // Precondition: 1) layerSpeeds is an array of floats that contain the varying background layer speeds
 // Postcondition: the different background speeds
 function setParallaxValues(layerSpeeds, slowestSpeed)

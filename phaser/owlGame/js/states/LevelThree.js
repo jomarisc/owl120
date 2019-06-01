@@ -7,7 +7,6 @@ LevelThree.prototype = {
 		this.keyArray = keyArray;
 	},
 	preload: function() {
-		game.load.image("redSky", "assets/img/predSky0000.png");
 		game.load.image("farBuildings", "assets/img/redbuildings0000.png");
 		game.load.image("midBuildings", "assets/img/redbuildings0001.png");
 		game.load.image("closeBuildings", "assets/img/redbuildings0002.png");
