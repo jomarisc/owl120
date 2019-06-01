@@ -47,52 +47,26 @@ MainMenu.prototype = {
 	},
 	create: function() {
 		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-		//Basic functionality check.
-
-		// Array for different backgrounds
-		// Daytime
-		this.daytimeKeys = ["buildings0000", "buildings0001", "buildings0002"]; //["blueFarBuildings", "blueMidBuildings", "blueCloseBuildings"];
-		this.eveningKeys = ["redbuildings0000", "redbuildings0001", "redbuildings0002"];//["redFarBuildings", "redMidBuildings", "redCloseBuildings"];
-		this.nighttimeKeys = ["nightbuild0000", "nightbuild0001", "nightbuild0002"]; //["twilightFarBuildings", "twilightMidBuildings", "twilightCloseBuildings"];
 
 		// Set up background
+		// Background
 		this.skyArray = [this.sky];
 		this.skyKey = ["pblueSky0000", "predSky0000", "ptwilightSky0000"];
 		setUpBackground(this.skyArray, "backgrounds", 1, 1, 0, 0, this.skyKey);
 		this.layerArray = [this.farBuildings, this.midBuildings, this.closeBuildings];
 		this.layerSpeeds = [this.farParallax, this.midParallax, this.closeParallax];
-		this.keyArray = this.daytimeKeys;
+		this.keyArray = ["buildings0000", "buildings0001", "buildings0002"];
 		setUpBackground(this.layerArray, "backgrounds", 0.25, 0.25, 0, game.world.height / 2, this.keyArray);
+
+		// // Foreground
+		// this.layerArrayFront = [this.farBuildingsFront, this.midBuildingsFront, this.closeBuildingsFront];
+		// this.keyArrayFront = ["redbuildings0000", "redbuildings0001", "redbuildings0002"];
+		// setUpBackground(this.layerArrayFront, "backgrounds", 0.25, 0.25, 0, game.world.height / 2, this.keyArrayFront);///////////////////////////////////
+		// for(var i = 0; i < this.layerArrayFront.length; i++)
+		// {
+		// 	this.layerArrayFront[i].alpha = 0.01;
+		// }
 		game.stage.backgroundColor = "#FFF";
-
-		// Tweens
-		// Fade Out
-		this.fadeOutSky = game.add.tween(this.skyArray[0]).to({
-			alpha: 0.01
-		}, 3000, Phaser.Easing.Quintic.In, true);
-		this.fadeOutFarBuildings = game.add.tween(this.layerArray[0]).to({
-			alpha: 0.01
-		}, 3000, Phaser.Easing.Quintic.In, true);
-		this.fadeOutMidBuildings = game.add.tween(this.layerArray[1]).to({
-			alpha: 0.01
-		}, 3000, Phaser.Easing.Quintic.In, true);
-		this.fadeOutCloseBuildings = game.add.tween(this.layerArray[2]).to({
-			alpha: 0.01
-		}, 3000, Phaser.Easing.Quintic.In, true);
-
-		// Fade In
-		this.fadeInSky = game.add.tween(this.skyArray[0]).to({
-			alpha: 2
-		}, 3000, Phaser.Easing.Quadratic.Out, false);
-		this.fadeInFarBuildings = game.add.tween(this.layerArray[0]).to({
-			alpha: 2
-		}, 3000, Phaser.Easing.Quadratic.Out, false);
-		this.fadeInMidBuildings = game.add.tween(this.layerArray[1]).to({
-			alpha: 2
-		}, 3000, Phaser.Easing.Quadratic.Out, false);
-		this.fadeInCloseBuildings = game.add.tween(this.layerArray[2]).to({
-			alpha: 2
-		}, 3000, Phaser.Easing.Quadratic.Out, false);
 
 		// Main Menu text
 		menuText1 = game.add.text(game.width / 2, 250, 'Owl\nLong\nDay', {fill: '#000'});
@@ -103,11 +77,43 @@ MainMenu.prototype = {
 		menuText2 = game.add.text(game.width / 2, 540, "Press [SPACE] to begin" , {fontsize: '64px', fill: '#000'});
 		menuText2.anchor.setTo(0.5, 0.5);
 		menuText2.align = "center";
+
+		// Tweens
+		// Fade Out
+		this.fadeOutSky = game.add.tween(this.skyArray[0]).to({
+			alpha: 0.01
+		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+		this.fadeOutFarBuildings = game.add.tween(this.layerArray[0]).to({
+			alpha: 0.01
+		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+		this.fadeOutMidBuildings = game.add.tween(this.layerArray[1]).to({
+			alpha: 0.01
+		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+		this.fadeOutCloseBuildings = game.add.tween(this.layerArray[2]).to({
+			alpha: 0.01
+		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+		this.fadeOutText1 = game.add.tween(menuText1).to({
+			alpha: 0.01
+		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+		this.fadeOutText2 = game.add.tween(menuText2).to({
+			alpha: 0.01
+		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+
+		// // Fade In
+		// this.fadeInFarBuildingsFront = game.add.tween(this.layerArrayFront[0]).to({////////////////////////////////////
+		// 	alpha: 1
+		// }, 3000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
+		// this.fadeInMidBuildingsFront = game.add.tween(this.layerArrayFront[1]).to({
+		// 	alpha: 1
+		// }, 3000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
+		// this.fadeInCloseBuildingsFront = game.add.tween(this.layerArrayFront[2]).to({
+		// 	alpha: 1
+		// }, 3000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
 	},
 	update: function() {
-		// Scrolling background
+		// Scrolling backgrounds
 		parallaxScroll(this.layerArray, this.layerSpeeds, 1);
-		console.log(this.skyArray[0].alpha)
+		// parallaxScroll(this.layerArrayFront, this.layerSpeeds, 1);///////////////////////////////////////////////////////
 
 		// Change background over time
 		if(this.skyArray[0].alpha === 0.010000000000000009)
@@ -116,20 +122,20 @@ MainMenu.prototype = {
 			this.background += 1;
 			console.log(this.background);
 			// Change to Evening
-			if(this.background === 1)
+			if(this.background % 3 === 1)
 			{
-				this.background = 0;
-				this.skyArray[0].frameName = this.skyKey[this.background + 1];
+				// this.background = 0;
+				this.skyArray[0].frameName = this.skyKey[1];
 				for(var i = 0; i < this.layerArray.length; i++)
 				{
 					this.layerArray[i].frameName = "redbuildings000" + i;
 				}
 			}
 			// Change to Nighttime
-			else if(this.background === 2)
+			else if(this.background % 3 === 2)
 			{
-				this.background = 1;
-				this.skyArray[0].frameName = this.skyKey[this.background + 1];
+				// this.background = 1;
+				this.skyArray[0].frameName = this.skyKey[2];
 				for(var i = 0; i < this.layerArray.length; i++)
 				{
 					this.layerArray[i].frameName = "nightbuild000" + i;
@@ -140,8 +146,7 @@ MainMenu.prototype = {
 			// Change to Daytime
 			else
 			{
-				this.background = 0;
-				this.skyArray[0].frameName = this.skyKey[this.background];
+				this.skyArray[0].frameName = this.skyKey[0];
 				for(var i = 0; i < this.layerArray.length; i++)
 				{
 					this.layerArray[i].frameName = "buildings000" + i;
@@ -149,25 +154,44 @@ MainMenu.prototype = {
 				menuText1.fill = "#000";
 				menuText2.fill = "#000";
 			}
-
-			// Tween fade-ins
-			this.fadeInSky.start();
-			this.fadeInFarBuildings.start();
-			this.fadeInMidBuildings.start();
-			this.fadeInCloseBuildings.start();
-		}
-		else if(this.skyArray[0].alpha >= 2)
-		{
-			// Tween fade-outs
-			this.fadeOutSky.start();
-			this.fadeOutFarBuildings.start();
-			this.fadeOutMidBuildings.start();
-			this.fadeOutCloseBuildings.start();
 		}
 
 		//Triggers the start of the next state.
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
 			game.state.start('LevelOne');
 		};
+	},
+	shutdown: function()
+	{
+		// Garbage clean up
+		// Preloaded assets
+		game.load.removeFile("image", "blueSky");
+		game.load.removeFile("image", "blueFarBuildings");
+		game.load.removeFile("image", "blueMidBuildings");
+		game.load.removeFile("image", "blueCloseBuildings");
+
+		// Evening
+		game.load.removeFile("image", "redSky");
+		game.load.removeFile("image", "redFarBuildings");
+		game.load.removeFile("image", "redMidBuildings");
+		game.load.removeFile("image", "redCloseBuildings");
+
+		// Nighttime
+		game.load.removeFile("image", "twilightSky");
+		game.load.removeFile("image", "twilightFarBuildings");
+		game.load.removeFile("image", "twilightMidBuildings");
+		game.load.removeFile("image", "twilightCloseBuildings");
+
+		// Tilemaps
+		this.skyArray[0].destroy();
+		this.skyKey = null;
+		this.layerSpeeds = null;
+		this.keyArray = null;
+		for(var i = 0; i < this.layerArray.length; i++)
+		{
+			this.layerArray[i].destroy();
+		}
+		// Tweens
+		game.tweens.removeAll();
 	}
 };
