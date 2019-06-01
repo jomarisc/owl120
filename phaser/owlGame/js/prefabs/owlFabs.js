@@ -67,7 +67,7 @@ OwlFabs.prototype.update = function()
 	{
 		this.body.maxVelocity.setTo(this.GROUND_SPEED, this.JUMP_SPEED);
 		this.body.setSize(25, 46);
-		this.jumps = 100;
+		this.jumps = 2; //100
 		this.jumping = false;
 
 		// LEFT && RIGHT

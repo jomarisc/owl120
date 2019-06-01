@@ -14,7 +14,7 @@ var game;
 
 window.onload = function(){
 
-	game = new Phaser.Game(2400, 900, Phaser.CANVAS); // AUTO);
+	game = new Phaser.Game(2400, 900, Phaser.CANVAS); // AUTO); //2400
 
 	//Adding all game states to the 'game' object instance.
 	game.state.add('MainMenu', MainMenu);
