@@ -10,6 +10,7 @@ MainMenu.prototype = {
 		this.closeBuildings;
 		this.closeParallax = 5;
 		this.background = 0;
+		this.backgroundFront = 1;
 	},
 	preload: function() {
 		// game.load.image("owl", "assets/img/owl10000ver.2.png");
@@ -58,17 +59,22 @@ MainMenu.prototype = {
 		this.keyArray = ["buildings0000", "buildings0001", "buildings0002"];
 		setUpBackground(this.layerArray, "backgrounds", 0.25, 0.25, 0, game.world.height / 2, this.keyArray);
 
-		// // Foreground
-		// this.layerArrayFront = [this.farBuildingsFront, this.midBuildingsFront, this.closeBuildingsFront];
-		// this.keyArrayFront = ["redbuildings0000", "redbuildings0001", "redbuildings0002"];
-		// setUpBackground(this.layerArrayFront, "backgrounds", 0.25, 0.25, 0, game.world.height / 2, this.keyArrayFront);///////////////////////////////////
-		// for(var i = 0; i < this.layerArrayFront.length; i++)
-		// {
-		// 	this.layerArrayFront[i].alpha = 0.01;
-		// }
+		// Foreground
+		this.skyArrayFront = [this.skyFront];
+		this.skyKeyFront = ["predSky0000", "ptwilightSky0000", "pblueSky0000"];
+		setUpBackground(this.skyArrayFront, "backgrounds", 1, 1, 0, 0, this.skyKeyFront);
+		this.skyArrayFront[0].alpha = 0.01;
+		this.layerArrayFront = [this.farBuildingsFront, this.midBuildingsFront, this.closeBuildingsFront];
+		this.keyArrayFront = ["redbuildings0000", "redbuildings0001", "redbuildings0002"];
+		setUpBackground(this.layerArrayFront, "backgrounds", 0.25, 0.25, 0, game.world.height / 2, this.keyArrayFront);///////////////////////////////////
+		for(var i = 0; i < this.layerArrayFront.length; i++)
+		{
+			this.layerArrayFront[i].alpha = 0.01;
+		}
 		game.stage.backgroundColor = "#FFF";
 
 		// Main Menu text
+		// Background
 		menuText1 = game.add.text(game.width / 2, 250, 'Owl\nLong\nDay', {fill: '#000'});
 		menuText1.anchor.setTo(0.5, 0.5);
 		menuText1.align = "center";
@@ -78,48 +84,77 @@ MainMenu.prototype = {
 		menuText2.anchor.setTo(0.5, 0.5);
 		menuText2.align = "center";
 
+		// Foreground
+		menuText3 = game.add.text(game.width / 2, 250, 'Owl\nLong\nDay', {fill: '#000'});
+		menuText3.anchor.setTo(0.5, 0.5);
+		menuText3.align = "center";
+		menuText3.fontSize = 100;
+		menuText3.alpha = 0.01;
+
+		menuText4 = game.add.text(game.width / 2, 540, "Press [SPACE] to begin" , {fontsize: '64px', fill: '#000'});
+		menuText4.anchor.setTo(0.5, 0.5);
+		menuText4.align = "center";
+		menuText4.alpha = 0.01;
+
 		// Tweens
 		// Fade Out
 		this.fadeOutSky = game.add.tween(this.skyArray[0]).to({
 			alpha: 0.01
-		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+		}, 5000, Phaser.Easing.Quintic.In, true, 0, -1, true);
 		this.fadeOutFarBuildings = game.add.tween(this.layerArray[0]).to({
 			alpha: 0.01
-		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+		}, 5000, Phaser.Easing.Quintic.In, true, 0, -1, true);
 		this.fadeOutMidBuildings = game.add.tween(this.layerArray[1]).to({
 			alpha: 0.01
-		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+		}, 5000, Phaser.Easing.Quintic.In, true, 0, -1, true);
 		this.fadeOutCloseBuildings = game.add.tween(this.layerArray[2]).to({
 			alpha: 0.01
-		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+		}, 5000, Phaser.Easing.Quintic.In, true, 0, -1, true);
 		this.fadeOutText1 = game.add.tween(menuText1).to({
 			alpha: 0.01
-		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+		}, 5000, Phaser.Easing.Quintic.In, true, 0, -1, true);
 		this.fadeOutText2 = game.add.tween(menuText2).to({
 			alpha: 0.01
-		}, 3000, Phaser.Easing.Quintic.In, true, 0, -1, true);
+		}, 5000, Phaser.Easing.Quintic.In, true, 0, -1, true);
 
 		// // Fade In
-		// this.fadeInFarBuildingsFront = game.add.tween(this.layerArrayFront[0]).to({////////////////////////////////////
-		// 	alpha: 1
-		// }, 3000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
-		// this.fadeInMidBuildingsFront = game.add.tween(this.layerArrayFront[1]).to({
-		// 	alpha: 1
-		// }, 3000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
-		// this.fadeInCloseBuildingsFront = game.add.tween(this.layerArrayFront[2]).to({
-		// 	alpha: 1
-		// }, 3000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
+		this.fadeInSkyFront = game.add.tween(this.skyArrayFront[0]).to({
+			alpha: 1
+		}, 5000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
+		this.fadeInFarBuildingsFront = game.add.tween(this.layerArrayFront[0]).to({////////////////////////////////////
+			alpha: 1
+		}, 5000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
+		this.fadeInMidBuildingsFront = game.add.tween(this.layerArrayFront[1]).to({
+			alpha: 1
+		}, 5000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
+		this.fadeInCloseBuildingsFront = game.add.tween(this.layerArrayFront[2]).to({
+			alpha: 1
+		}, 5000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
+		this.fadeInText1 = game.add.tween(menuText3).to({
+			alpha: 1
+		}, 5000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
+		this.fadeInText2 = game.add.tween(menuText4).to({
+			alpha: 1
+		}, 5000, Phaser.Easing.Quadratic.In, true, 0, -1, true);
+
+		// Chain fade in tween from fade out tween
+		this.fadeOutSky.chain()
+		this.fadeOutFarBuildings.chain(this.fadeInFarBuildingsFront);
+		this.fadeOutMidBuildings.chain(this.fadeInMidBuildingsFront);
+		this.fadeOutCloseBuildings.chain(this.fadeInCloseBuildingsFront);
+		this.fadeOutText1.chain(this.fadeInText1);
+		this.fadeOutText2.chain(this.fadeInText2);
 	},
 	update: function() {
 		// Scrolling backgrounds
 		parallaxScroll(this.layerArray, this.layerSpeeds, 1);
-		// parallaxScroll(this.layerArrayFront, this.layerSpeeds, 1);///////////////////////////////////////////////////////
+		parallaxScroll(this.layerArrayFront, this.layerSpeeds, 1);///////////////////////////////////////////////////////
 
 		// Change background over time
 		if(this.skyArray[0].alpha === 0.010000000000000009)
 		{
 			console.log("Change")
-			this.background += 1;
+			this.background += 2;
 			console.log(this.background);
 			// Change to Evening
 			if(this.background % 3 === 1)
@@ -153,6 +188,47 @@ MainMenu.prototype = {
 				}
 				menuText1.fill = "#000";
 				menuText2.fill = "#000";
+			}
+		}
+
+		// Change front background over time
+		if(this.skyArrayFront[0].alpha === 0.010000000000000009)
+		{
+			console.log("Change")
+			this.backgroundFront += 2;
+			console.log(this.backgroundFront);
+			// Change to Evening
+			if(this.backgroundFront % 3 === 1)
+			{
+				// this.background = 0;
+				this.skyArrayFront[0].frameName = this.skyKeyFront[0];
+				for(var i = 0; i < this.layerArrayFront.length; i++)
+				{
+					this.layerArrayFront[i].frameName = "redbuildings000" + i;
+				}
+			}
+			// Change to Nighttime
+			else if(this.backgroundFront % 3 === 2)
+			{
+				// this.background = 1;
+				this.skyArrayFront[0].frameName = this.skyKeyFront[1];
+				for(var i = 0; i < this.layerArrayFront.length; i++)
+				{
+					this.layerArrayFront[i].frameName = "nightbuild000" + i;
+				}
+				menuText3.fill = "#FFF";
+				menuText4.fill = "#FFF";
+			}
+			// Change to Daytime
+			else
+			{
+				this.skyArrayFront[0].frameName = this.skyKeyFront[2];
+				for(var i = 0; i < this.layerArrayFront.length; i++)
+				{
+					this.layerArrayFront[i].frameName = "buildings000" + i;
+				}
+				menuText3.fill = "#000";
+				menuText4.fill = "#000";
 			}
 		}
 

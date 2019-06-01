@@ -8,6 +8,8 @@
 //Placeholder text.
 var menuText1;
 var menuText2;
+var menuText3;
+var menuText4;
 var game;
 
 
