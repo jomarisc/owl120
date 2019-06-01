@@ -8,13 +8,15 @@
 //Placeholder text.
 var menuText1;
 var menuText2;
+var menuText3;
+var menuText4;
 var game;
 
 
 
 window.onload = function(){
 
-	game = new Phaser.Game(2400, 900, Phaser.CANVAS); // AUTO);
+	game = new Phaser.Game(2400, 900, Phaser.CANVAS); // AUTO); //2400
 
 	//Adding all game states to the 'game' object instance.
 	game.state.add('MainMenu', MainMenu);
@@ -53,6 +55,31 @@ function setUpBackground(layers, keys, scaleX, scaleY)
 			layers[i] = game.add.tileSprite(0, 0, 24000, 900, keys[i]);
 		}
 		layers[i].scale.setTo(scaleX, scaleY);
+	}
+}
+
+function setUpBackground(layers, keys, scaleX, scaleY, x, y, frames)
+{
+	game.stage.backgroundColor = "#0B9CF6";
+	for (var i = 0; i < layers.length; i++)
+	{
+		if(x == null || y == null)
+		{
+			if(scaleX === 1 && scaleY === 1)
+			{
+				layers[i] = game.add.tileSprite(0, game.world.height - 900, 24000, 900, keys[i]);
+			}
+			else
+			{
+				layers[i] = game.add.tileSprite(0, 0, 24000, 900, keys[i]);
+			}
+			layers[i].scale.setTo(scaleX, scaleY);
+		}
+		else
+		{
+			layers[i] = game.add.tileSprite(x, y, 9600, 900, keys, frames[i]);
+			layers[i].scale.setTo(scaleX, scaleY);
+		}
 	}
 }
 

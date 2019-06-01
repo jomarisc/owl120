@@ -25,7 +25,7 @@ CutsceneTwo.prototype = {
 		setUpBackground(this.layerArray, this.keyArray, 1, 2);
 
 		//Another check
-		menuText1 = game.add.text(game.width / 2, 450, 'This is the second cutscene.\nPress S to enter the next state.', {fontsize: '72px', fill: '#000'});
+		menuText1 = game.add.text(game.width / 2, 450, 'This is the second cutscene.\nYou get a call from your friend asking about the interview.\nYou lie about it and say it went fairly well.\nPress S to enter the next level.', {fontsize: '72px', fill: '#000'});
 		menuText1.anchor.setTo(0.5, 0.5);
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
