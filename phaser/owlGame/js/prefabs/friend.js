@@ -1,6 +1,6 @@
 // Friend Prefab
 
-function Friend(game, x, y, key, frame, scale, platformGroup)
+function Friend(game, x, y, key, frame, scale, platformGroup, targetInterest)
 {
 	Phaser.Sprite.call(this, game, x, y, key, frame);
 
@@ -13,19 +13,21 @@ function Friend(game, x, y, key, frame, scale, platformGroup)
 	// Physics
 	this.AIR_SPEED = 1000;
 	this.GROUND_SPEED = 300;
-	this.JUMP_SPEED = 600;
+	this.JUMP_SPEED = 3600;
 	this.ACCELERATION = 3000; // Max Acceleration
-	this.DRAG = 2000;
+	this.DRAG = 200;
 	game.physics.enable(this); // Enable Physics Body
 	this.body.collideWorldBounds = true; // Confine Sprite to Game Camera
 	this.body.gravity.y = 1000; // Gravity
-	this.body.maxVelocity.setTo(this.GROUND_SPEED, this.JUMP_SPEED);
+	this.body.maxVelocity.setTo(this.AIR_SPEED, this.JUMP_SPEED);
 	this.body.acceleration.setTo(0);
 	this.body.drag.setTo(this.DRAG, 0);
 
 	// Character
 	this.platforms = platformGroup;
-	this.jumps = 1;
+	this.player = targetInterest;
+	console.log(this.platforms)
+	this.jumps = 2;
 	this.platformQueue = []; // A Queue that keeps track of platforms that the player has collided with
 	console.log(this.platformQueue.length);
 }
@@ -35,21 +37,39 @@ Friend.prototype.constructor = Friend;
 
 Friend.prototype.update = function()
 {
-	game.physics.arcade.collide(this, this.platforms);
-}
-
-// Takes in the index of a child of a group
-// and enqueues it into the platformQueue
-Friend.prototype.updateQueue = function(platformIndex)
-{
-	if(this.platformQueue.length === 0 || platformIndex === this.platformQueue[length - 1])
+	// Only check for platform collisions when above platforms
+	for(var i = 0; i < this.platforms.length; i++)
 	{
-		console.log(platformIndex);
-		console.log(platformIndex !== this.platformQueue[length - 1]);
-		console.log(platformIndex + this.platformQueue[length - 1]);
-		this.platformQueue.push(platformIndex);
-		console.log(this.platformQueue.length);
-		console.log(this.platformQueue);
-		// pauseGame();
+		if(this.body.y < this.platforms.getAt(i).body.y)
+		{
+			game.physics.arcade.collide(this, this.platforms.getAt(i));
+		}
+	}
+
+	// Friend grounded flags
+	this.isGrounded = this.body.touching.down;
+	this.isBlockedDown = this.body.blocked.down;
+	
+	// Check if Friend is grounded
+	if(this.isGrounded || this.isBlockedDown)
+	{
+		this.jumps = 2;
+	}
+
+	// Jump towards player whenever possible
+	if(this.jumps > 0 && this.player.body.touching.down || this.player.body.blocked.down)
+	{
+		console.log(game.physics.arcade.distanceBetween(this, this.player))
+		if(game.physics.arcade.distanceBetween(this, this.player) < 300)
+		{
+			game.physics.arcade.moveToXY(this, this.player.body.x, this.player.body.y, 350, 1000);
+		}
+		else
+		{
+			game.physics.arcade.moveToXY(this, this.player.body.x, this.player.body.y - 550, 750, 1000);
+		}
+		console.log("X: " + this.body.velocity.x)
+		console.log("Y: " + this.body.velocity.y)
+		this.jumps--;
 	}
 }

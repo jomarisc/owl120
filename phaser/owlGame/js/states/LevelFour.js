@@ -59,21 +59,21 @@ LevelFour.prototype = {
 		
 		// Creating the player
 		// Slowest overall movement for the player in level three
-		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000*(1/4), 300*(1/4), 600*(1/4), 3000*(1/4), 2000*(1/4), 1000*(1/4));
+		this.player = new OwlFabs(game, (2400 * 2), game.world.height - 500, "jumpSound", "owl", "64owl0000", 2, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
 		game.add.existing(this.player);
 		
-		// Creates two images to hover near the player
-		this.billboard2 = new Billboard2(game, -1000, -1000, -175, -200, "streak", 0, 2, 0, this.player, this.endToken);
-		// this.player.x -175, this.player.y - 200
-		game.add.existing(this.billboard2);
-		this.billboard3 = new Billboard3(game, 1000, 1000, 175, -200, "drunk", 0, 2, 0, this.player, this.endToken);
-		// this.player.x + 175, this.player.y - 200
-		game.add.existing(this.billboard3);
-		// Creates one image to follow the player
-		this.billboard = new Billboard(game, -1000, 0, "coke", 0, 2, 0, this.player, this.endToken);
-		game.add.existing(this.billboard);
+		// // Creates two images to hover near the player
+		// this.billboard2 = new Billboard2(game, -1000, -1000, -175, -200, "streak", 0, 2, 0, this.player, this.endToken);
+		// // this.player.x -175, this.player.y - 200
+		// game.add.existing(this.billboard2);
+		// this.billboard3 = new Billboard3(game, 1000, 1000, 175, -200, "drunk", 0, 2, 0, this.player, this.endToken);
+		// // this.player.x + 175, this.player.y - 200
+		// game.add.existing(this.billboard3);
+		// // Creates one image to follow the player
+		// this.billboard = new Billboard(game, -1000, 0, "coke", 0, 2, 0, this.player, this.endToken);
+		// game.add.existing(this.billboard);
 		// Creating the friend that chases the player in this level
-		this.friend = new Friend(game, 1200 + (2400 * 2), game.world.height - 500, "friend", 0, 1.5, platforms);
+		this.friend = new Friend(game, 1200 + (2400 * 2), game.world.height - 500, "friend", 0, 1.5, platforms, this.player);
 		game.add.existing(this.friend);
 	},
 	update: function() {
@@ -89,11 +89,11 @@ LevelFour.prototype = {
 		{
 			if(platforms.getAt(i).body.y < 500)
 			{
-				game.physics.arcade.collide(this.player, platforms.getAt(i), this.friend.updateQueue(platforms.getAt(i)), null, this);
+				game.physics.arcade.collide(this.player, platforms.getAt(i));
 			}
 			else if(this.player.y < platforms.getAt(i).body.y)
 			{
-				game.physics.arcade.collide(this.player, platforms.getAt(i), this.friend.updateQueue(platforms.getAt(i)), null, this);
+				game.physics.arcade.collide(this.player, platforms.getAt(i));
 			}
 		}
 		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
@@ -165,9 +165,16 @@ LevelFour.prototype = {
 			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 
+		// Triggers restarting level
+		game.physics.arcade.collide(this.player, this.friend, this.restart, null, this);
 	},
 	// finishFade: function()
 	// {
 	// 	game.state.start('CutsceneFour', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 	// }
+	restart: function()
+	{
+		console.log("Restart Level 3 Part 2");
+		game.state.start("LevelFour", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	},
 };
