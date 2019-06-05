@@ -32,6 +32,7 @@ window.onload = function(){
 
 	//As soon as the page is loaded, starts the game in the 'MainMenu' state.
 	game.state.start('MainMenu');
+	
 }
 
 // Helper functions------------------------------------------------------------------------------
