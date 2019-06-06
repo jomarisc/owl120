@@ -92,7 +92,7 @@ Billboard2.prototype.update = function()
 	
 	// Slowly move towards target interest
 	//this.body.velocity.setTo(100, 0);
-	if(this.body.x <= this.endTokenX - 500)
+	/* if(this.body.x <= this.endTokenX - 500)
 	{
 		// Describes the horizontal movement of the billboard
 		// this.body.velocity.setTo(600, 600);
@@ -101,7 +101,7 @@ Billboard2.prototype.update = function()
 	else
 	{
 		this.body.velocity.setTo(0);
-	}
+	} */
 	
 	
 	/* SUBJECT TO CHANGE
