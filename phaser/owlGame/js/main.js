@@ -28,6 +28,8 @@ window.onload = function(){
 	game.state.add('CutsceneThree', CutsceneThree);
 	game.state.add('LevelFour', LevelFour);
 	game.state.add('CutsceneFour', CutsceneFour);
+	game.state.add('LevelFinal', LevelFinal);
+	game.state.add('CutsceneFinal', CutsceneFinal);
 	game.state.add('GameOver', GameOver);
 
 	//As soon as the page is loaded, starts the game in the 'MainMenu' state.

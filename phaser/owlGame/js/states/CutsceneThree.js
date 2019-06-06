@@ -11,9 +11,6 @@ CutsceneThree.prototype = {
 	preload: function()
 	{
 		// Cutscene assets
-		game.load.image("farBuildings", "assets/img/nightbuild0000.png");
-		game.load.image("midBuildings", "assets/img/nightbuild0001.png");
-		game.load.image("closeBuildings", "assets/img/nightbuild0002.png");
 	},
 
 	create: function()
@@ -42,23 +39,23 @@ CutsceneThree.prototype = {
 	{
 		//Triggers the start of the next state.
 		if(game.input.keyboard.isDown(Phaser.Keyboard.D) && game.input.keyboard.downDuration(Phaser.Keyboard.D, 1)) {
-			if(this.continues == 0)
-			{
-				// Camera Fade in
-				game.camera.flash(0x000000, 1000, true);
+			// if(this.continues == 0)
+			// {
+			// 	// Camera Fade in
+			// 	game.camera.flash(0x000000, 1000, true);
 
-				// Changing the background
-				this.keyArray = ["twilightSky", "farBuildings", "midBuildings", "closeBuildings"];
-				setUpBackground(this.layerArray, this.keyArray, 1, 4);
-				menuText1 = game.add.text(game.width / 2, 450, "It is now nighttime.\nMaybe it wasn\'t the best idea to leave your friend hanging.\nYou decide to go visit your friend.\nPress D to enter the next level.", {fontsize: '72px', fill: '#FFF'});
-				menuText1.anchor.setTo(0.5, 0.5);
-				menuText1.align = "center";
-				this.continues++;
-			}
-			else
-			{
+			// 	// Changing the background
+			// 	this.keyArray = ["twilightSky", "farBuildings", "midBuildings", "closeBuildings"];
+			// 	setUpBackground(this.layerArray, this.keyArray, 1, 4);
+			// 	menuText1 = game.add.text(game.width / 2, 450, "It is now nighttime.\nMaybe it wasn\'t the best idea to leave your friend hanging.\nYou decide to go visit your friend.\nPress D to enter the next level.", {fontsize: '72px', fill: '#FFF'});
+			// 	menuText1.anchor.setTo(0.5, 0.5);
+			// 	menuText1.align = "center";
+			// 	this.continues++;
+			// }
+			// else
+			// {
 				game.state.start('LevelFour', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-			}
+			// }
 			// game.camera.fade(0x000000, 1000, true);
 			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
