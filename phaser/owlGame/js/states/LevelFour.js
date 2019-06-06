@@ -61,9 +61,9 @@ LevelFour.prototype = {
 		// Creates roadblock collidable object
 		roadBlock = game.add.group();
 		roadBlock.enableBody = true;
-		var block = roadBlock.create(3200, game.world.height-200, "roadblock");
+		var block = roadBlock.create(3000, game.world.height-275, "roadblock");
 		block.body.immovable = true;
-		var block = roadBlock.create(game.world.width - 1600, game.world.height-200, "roadblock");
+		var block = roadBlock.create(game.world.width - 1600, game.world.height-275, "roadblock2");
 		block.body.immovable = true;
 
 		// Creates first platform

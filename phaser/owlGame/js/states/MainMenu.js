@@ -24,7 +24,8 @@ MainMenu.prototype = {
 		game.load.image("buildingPlatformTop", "assets/img/grayPlatformsStandard.png");
 		game.load.image("buildingPlatformTop2", "assets/img/grayPlatformsLonger.png");
 		game.load.image("buildingPlatform", "assets/img/gPlatform0001.png");
-		game.load.image("roadblock", "assets/img/cloud20000.png");
+		game.load.image("roadblock", "assets/img/roadblockSOR_final.png");
+		game.load.image("roadblock2","assets/img/roadblockAC_final.png");
 
 		// Background Assets
 		// Texture Atlas
