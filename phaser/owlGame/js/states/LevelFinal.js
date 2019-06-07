@@ -100,10 +100,10 @@ LevelFinal.prototype = {
 		// Array for storing x coordinates of where billboards should move to
 		this.billboardDestinationX = [50, game.world.width - 306];
 
-		// Tweens
-		this.moveUpB3 = game.add.tween(this.billboard3Y).to({
-			y: this.billboardY.y - 370
-		}, 1000, Phaser.Easing.Linear.None, false, 0, 0, false);
+		// // Tweens
+		// this.moveUpB3 = game.add.tween(this.billboard3).to({
+		// 	y: game.world.height - 740
+		// }, 1000, Phaser.Easing.Linear.None, false, 0, 0, false);
 
 		// Keyboard cursors
 		this.cursors = game.input.keyboard.createCursorKeys();
@@ -111,7 +111,7 @@ LevelFinal.prototype = {
 	update: function()
 	{
 		// Allow the camera to follow the player
-		if(this.player.body.y < game.camera.y + 600)
+		if(this.player.y < game.camera.y + 600)
 		{
 			game.camera.follow(this.player);
 		}
@@ -152,13 +152,15 @@ LevelFinal.prototype = {
 		}
 
 		// Move billboards
-		if(this.billboard3.body.y >= game.camera.y)
+		game.physics.arcade.moveToXY(this.billboard3, this.billboardDestinationX[this.destinationToggle3 % 2], this.billboard3Y, 120, 1000);
+		if(this.billboard3.body.y > game.camera.y + game.camera.height)
 		{
-			game.physics.arcade.moveToXY(this.billboard3, this.billboardDestinationX[this.destinationToggle3 % 2], this.billboard3Y, 120, 1000);
+			this.billboard3Y = this.billboardY - 370;
 		}
-		if(this.billboard2.body.y >= game.camera.y)
+		game.physics.arcade.moveToXY(this.billboard2, this.billboardDestinationX[this.destinationToggle2 % 2], this.billboard2Y, 120, 1000);
+		if(this.billboard2.body.y > game.camera.y + game.camera.height)
 		{
-			game.physics.arcade.moveToXY(this.billboard2, this.billboardDestinationX[this.destinationToggle2 % 2], this.billboard2Y, 120, 1000);
+			this.billboard2Y = this.billboard3Y - 360;
 		}
 		game.physics.arcade.moveToXY(this.billboard, this.billboardDestinationX[this.destinationToggle % 2], this.billboardY, 120, 1000);
 

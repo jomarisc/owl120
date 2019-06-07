@@ -231,7 +231,7 @@ OwlFabs.prototype.update = function()
 		this.body.velocity.y = -this.JUMP_SPEED;
 // <<<<<<< HEAD
 		this.jumps--;
-		console.log(this.jumps);
+		// console.log(this.jumps);
 	}
 // =======
 	// 	this.jumping = true;

@@ -155,9 +155,9 @@ MainMenu.prototype = {
 		// Change background over time
 		if(this.skyArray[0].alpha === 0.010000000000000009)
 		{
-			console.log("Change")
+			// console.log("Change")
 			this.background += 2;
-			console.log(this.background);
+			// console.log(this.background);
 			// Change to Evening
 			if(this.background % 3 === 1)
 			{
@@ -196,9 +196,9 @@ MainMenu.prototype = {
 		// Change front background over time
 		if(this.skyArrayFront[0].alpha === 0.010000000000000009)
 		{
-			console.log("Change")
+			// console.log("Change")
 			this.backgroundFront += 2;
-			console.log(this.backgroundFront);
+			// console.log(this.backgroundFront);
 			// Change to Evening
 			if(this.backgroundFront % 3 === 1)
 			{

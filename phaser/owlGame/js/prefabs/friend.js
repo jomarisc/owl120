@@ -26,10 +26,10 @@ function Friend(game, x, y, key, frame, scale, platformGroup, targetInterest)
 	// Character
 	this.platforms = platformGroup;
 	this.player = targetInterest;
-	console.log(this.platforms)
+	// console.log(this.platforms)
 	this.jumps = 2;
 	this.platformQueue = []; // A Queue that keeps track of platforms that the player has collided with
-	console.log(this.platformQueue.length);
+	// console.log(this.platformQueue.length);
 }
 
 Friend.prototype = Object.create(Phaser.Sprite.prototype);
@@ -59,7 +59,7 @@ Friend.prototype.update = function()
 	// Jump towards player whenever possible
 	if(this.jumps > 0 && this.player.body.touching.down || this.player.body.blocked.down)
 	{
-		console.log(game.physics.arcade.distanceBetween(this, this.player))
+		// console.log(game.physics.arcade.distanceBetween(this, this.player))
 		if(game.physics.arcade.distanceBetween(this, this.player) < 300)
 		{
 			game.physics.arcade.moveToXY(this, this.player.body.x, this.player.body.y, 350, 1000);
@@ -68,8 +68,8 @@ Friend.prototype.update = function()
 		{
 			game.physics.arcade.moveToXY(this, this.player.body.x, this.player.body.y - 550, 750, 1000);
 		}
-		console.log("X: " + this.body.velocity.x)
-		console.log("Y: " + this.body.velocity.y)
+		// console.log("X: " + this.body.velocity.x)
+		// console.log("Y: " + this.body.velocity.y)
 		this.jumps--;
 	}
 }
