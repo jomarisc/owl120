@@ -8,6 +8,9 @@ LevelFinal.prototype = {
 		this.pastBillboard3VelX;
 		this.pastBillboard2VelX;
 		this.pastBillboardVelX;
+		this.destinationToggle3 = 0;
+		this.destinationToggle2 = 1;
+		this.destinationToggle = 0;
 	},
 	preload: function()
 	{
@@ -81,23 +84,34 @@ LevelFinal.prototype = {
 
 		// Creating billboards
 		this.billboard3Y = game.camera.y + 370;
-		this.billboard3 = game.add.sprite(game.world.width - 356, game.camera.y + 370, "drunk", 0);
+		this.billboard3 = game.add.sprite(game.world.width - 410, game.camera.y + 370, "drunk", 0);
 		this.billboard3.scale.setTo(2);
 
 		this.billboard2Y = game.camera.y;
-		this.billboard2 = game.add.sprite(100, game.camera.y, "streak", 0);
+		this.billboard2 = game.add.sprite(154, game.camera.y, "streak", 0);
 		this.billboard2.scale.setTo(2);
 
 		this.billboardY = game.camera.y - 370;
-		this.billboard = game.add.sprite(game.world.width - 356, game.camera.y - 370, "coke", 0);
+		this.billboard = game.add.sprite(game.world.width - 410, game.camera.y - 370, "coke", 0);
 		this.billboard.scale.setTo(2);
 
 		game.physics.arcade.enable([this.billboard3, this.billboard2, this.billboard]);
+
+		// Array for storing x coordinates of where billboards should move to
+		this.billboardDestinationX = [50, game.world.width - 306];
+
+		// Tweens
+		this.moveUpB3 = game.add.tween(this.billboard3Y).to({
+			y: this.billboardY.y - 370
+		}, 1000, Phaser.Easing.Linear.None, false, 0, 0, false);
+
+		// Keyboard cursors
+		this.cursors = game.input.keyboard.createCursorKeys();
 	},
 	update: function()
 	{
 		// Allow the camera to follow the player
-		if(this.player.body.y <= game.camera.y + 600)
+		if(this.player.body.y < game.camera.y + 600)
 		{
 			game.camera.follow(this.player);
 		}
@@ -123,57 +137,30 @@ LevelFinal.prototype = {
 		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
 		var playerBillboard = game.physics.arcade.collide(this.player, [this.billboard3, this.billboard2, this.billboard]);
 
-		// Move billboards
-		///////////////////////////////////////////////
-		// Try reversing with pressing a button      //
-		///////////////////////////////////////////////
-		if(this.pastBillboard3VelX - this.billboard3.body.velocity.x < 20)
-		{
-			game.physics.arcade.moveToXY(this.billboard3, 100, this.billboard3Y, 120, 1000);
-		}
-		else
-		{
-			game.physics.arcade.moveToXY(this.billboard3, game.world.width - 356, this.billboard3Y, 120, 1000);
-		}
-		console.log(this.billboard3.body.velocity.x);
-		if(this.billboard2.body.velocity.x >= 0)
-		{
-			game.physics.arcade.moveToXY(this.billboard2, game.world.width - 356, this.billboard2Y, 120, 1000);
-		}
-		else
-		{
-			game.physics.arcade.moveToXY(this.billboard2, 100, this.billboard2Y, 120, 1000);
-		}
-		console.log(this.billboard2.body.velocity.x);
-		if(this.billboard.body.velocity.x <= -0)
-		{
-			game.physics.arcade.moveToXY(this.billboard, 100, this.billboardY, 120, 1000);
-		}
-		else
-		{
-			game.physics.arcade.moveToXY(this.billboard, game.world.width - 356, this.billboardY, 120, 1000);
-		}
-		console.log(this.billboard.body.velocity.x);
-
-		this.pastBillboard3VelX = this.billboard3.body.velocity.x;
-		this.pastBillboard2VelX = this.billboard2.body.velocity.x;
-		this.pastBillboardVelX = this.billboard.body.velocity.x;
-
 		// Switch directions of billboard movement
-		// if(this.billboard3.body.x <= 100 || this.billboard3.body.x >= game.world.width - 356)
-		// {
-		// 	this.billboard3.body.velocity.x *= -1;
-		// }
+		if(this.billboard3.body.x < 150 || this.billboard3.body.x > game.world.width - 406)
+		{
+			this.destinationToggle3++;
+		}
+		if(this.billboard2.body.x < 150 || this.billboard2.body.x > game.world.width - 406)
+		{
+			this.destinationToggle2++;
+		}
+		if(this.billboard.body.x < 150 || this.billboard.body.x > game.world.width - 406)
+		{
+			this.destinationToggle++;
+		}
 
-		// if(this.billboard2.body.x >= game.world.width - 356 || this.billboard2.body.x <= 100)
-		// {
-		// 	this.billboard2.body.velocity.x *= -1;
-		// }
-
-		// if(this.billboard.body.x <= 100 || this.billboard.body.x >= game.world.width - 356)
-		// {
-		// 	this.billboard.body.velocity.x *= -1;
-		// }
+		// Move billboards
+		if(this.billboard3.body.y >= game.camera.y)
+		{
+			game.physics.arcade.moveToXY(this.billboard3, this.billboardDestinationX[this.destinationToggle3 % 2], this.billboard3Y, 120, 1000);
+		}
+		if(this.billboard2.body.y >= game.camera.y)
+		{
+			game.physics.arcade.moveToXY(this.billboard2, this.billboardDestinationX[this.destinationToggle2 % 2], this.billboard2Y, 120, 1000);
+		}
+		game.physics.arcade.moveToXY(this.billboard, this.billboardDestinationX[this.destinationToggle % 2], this.billboardY, 120, 1000);
 
 		// Skip to cutscene
 		// Triggers the start of the next state.
