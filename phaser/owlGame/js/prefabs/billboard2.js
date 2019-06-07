@@ -102,7 +102,7 @@ Billboard2.prototype.update = function()
 	else
 	{
 		this.body.velocity.setTo(0);
-	}
+	} */
 	
 	
 	/* SUBJECT TO CHANGE

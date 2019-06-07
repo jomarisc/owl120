@@ -65,7 +65,9 @@ LevelTwo.prototype = {
 		// Creates roadblock collidable object
 		roadBlock = game.add.group();
 		roadBlock.enableBody = true;
-		var block = roadBlock.create(14400, game.world.height-200, "roadblock");
+		var block = roadBlock.create(700, game.world.height-275, "roadblock");
+		block.body.immovable = true;
+		var block = roadBlock.create(14400, game.world.height-275, "roadblock2");
 		block.body.immovable = true;
 		// block.scale.setTo(4);
 		

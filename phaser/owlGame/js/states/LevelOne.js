@@ -71,10 +71,10 @@ LevelOne.prototype = {
 		// Creates roadblock collidable object
 		roadBlock = game.add.group();
 		roadBlock.enableBody = true;
-		var block = roadBlock.create(3200, game.world.height-200, "roadblock");
+		var block = roadBlock.create(3200-25, game.world.height-275, "roadblock"); // game.world.height-200
 		block.body.immovable = true;
 		// 2nd potential roadblock may be here. Test by game feel. 
-		var block = roadBlock.create(game.world.width - 1600, game.world.height-200, "roadblock");
+		var block = roadBlock.create(game.world.width - 1850, game.world.height-275, "roadblock2"); // 1600
 		block.body.immovable = true;
 		/* 
 		// TESTING CODE: Uncomment this code for testing the placement of the    
@@ -177,6 +177,7 @@ LevelOne.prototype = {
 		// Creating the player
 		// Fast overall movement for the player in level one
 		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000, 300, 600, 3000, 2000, 1000);
+		// this.player = new OwlFabs(game, game.world.width-200, game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000, 300, 600, 3000, 2000, 1000);
 		game.add.existing(this.player);
 		
 	},
