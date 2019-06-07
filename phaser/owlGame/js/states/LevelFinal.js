@@ -5,6 +5,9 @@ LevelFinal.prototype = {
 		this.layerArray = layerArray;
 		this.layerSpeeds = layerSpeeds;
 		this.keyArray = keyArray;
+		this.pastBillboard3VelX;
+		this.pastBillboard2VelX;
+		this.pastBillboardVelX;
 	},
 	preload: function()
 	{
@@ -53,19 +56,57 @@ LevelFinal.prototype = {
 		}
 
 		// Creating the end token
-		this.endToken = new endToken(game, game.world.width-200, game.world.height-200, "endToken", 0, 1, 0);
+		this.endToken = new endToken(game, game.world.width * 3 / 4, 200, "endToken", 0, 1, 0);
 		game.add.existing(this.endToken);
 
 		// Creating the player
 		// Slowest overall movement for the player in level three
 		this.player = new OwlFabs(game, 400 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000*(1/4), 300*(1/4), 600*(3/4), 3000*(1/4), 2000*(1/4), 1000*(3/4));
 		game.add.existing(this.player);
+
+		// // // Creates two images to hover near the player
+		// this.billboard2 = new Billboard2(game, -1000, -1000, -175, -200, "streak", 0, 2, 0, this.player, this.endToken);
+		// // this.player.x -175, this.player.y - 200
+		// game.add.existing(this.billboard2);
+		// this.billboard3 = new Billboard3(game, 1000, 1000, 175, -200, "drunk", 0, 2, 0, this.player, this.endToken);
+		// // this.player.x + 175, this.player.y - 200
+		// game.add.existing(this.billboard3);
+		// // Creates one image to follow the player
+		// this.billboard = new Billboard(game, -1000, 0, "coke", 0, 2, 0, this.player, this.endToken);
+		// game.add.existing(this.billboard);
+
+		// Set up game camera
+		game.camera.y = game.world.height - 900;
+		game.camera.lerp.setTo(0.1);
+
+		// Creating billboards
+		this.billboard3Y = game.camera.y + 370;
+		this.billboard3 = game.add.sprite(game.world.width - 356, game.camera.y + 370, "drunk", 0);
+		this.billboard3.scale.setTo(2);
+
+		this.billboard2Y = game.camera.y;
+		this.billboard2 = game.add.sprite(100, game.camera.y, "streak", 0);
+		this.billboard2.scale.setTo(2);
+
+		this.billboardY = game.camera.y - 370;
+		this.billboard = game.add.sprite(game.world.width - 356, game.camera.y - 370, "coke", 0);
+		this.billboard.scale.setTo(2);
+
+		game.physics.arcade.enable([this.billboard3, this.billboard2, this.billboard]);
 	},
 	update: function()
 	{
 		// Allow the camera to follow the player
-		game.camera.follow(this.player);
-		game.camera.deadzone = new Phaser.Rectangle(game.width / 2, game.height * 2 / 3, 1, 1);
+		if(this.player.body.y <= game.camera.y + 600)
+		{
+			game.camera.follow(this.player);
+		}
+		else
+		{
+			game.camera.unfollow();
+		}
+		game.camera.deadzone = new Phaser.Rectangle(game.width / 2, game.height * 2 / 3, 10, 10);
+		// game.camera.deadzone.anchor.setTo(0.5);
 
 		// var hitPlatform = game.physics.arcade.collide(this.player, platforms);
 		for(var i = 0; i < platforms.length; i++)
@@ -80,6 +121,59 @@ LevelFinal.prototype = {
 			}
 		}
 		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
+		var playerBillboard = game.physics.arcade.collide(this.player, [this.billboard3, this.billboard2, this.billboard]);
+
+		// Move billboards
+		///////////////////////////////////////////////
+		// Try reversing with pressing a button      //
+		///////////////////////////////////////////////
+		if(this.pastBillboard3VelX - this.billboard3.body.velocity.x < 20)
+		{
+			game.physics.arcade.moveToXY(this.billboard3, 100, this.billboard3Y, 120, 1000);
+		}
+		else
+		{
+			game.physics.arcade.moveToXY(this.billboard3, game.world.width - 356, this.billboard3Y, 120, 1000);
+		}
+		console.log(this.billboard3.body.velocity.x);
+		if(this.billboard2.body.velocity.x >= 0)
+		{
+			game.physics.arcade.moveToXY(this.billboard2, game.world.width - 356, this.billboard2Y, 120, 1000);
+		}
+		else
+		{
+			game.physics.arcade.moveToXY(this.billboard2, 100, this.billboard2Y, 120, 1000);
+		}
+		console.log(this.billboard2.body.velocity.x);
+		if(this.billboard.body.velocity.x <= -0)
+		{
+			game.physics.arcade.moveToXY(this.billboard, 100, this.billboardY, 120, 1000);
+		}
+		else
+		{
+			game.physics.arcade.moveToXY(this.billboard, game.world.width - 356, this.billboardY, 120, 1000);
+		}
+		console.log(this.billboard.body.velocity.x);
+
+		this.pastBillboard3VelX = this.billboard3.body.velocity.x;
+		this.pastBillboard2VelX = this.billboard2.body.velocity.x;
+		this.pastBillboardVelX = this.billboard.body.velocity.x;
+
+		// Switch directions of billboard movement
+		// if(this.billboard3.body.x <= 100 || this.billboard3.body.x >= game.world.width - 356)
+		// {
+		// 	this.billboard3.body.velocity.x *= -1;
+		// }
+
+		// if(this.billboard2.body.x >= game.world.width - 356 || this.billboard2.body.x <= 100)
+		// {
+		// 	this.billboard2.body.velocity.x *= -1;
+		// }
+
+		// if(this.billboard.body.x <= 100 || this.billboard.body.x >= game.world.width - 356)
+		// {
+		// 	this.billboard.body.velocity.x *= -1;
+		// }
 
 		// Skip to cutscene
 		// Triggers the start of the next state.
@@ -98,9 +192,20 @@ LevelFinal.prototype = {
 			game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 
+		// Ways to restart level
+		// 1) Falling off of camera
+		if(this.player.y - this.player.height / 2 >= game.camera.y + game.camera.height)
+		{
+			this.restart();
+		}
 	},
 	finishFade: function()
 	{
 		game.state.start('CutsceneFinal', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	},
+	restart: function()
+	{
+		console.log("Restart Level Final");
+		game.state.start("LevelFinal", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 	}
 }

@@ -24,6 +24,7 @@ function Billboard(game, x, y, key, frame, scale, rotation, targetInterest, endT
 	// Character
 	this.player = targetInterest;
 	this.endTokenX = endToken.body.x;
+	this.endTokenY = endToken.body.y;
 	
 	// Referred to this for different billboard behavior
 	// game.physics.arcade.moveToXY(this, this.player.x, this.player.y, 100, 100);
@@ -96,7 +97,7 @@ Billboard.prototype.update = function()
 	
 	// Slowly move towards target interest
 	//this.body.velocity.setTo(100, 0);
-	if(this.body.x <= this.endTokenX - 500)
+	if(this.body.x <= this.endTokenX - 500 || this.body.x >= this.endTokenX + 500 || this.body.y <= this.endTokenY - 500 || this.body.y >= this.endTokenY + 500)
 	{
 		// Describes the horizontal movement of the billboard
 		// this.body.velocity.setTo(600, 600);

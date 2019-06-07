@@ -24,6 +24,7 @@ function Billboard2(game, x, y, dynamicX, dynamicY, key, frame, scale, rotation,
 	// Character
 	this.player = targetInterest;
 	this.endTokenX = endToken.body.x;
+	this.endTokenY = endToken.body.y;
 	
 	// Allows position of hovering images to follow player
 	// at a desired position. This number is added to the player's x and y
@@ -92,7 +93,7 @@ Billboard2.prototype.update = function()
 	
 	// Slowly move towards target interest
 	//this.body.velocity.setTo(100, 0);
-	if(this.body.x <= this.endTokenX - 500)
+	if(this.body.x <= this.endTokenX - 500 || this.body.x >= this.endTokenX + 500 || this.body.y <= this.endTokenY - 500 || this.body.y >= this.endTokenY + 500)
 	{
 		// Describes the horizontal movement of the billboard
 		// this.body.velocity.setTo(600, 600);
