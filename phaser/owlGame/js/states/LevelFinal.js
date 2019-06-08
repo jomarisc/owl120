@@ -64,7 +64,7 @@ LevelFinal.prototype = {
 
 		// Creating the player
 		// Slowest overall movement for the player in level three
-		this.player = new OwlFabs(game, 400 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000*(1/4), 300*(1/4), 600*(3/4), 3000*(1/4), 2000*(1/4), 1000*(3/4));
+		this.player = new OwlFabs(game, 400 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", "64sadOwl0000", 2, 1000*(1/4), 300*(1/4), 600*(3/4), 3000*(1/4), 2000*(1/4), 1000*(3/4));
 		game.add.existing(this.player);
 
 		// // // Creates two images to hover near the player

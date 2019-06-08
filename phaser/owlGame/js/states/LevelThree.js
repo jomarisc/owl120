@@ -127,7 +127,7 @@ LevelThree.prototype = {
 		
 		// Creating Player
 		// More slower overall movement for the player in level three
-		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000*(2/4), 300*(2/4), 600*(2/4), 3000*(2/4), 2000*(2/4), 1000*(2/4));
+		this.player = new OwlFabs(game, game.world.width * (1 / 100), game.world.height - 200, "jumpSound", "owl", "64sadOwl0000", 2, 1000*(2/4), 300*(2/4), 600*(2/4), 3000*(2/4), 2000*(2/4), 1000*(2/4));
 		// this.player = new OwlFabs(game, standardX[14], game.world.height - 1000, "jumpSound", "owl", "64owl0000", 2, 1000*(2/4), 300*(2/4), 600*(2/4), 3000*(2/4), 2000*(2/4), 1000*(2/4)); // 7
 		game.add.existing(this.player);
 		// 1580 + (2400 * 7)

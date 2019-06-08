@@ -14,6 +14,7 @@ MainMenu.prototype = {
 	},
 	preload: function() {
 		// game.load.image("owl", "assets/img/owl10000ver.2.png");
+		game.load.atlas("normOwl", "assets/img/normOwl.png", "assets/img/normOwl.json");
 		game.load.atlas("owl", "assets/img/owl.png", "assets/img/owl.json");
 		game.load.atlas("jumpIndicator", "assets/img/jumpIndicator.png", "assets/img/jumpIndicator.json");
 		game.load.image("enemy", "assets/img/owl12.png");

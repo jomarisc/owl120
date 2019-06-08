@@ -176,7 +176,7 @@ LevelOne.prototype = {
 
 		// Creating the player
 		// Fast overall movement for the player in level one
-		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000, 300, 600, 3000, 2000, 1000);
+		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 200, "jumpSound", "normOwl", "64owl0000", 2, 1000, 300, 600, 3000, 2000, 1000);
 		// this.player = new OwlFabs(game, game.world.width-200, game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000, 300, 600, 3000, 2000, 1000);
 		game.add.existing(this.player);
 
@@ -304,12 +304,12 @@ LevelOne.prototype = {
 	},
 	// TESTING CODE: Uncomment this function to check hitboxes of particular sprites
 	// that utilze arcade physics
-	/* 
+	 
 	render: function()
 	{
 		//Sample: game.debug.body(sprite);
 		game.debug.body(this.player);
 		game.debug.body(this.endToken);
 	}
-	*/
+	
 };
