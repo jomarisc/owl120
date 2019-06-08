@@ -179,6 +179,12 @@ LevelOne.prototype = {
 		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000, 300, 600, 3000, 2000, 1000);
 		// this.player = new OwlFabs(game, game.world.width-200, game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000, 300, 600, 3000, 2000, 1000);
 		game.add.existing(this.player);
+
+		// Creating Jumps UI
+		this.jumpsUI1 = new TopJumpsUI(game, 30, 30, "jumpIndicator", "jumpIndic0000", 2, this.player);
+		game.add.existing(this.jumpsUI1);
+		this.jumpsUI2 = new BottomJumpsUI(game, 30, 124, "jumpIndicator", "jumpIndic0000", 2, this.player);
+		game.add.existing(this.jumpsUI2);
 		
 	},
 	update: function() {
