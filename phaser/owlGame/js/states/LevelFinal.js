@@ -100,10 +100,11 @@ LevelFinal.prototype = {
 		// Array for storing x coordinates of where billboards should move to
 		this.billboardDestinationX = [50, game.world.width - 306];
 
-		// // Tweens
-		// this.moveUpB3 = game.add.tween(this.billboard3).to({
-		// 	y: game.world.height - 740
-		// }, 1000, Phaser.Easing.Linear.None, false, 0, 0, false);
+		// Creating Jumps UI
+		this.jumpsUI1 = new TopJumpsUI(game, 30, 30, "jumpIndicator", "jumpIndic0000", 2, this.player);
+		game.add.existing(this.jumpsUI1);
+		this.jumpsUI2 = new BottomJumpsUI(game, 30, 124, "jumpIndicator", "jumpIndic0000", 2, this.player);
+		game.add.existing(this.jumpsUI2);
 
 		// Keyboard cursors
 		this.cursors = game.input.keyboard.createCursorKeys();

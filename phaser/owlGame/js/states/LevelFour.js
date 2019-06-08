@@ -176,6 +176,12 @@ LevelFour.prototype = {
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
+
+		// Creating Jumps UI
+		this.jumpsUI1 = new TopJumpsUI(game, 30, 30, "jumpIndicator", "jumpIndic0000", 2, this.player);
+		game.add.existing(this.jumpsUI1);
+		this.jumpsUI2 = new BottomJumpsUI(game, 30, 124, "jumpIndicator", "jumpIndic0000", 2, this.player);
+		game.add.existing(this.jumpsUI2);
 	},
 	update: function() {
 		// Allow the camera to follow the player

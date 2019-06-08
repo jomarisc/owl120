@@ -141,6 +141,12 @@ LevelThree.prototype = {
 		//this.billboard = game.add.group();
 		this.billboard = new Billboard(game, -1000, 0, "streak", 0, 2, 0, this.player, this.endToken);
 		game.add.existing(this.billboard);
+
+		// Creating Jumps UI
+		this.jumpsUI1 = new TopJumpsUI(game, 30, 30, "jumpIndicator", "jumpIndic0000", 2, this.player);
+		game.add.existing(this.jumpsUI1);
+		this.jumpsUI2 = new BottomJumpsUI(game, 30, 124, "jumpIndicator", "jumpIndic0000", 2, this.player);
+		game.add.existing(this.jumpsUI2);
 		
 	},
 	update: function() {
