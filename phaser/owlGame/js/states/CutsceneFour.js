@@ -20,6 +20,10 @@ CutsceneFour.prototype = {
 
 	create: function()
 	{
+		// Add music
+		this.bgm = game.add.audio("bgm02");
+		this.bgm.play("", 0, 0.5, true);
+
 		// Setting up the world bounds for the camera
 		game.world.setBounds(0, 0, 3200, 900);
 
@@ -65,7 +69,7 @@ CutsceneFour.prototype = {
 			// }
 			// else
 			// {
-				game.state.start('LevelFinal', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+				game.state.start('LevelFinal', true, false, this.layerArray, this.layerSpeeds, this.keyArray, this.bgm);
 			// }
 		};
 

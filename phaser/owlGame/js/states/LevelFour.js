@@ -1,10 +1,11 @@
 //Creating level four's state.
 var LevelFour = function(game) {};
 LevelFour.prototype = {
-	init: function(layerArray, layerSpeeds, keyArray) {
+	init: function(layerArray, layerSpeeds, keyArray, bgm) {
 		this.layerArray = layerArray;
 		this.layerSpeeds = layerSpeeds;
 		this.keyArray = keyArray;
+		this.bgm = bgm;
 	},
 	preload: function() {
 		game.load.image("coke", "assets/img/billboardimages10000.png");
@@ -18,6 +19,12 @@ LevelFour.prototype = {
 
 		// Level Sounds
 		this.levelCleared = game.add.audio("levelCleared");
+		// Add music
+		if(this.bgm == undefined)
+		{
+			this.bgm = game.add.audio("bgm03");
+		}
+		this.bgm.play("", 0, 0.5, true, true);
 
 		// Camera Fade in
 		game.camera.flash(0x000000, 1000, true);
@@ -264,6 +271,10 @@ LevelFour.prototype = {
 		// Triggers restarting level
 		game.physics.arcade.collide(this.player, this.friend, this.restart, null, this);
 	},
+	shutdown: function()
+	{
+		this.bgm.stop();
+	},
 	// finishFade: function()
 	// {
 	// 	game.state.start('CutsceneFour', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
@@ -271,6 +282,6 @@ LevelFour.prototype = {
 	restart: function()
 	{
 		console.log("Restart Level 3 Part 2");
-		game.state.start("LevelFour", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-	},
+		game.state.start("LevelFour", true, false, this.layerArray, this.layerSpeeds, this.keyArray, this.bgm);
+	}
 };

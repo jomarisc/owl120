@@ -15,6 +15,10 @@ CutsceneTwoD.prototype = {
 
 	create: function()
 	{
+		// Add music
+		this.bgm = game.add.audio("bgm01");
+		this.bgm.play("", 0, 0.1, true, true);
+
 		// Something
 		// Setting up the world bounds for the camera
 		game.world.setBounds(0, 0, 3200, 900);
@@ -44,7 +48,7 @@ CutsceneTwoD.prototype = {
 		//Triggers the start of the next state.
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
 			// game.state.start('LevelThree', true);
-			game.state.start('LevelTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			game.state.start('LevelTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray, this.bgm);
 			
 			// game.camera.fade(0x000000, 1000, true);
 			// game.camera.onFadeComplete.add(this.finishFade, this);

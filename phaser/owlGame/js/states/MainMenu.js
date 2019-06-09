@@ -31,6 +31,8 @@ MainMenu.prototype = {
 		game.load.image("roadblock", "assets/img/roadblockSOR_final.png");
 		game.load.image("roadblock2","assets/img/roadblockAC_final.png");
 		game.load.audio("bgm01", "assets/audio/owl_bgm_00.mp3");
+		game.load.audio("bgm02", "assets/audio/owl_bgm_01.mp3");
+		game.load.audio("bgm03", "assets/audio/owl_bgm_02.mp3");
 
 		// Background Assets
 		// Texture Atlas

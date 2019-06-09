@@ -1,10 +1,11 @@
 //Creating level two's state.
 var LevelTwo = function(game) {};
 LevelTwo.prototype = {
-	init: function(layerArray, layerSpeeds, keyArray) {
+	init: function(layerArray, layerSpeeds, keyArray, bgm) {
 		this.layerArray = layerArray;
 		this.layerSpeeds = layerSpeeds;
 		this.keyArray = keyArray;
+		this.bgm = bgm;
 	},
 	preload: function() {
 		game.load.image("enemy", "assets/img/chadFlex0000.png");
@@ -232,24 +233,27 @@ LevelTwo.prototype = {
 			//				Will continue to look into and change if needed.
 			this.endToken.destroy(); 
 			this.levelCleared.play();
-			game.state.start('CutsceneThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			this.bgm.fadeOut();
+			this.bgm.onFadeComplete.add(this.finishFade, this);
+			// game.state.start('CutsceneThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 
 			// // Camera Fade
-			// game.camera.fade(0x000000, 1000, true);
+			game.camera.fade(0x000000, 1000, true);
 			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 		
 		//game.physics.moveToObject(this.billboard, this.player, 100);
 		
 	},
-	// finishFade: function()
-	// {
-	// 	game.state.start('CutsceneTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-	// },
+	finishFade: function()
+	{
+		// game.state.start('CutsceneTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+		game.state.start('CutsceneThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	},
 	restart: function()
 	{
 		console.log("Restart Level 2");
-		game.state.start("LevelTwo", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+		game.state.start("LevelTwo", true, false, this.layerArray, this.layerSpeeds, this.keyArray, this.bgm);
 	},
 	/*
 	render: function()

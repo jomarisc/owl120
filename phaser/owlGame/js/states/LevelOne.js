@@ -297,7 +297,7 @@ LevelOne.prototype = {
 			// game.state.start("CutsceneTwo", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 			// // Camera Fade
 			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
+			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 		
 		// First version of code that ends level and transitions to next state.
@@ -320,7 +320,7 @@ LevelOne.prototype = {
 	restart: function()
 	{
 		console.log("Restart Level 1");
-		game.state.start("LevelOne", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+		game.state.start('LevelOne', true, false, this.bgm);
 	},
 	// TESTING CODE: Uncomment this function to check hitboxes of particular sprites
 	// that utilze arcade physics

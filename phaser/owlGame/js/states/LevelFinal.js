@@ -1,10 +1,11 @@
 //Creating the final level's state.
 var LevelFinal = function(game) {};
 LevelFinal.prototype = {
-	init: function(layerArray, layerSpeeds, keyArray) {
+	init: function(layerArray, layerSpeeds, keyArray, bgm) {
 		this.layerArray = layerArray;
 		this.layerSpeeds = layerSpeeds;
 		this.keyArray = keyArray;
+		this.bgm = bgm;
 		this.pastBillboard3VelX;
 		this.pastBillboard2VelX;
 		this.pastBillboardVelX;
@@ -176,11 +177,13 @@ LevelFinal.prototype = {
 			//				Will continue to look into and change if needed.
 			this.endToken.destroy(); 
 			this.levelCleared.play();
+			this.bgm.fadeOut();
+			this.bgm.onFadeComplete.add(this.finishFade, this);
 			// game.state.start('CutsceneFour', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 
 			// Camera Fade
 			game.camera.fade(0x000000, 1000, true);
-			game.camera.onFadeComplete.add(this.finishFade, this);
+			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 
 		// Ways to restart level
