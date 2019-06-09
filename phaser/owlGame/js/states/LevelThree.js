@@ -12,6 +12,7 @@ LevelThree.prototype = {
 		game.load.image("farBuildings", "assets/img/redbuildings0000.png");
 		game.load.image("midBuildings", "assets/img/redbuildings0001.png");
 		game.load.image("closeBuildings", "assets/img/redbuildings0002.png");
+		game.load.image("interactableBuilding", "assets/img/redbuildings0003.png");
 		game.load.image("streak", "assets/img/billboardimages20000.png");
 	},
 	create: function() {
@@ -40,7 +41,59 @@ LevelThree.prototype = {
 		platforms.enableBody = true;
 		deathPlatforms = game.add.group();
 		deathPlatforms.enableBody = true;
+
+		// Creates first platform
+		// This platform is 128px long
+		for (var i = 0; i < 1; i++) {	
+			var x = [1500];
+			var y = [game.world.height - 235];// 650]; // Was initially 600 // [game.world.height - 250]
+			var ledge = platforms.create(x[i], y[i], "buildingPlatform"); //y[i]
+			ledge.body.immovable = true;
+			ledge.anchor.setTo(0.5, 0.5);
+		}
+
+		// Creates intentional standard platforms 
+		// Standard platforms are 256px long
+		var standardX = [1750 + (2400 * 0), 50 + (2400 * 1), 1450 + (2400 * 1), 834 + (2400 * 3), 1090 + (2400 * 3), 1346 + (2400 * 3), 1602 + (2400 * 3), 0 + (2400 * 4), 500 + (2400 * 4), 1500 + (2400 * 4), 2200 + (2400 * 4), 500 + (2400 * 5), 1750 + (2400 * 5), 2500 + (2400 * 5), 850 + (2400 * 6), 1700-150 + (2400 * 6), 2550-300 + (2400 * 6), 1000-150 + (2400 * 7), 2000 + (2400 * 7), 2300 + (2400 * 8), 3000 + (2400 * 8)]; //, 2000 + (2400 * 9)];
+		var standardY = [350, 520, 700, 675-150, 750-150, 825-150, 900-150, 675-300, 800-350, 800-350, 925-400, 1050-450, 650, 700, 800, 800, 800, 800, 900, 350, 250];  //, 1150]; // [500, 300, 150, 500, 250, 650]; // 550
+		// Creates intentional concrete buildings for standard platforms
+		var concreteSY = [375, 505, 675, 375, 525, 225, 225]; // [525, 325, 175, 525, 275, 675]; // In place of 0: 675
+		for (var i = 0; i < standardY.length; i++) {
+			// var x = [1200 + (2400 * 1), 800 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5)];
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i] + 200, "interactableBuilding"); //game.world.height - concreteSY[i]
+			// Sets size of placeholder image.
+			ledge.scale.setTo(1.3);
+			ledge.body.immovable = true;
+			// Setting anchor of image to center
+			ledge.anchor.setTo(0.5, 0.5);
+		}
+		for (var i = 0; i < standardX.length; i++) {	
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
+			ledge.body.immovable = true;
+			ledge.anchor.setTo(0.5, 0.5);
+		}
 		
+		// Creates intentional longer platforms 325 + (2400 * 7)
+		// Longer platforms are 384px long
+		var longerX = [2100 + (2400 * 0), 1100 + (2400 * 1), 1500 + (2400 * 1), 1900 + (2400 * 1), 2300 + (2400 * 1), 900 + (2400 * 2), 1900 + (2400 * 2), 2900 + (2400 * 2), 1000 + (2400 * 5), 3000 + (2400 * 7), 1500 + (2400 * 8)];
+		var longerY = [250, 350, 450, 550, 800, 800-150, 700-150, 600-150, 1050-450, 650, 450];// [348, 550, 600, 550, 600]; // 450
+		// Creates intentional concrete buildings for longer platforms
+		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
+		for (var i = 0; i < longerY.length; i++) { // Adjust length of for loop
+			// var x = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3)];
+			var ledge = platforms.create(longerX[i], game.world.height - longerY[i] + 200, "interactableBuilding");//game.world.height - concreteLY[i]
+			// Sets size of placeholder image.
+			ledge.scale.setTo(1.8);
+			ledge.body.immovable = true;
+			// Setting anchor of image to center
+			ledge.anchor.setTo(0.5, 0.5);
+		}
+		for (var i = 0; i < longerX.length; i++) {	
+			var ledge = platforms.create(longerX[i], game.world.height - longerY[i], "buildingPlatformTop2");
+			ledge.body.immovable = true;
+			ledge.anchor.setTo(0.5, 0.5);
+		}
+
 		// Creating ground.
 		for (var i = 0; i <= 3200; i = i + 1600){
 			var ground = platforms.create(i, game.world.height-100, "ground");
@@ -66,60 +119,6 @@ LevelThree.prototype = {
 		block.body.immovable = true;
 		var block = roadBlock.create(game.world.width - 1600, game.world.height-275, "roadblock2");
 		block.body.immovable = true;
-
-		// Creates first platform
-		// This platform is 128px long
-		for (var i = 0; i < 1; i++) {	
-			var x = [1500];
-			var y = [game.world.height - 235];// 650]; // Was initially 600 // [game.world.height - 250]
-			var ledge = platforms.create(x[i], y[i], "buildingPlatform"); //y[i]
-			ledge.body.immovable = true;
-			ledge.anchor.setTo(0.5, 0.5);
-		}
-
-		// Creates intentional standard platforms 
-		// Standard platforms are 256px long
-		var standardX = [1750 + (2400 * 0), 50 + (2400 * 1), 1450 + (2400 * 1), 834 + (2400 * 3), 1090 + (2400 * 3), 1346 + (2400 * 3), 1602 + (2400 * 3), 0 + (2400 * 4), 500 + (2400 * 4), 1500 + (2400 * 4), 2200 + (2400 * 4), 500 + (2400 * 5), 1750 + (2400 * 5), 2500 + (2400 * 5), 850 + (2400 * 6), 1700-150 + (2400 * 6), 2550-300 + (2400 * 6), 1000-150 + (2400 * 7), 2000 + (2400 * 7), 2300 + (2400 * 8), 3000 + (2400 * 8)]; //, 2000 + (2400 * 9)];
-		var standardY = [350, 520, 700, 675-150, 750-150, 825-150, 900-150, 675-300, 800-350, 800-350, 925-400, 1050-450, 650, 700, 800, 800, 800, 800, 900, 350, 250];  //, 1150]; // [500, 300, 150, 500, 250, 650]; // 550
-		for (var i = 0; i < standardX.length; i++) {	
-			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
-			ledge.body.immovable = true;
-			ledge.anchor.setTo(0.5, 0.5);
-		}
-		
-		// Creates intentional concrete buildings for standard platforms
-		var concreteSY = [375, 505, 675, 375, 525, 225, 225]; // [525, 325, 175, 525, 275, 675]; // In place of 0: 675
-		for (var i = 0; i < concreteSY.length; i++) {
-			// var x = [1200 + (2400 * 1), 800 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5)];
-			var ledge = platforms.create(standardX[i]-(256/2), game.world.height - standardY[i] + 25, "building"); //game.world.height - concreteSY[i]
-			// Sets size of placeholder image.
-			ledge.scale.setTo(8);
-			ledge.body.immovable = true;
-			// Setting anchor of image to center
-			//ledge.anchor.setTo(0.5, 0.5);
-		}
-		
-		// Creates intentional longer platforms 325 + (2400 * 7)
-		// Longer platforms are 384px long
-		var longerX = [2100 + (2400 * 0), 1100 + (2400 * 1), 1500 + (2400 * 1), 1900 + (2400 * 1), 2300 + (2400 * 1), 900 + (2400 * 2), 1900 + (2400 * 2), 2900 + (2400 * 2), 1000 + (2400 * 5), 3000 + (2400 * 7), 1500 + (2400 * 8)];
-		var longerY = [250, 350, 450, 550, 800, 800-150, 700-150, 600-150, 1050-450, 650, 450];// [348, 550, 600, 550, 600]; // 450
-		for (var i = 0; i < longerX.length; i++) {	
-			var ledge = platforms.create(longerX[i], game.world.height - longerY[i], "buildingPlatformTop2");
-			ledge.body.immovable = true;
-			ledge.anchor.setTo(0.5, 0.5);
-		}
-		
-		// Creates intentional concrete buildings for longer platforms
-		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
-		for (var i = 0; i < concreteLY.length; i++) { // Adjust length of for loop
-			// var x = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3)];
-			var ledge = platforms.create(longerX[i]-(384/2), game.world.height - longerY[i] + 35, "building");//game.world.height - concreteLY[i]
-			// Sets size of placeholder image.
-			ledge.scale.setTo(12);
-			ledge.body.immovable = true;
-			// Setting anchor of image to center
-			//ledge.anchor.setTo(0.5, 0.5);
-		}
 		
 		// Creating the end token
 		this.endToken = new endToken(game, game.world.width-200, game.world.height-200, "endToken", 0, 1, 0); // game.world.width-200
@@ -258,4 +257,11 @@ LevelThree.prototype = {
 		console.log("Restart Level 3");
 		game.state.start("LevelThree", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 	},
+
+	render: function()
+	{
+		//Sample: game.debug.body(sprite);
+		game.debug.body(this.player);
+		game.debug.body(this.endToken);
+	}
 };

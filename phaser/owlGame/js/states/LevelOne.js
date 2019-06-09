@@ -126,14 +126,17 @@ LevelOne.prototype = {
 		var longerY = [552, 350, 300, 350, 300, 300, 350, 400, 450, 500, 550, 550, 500, 300, 400, 500, 1000+450];// [348, 550, 600, 550, 600]; // 450
 		// Creates intentional concrete buildings for longer platforms
 		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
-		for (var i = 0; i < concreteLY.length; i++) {
+		for (var i = 0; i < longerY.length - 1; i++) {
 			// var x = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3)];
-			var ledge = platforms.create(longerX[i], game.world.height - longerY[i] + 200, "interactableBuilding");
-			// Sets size of placeholder image.
-			ledge.scale.setTo(1.8);
-			ledge.body.immovable = true;
-			// Setting anchor of image to center
-			ledge.anchor.setTo(0.5, 0.5);
+			if(i > longerY.length - 5 || i < longerY.length - 12)
+			{
+				var ledge = platforms.create(longerX[i], game.world.height - longerY[i] + 200, "interactableBuilding");
+				// Sets size of placeholder image.
+				ledge.scale.setTo(1.8);
+				ledge.body.immovable = true;
+				// Setting anchor of image to center
+				ledge.anchor.setTo(0.5, 0.5);
+			}
 		}
 		// Longer Platforms for longer buildings
 		for (var i = 0; i < longerX.length; i++) {	
@@ -146,6 +149,15 @@ LevelOne.prototype = {
 		// Longerer platforms are 256 x 4 long
 		var longererX = [65 + (2400 * 6)];
 		var longererY = [550];
+		for (var i = 0; i < longererY.length; i++) {
+			// var x = [1200 + (2400 * 1), 800 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5)];
+			var ledge = platforms.create(longererX[i], game.world.height - longererY[i] + 2500, "interactableBuilding");
+			// Sets size of placeholder image.
+			ledge.scale.setTo(6.5);
+			ledge.body.immovable = true;
+			// Setting anchor of image to center
+			ledge.anchor.setTo(0.5, 0.5);
+		}
 		for(var i = 0; i < longererX.length; i++)
 		{
 			var ledge = platforms.create(longererX[i], game.world.height - longererY[i], "buildingPlatformTop2");
