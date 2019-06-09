@@ -34,7 +34,7 @@ CutsceneTwoC.prototype = {
 		var second = game.add.sprite(0,0,'cutscene2c');
 
 		menuText1 = game.add.text(game.width / 2, 800, "Interviewer: Oh is that so Mr. Owl? Tell me, why didn't you say so in the first place? \nIf you're gonna lie, how can we even trust you with working in this company? \nWe can't have someone being dishonest about himself, so please leave. \nOwl: Wait! That's not it at all, you haven't even heard the entire situation. Please hear me out! \nInterviwer: GET OUT", {fontsize: '72px', fill: '#FFF'});
-		menuText2 = game.add.text(game.width - 400, 835, "SPACEBAR to continue", {fontsize: '72px', fill: '#FFF'}); 
+		menuText2 = game.add.text(game.width - 400, 835, "[SPACE] to continue", {fontsize: '72px', fill: '#FFF'}); 
 		menuText1.anchor.setTo(0.5, 0.5);
 		
 

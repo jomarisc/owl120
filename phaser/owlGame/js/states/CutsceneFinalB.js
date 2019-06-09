@@ -36,7 +36,7 @@ CutsceneFinalB.prototype = {
 		var last1 = game.add.sprite(0, 0, 'cutscene5b');
 		
 		menuText1 = game.add.text(game.width / 2 - 20, 790, "Owl: Fin? \nFin: Yeah Owl! Why'd you take off like that? Been trying to reach you this whole time. \nOwl: Yeah... yeah hey Fin. I'm sorry... \nFin: Hmm? Owl... *sigh*... ya know, we can talk... actually I've always known. \nOwl: ...did you know... did you know this whole time, who I really am?\nFin: Yeah... this whole time.", {fontsize: '72px', fill: '#FFF'});
-		menuText2 = game.add.text(game.width - 400, 835, "SPACEBAR to continue", {fontsize: '72px', fill: '#FFF'}); 
+		menuText2 = game.add.text(game.width - 400, 835, "[SPACE] to continue", {fontsize: '72px', fill: '#FFF'}); 
 		menuText1.anchor.setTo(0.5, 0.5);
 	},
 

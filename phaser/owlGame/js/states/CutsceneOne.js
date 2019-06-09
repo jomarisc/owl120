@@ -34,7 +34,7 @@ CutsceneOne.prototype = {
 		
 		// Creates the text of the first cutscene
 		menuText1 = game.add.text(game.width / 2 - 10, 835, "Owl: Oh hey its Fin. Hmm gonna quickly respond and get going. Gotta hurry though for my interview or else I'll be late!", {fontsize: '72px', fill: '#FFF'});
-		menuText2 = game.add.text(game.width - 400, 835, "SPACEBAR to continue", {fontsize: '72px', fill: '#FFF'}); 
+		menuText2 = game.add.text(game.width - 400, 835, "[SPACE] to continue", {fontsize: '72px', fill: '#FFF'}); 
 		menuText1.anchor.setTo(0.5, 0.5);
 		//menuText1.align = "center";
 		// menuText1 = game.add.text(game.width / 2, 450, 'This is the first cutscene.\nYou have your job interview, but the interviewer\npulls up an image of you passed out on the floor\nholding a bottle of liquor.\nInterviewer says, "Explain this please."\nYou try to talk your way out of this embarrassing photo.\nPress SPACEBAR to continue.', {fontsize: '72px', fill: '#000'});

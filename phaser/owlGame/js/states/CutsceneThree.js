@@ -41,7 +41,7 @@ CutsceneThree.prototype = {
 		var first = game.add.sprite(0, 0, 'cutscene4');
 		
 		menuText1 = game.add.text(game.width / 2 - 20, 810, "Owl: ...why am I so scared to tell him? \n*bzzt *bzzzzzt \nOwl: It's Fin... *tap *tap *tap \ngosh... Hmm? a picture?", {fontsize: '72px', fill: '#FFF'});
-		menuText2 = game.add.text(game.width - 400, 835, "SPACEBAR to continue", {fontsize: '72px', fill: '#FFF'}); 
+		menuText2 = game.add.text(game.width - 400, 835, "[SPACE] to continue", {fontsize: '72px', fill: '#FFF'}); 
 		menuText1.anchor.setTo(0.5, 0.5);
 		
 	},

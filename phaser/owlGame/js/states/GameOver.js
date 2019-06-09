@@ -10,7 +10,7 @@ GameOver.prototype = {
 		//Check to start it all over again.
 		game.stage.backgroundColor = "#000"; //#facade
 		menuText = game.add.text(game.width / 2 - 680, 300, 'Thank you for playing', {font: '144px Helvetica', fill: '#FFF', align: "center"});
-		menuText = game.add.text(game.width / 2 - 350, 500, '\nPress ENTER to go back to the main menu.', {font: '36px Helvetica', fill: '#FFF', align: "center"});
+		menuText = game.add.text(game.width / 2 - 350, 500, '\nPress [SPACE] to go back to the main menu.', {font: '36px Helvetica', fill: '#FFF', align: "center"});
 		menuText = game.add.text(game.width / 2, 700, 'OWLG120: \nJoel Mariscal\nCharles Advincula\n Alex Kuang\n Jarreau Ortega', {font: '18px Helvetica',fill: '#FFF'});
 		menuText.anchor.setTo(0.5, 0.5);
 		menuText.align = "center";
@@ -18,7 +18,7 @@ GameOver.prototype = {
 	},
 	update: function() {
 		//Triggers the start of the next state.
-		if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
+		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
 			game.state.start('MainMenu');
 		};
 	}

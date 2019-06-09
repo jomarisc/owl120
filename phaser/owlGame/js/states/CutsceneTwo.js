@@ -35,7 +35,7 @@ CutsceneTwo.prototype = {
 		var first = game.add.sprite(0,0,'cutscene2a');
 		
 		menuText1 = game.add.text(game.width / 2, 835, "Interviewer: Okay Mr. Owl, you seem qualified for the job, however I have one more question to ask you. \nWe found a picture that looks like you. We can't be having our employees being so reckless. If this is really you, \nI don't think we should take you in. Can you please explain this?", {fontsize: '72px', fill: '#FFF'});
-		menuText2 = game.add.text(game.width - 400, 835, "SPACEBAR to continue", {fontsize: '72px', fill: '#FFF'}); 
+		menuText2 = game.add.text(game.width - 400, 835, "[SPACE] to continue", {fontsize: '72px', fill: '#FFF'}); 
 		menuText1.anchor.setTo(0.5, 0.5);
 
 	},

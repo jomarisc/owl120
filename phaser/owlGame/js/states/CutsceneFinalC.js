@@ -52,7 +52,8 @@ CutsceneFinalC.prototype = {
 				// Changing the background
 				this.keyArray = ["blueSky", "farBuildings", "midBuildings", "closeBuildings"];
 				setUpBackground(this.layerArray, this.keyArray, 1, 4);
-				menuText1 = game.add.text(game.width / 2, 450, 'The sun is rising. Your friend pulls up at your place to check in on you.\nYou talk it out, then all the photos that have been bugging you disappear.\nPress G to enter the next state.', {fontsize: '72px', fill: '#000'});
+				// menuText1 = game.add.text(game.width / 2, 450, 'The sun is rising. Your friend pulls up at your place to check in on you.\nYou talk it out, then all the photos that have been bugging you disappear.\nPress G to enter the next state.', {fontsize: '72px', fill: '#000'});
+				menuText1 = game.add.text(game.width / 2, 450, 'The sun is rising. You both head home talking. As you walk back, all the photos that have been weighing on you slowly disappear.\nPress [SPACE] to continue.', {fontsize: '72px', fill: '#000'});
 					menuText1.anchor.setTo(0.5, 0.5);
 					menuText1.align = "center";
 				this.continues++;
