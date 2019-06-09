@@ -241,7 +241,7 @@ LevelThree.prototype = {
 			//				Will continue to look into and change if needed.
 			this.endToken.destroy(); 
 			this.levelCleared.play();
-			game.state.start('CutsceneThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			game.state.start('LevelFour', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 
 			// Camera Fade
 			// game.camera.fade(0x000000, 1000, true);

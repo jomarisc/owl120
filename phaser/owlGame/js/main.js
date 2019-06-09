@@ -18,10 +18,15 @@ window.onload = function(){
 
 	game = new Phaser.Game(2400, 900, Phaser.CANVAS); // AUTO); //2400
 
+	// game.scale.pageAlignHorizontally = true;
+	// game.scale.pageAlignVertically = true;
+	// game.scale.refresh();
+
 	//Adding all game states to the 'game' object instance.
 	game.state.add('MainMenu', MainMenu);
-	game.state.add('LevelOne', LevelOne);
+	game.state.add('Tutorial', Tutorial);
 	game.state.add('CutsceneOne', CutsceneOne);
+	game.state.add('LevelOne', LevelOne);
 	game.state.add('LevelTwo', LevelTwo);
 	game.state.add('CutsceneTwo', CutsceneTwo);
 	game.state.add('CutsceneTwoB', CutsceneTwoB);

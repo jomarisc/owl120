@@ -33,15 +33,18 @@ CutsceneTwoD.prototype = {
 
 		var second = game.add.sprite(0,0,'cutscene3');
 
+		menuText1 = game.add.text(game.width / 2 - 30, 800, "Owl: That's another... man how'd that picture even come up? Man, why now... what do I tell Fin? \nGonna go home...", {fontsize: '72px', fill: '#FFF'});
+		menuText2 = game.add.text(game.width - 400, 835, "[SPACE] to continue", {fontsize: '72px', fill: '#FFF'}); 
+		menuText1.anchor.setTo(0.5, 0.5);
 
 	},
 
 	update: function()
 	{
 		//Triggers the start of the next state.
-		if(game.input.keyboard.isDown(Phaser.Keyboard.S)) {
+		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
 			// game.state.start('LevelThree', true);
-			game.state.start('LevelThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			game.state.start('LevelTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 			
 			// game.camera.fade(0x000000, 1000, true);
 			// game.camera.onFadeComplete.add(this.finishFade, this);

@@ -39,12 +39,17 @@ CutsceneThree.prototype = {
 
 
 		var first = game.add.sprite(0, 0, 'cutscene4');
+		
+		menuText1 = game.add.text(game.width / 2 - 20, 810, "Owl: ...why am I so scared to tell him? \n*bzzt *bzzzzzt \nOwl: It's Fin... *tap *tap *tap \ngosh... Hmm? a picture?", {fontsize: '72px', fill: '#FFF'});
+		menuText2 = game.add.text(game.width - 400, 835, "[SPACE] to continue", {fontsize: '72px', fill: '#FFF'}); 
+		menuText1.anchor.setTo(0.5, 0.5);
+		
 	},
 
 	update: function()
 	{
 		//Triggers the start of the next state.
-		if(game.input.keyboard.isDown(Phaser.Keyboard.D) && game.input.keyboard.downDuration(Phaser.Keyboard.D, 1)) {
+		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
 			// if(this.continues == 0)
 			// {
 			// 	// Camera Fade in
@@ -60,7 +65,7 @@ CutsceneThree.prototype = {
 			// }
 			// else
 			// {
-				game.state.start('LevelFour', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+				game.state.start('LevelThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 			// }
 			// game.camera.fade(0x000000, 1000, true);
 			// game.camera.onFadeComplete.add(this.finishFade, this);

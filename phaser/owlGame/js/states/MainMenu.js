@@ -240,7 +240,7 @@ MainMenu.prototype = {
 
 		//Triggers the start of the next state.
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-			game.state.start('LevelOne');
+			game.state.start('Tutorial',  true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 		};
 	},
 	shutdown: function()

@@ -34,12 +34,16 @@ CutsceneFinal.prototype = {
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
 		var last1 = game.add.sprite(0, 0, 'cutscene5a');
+		
+		menuText1 = game.add.text(game.width / 2 - 20, 810, "Owl: ... \n\nFin: Hey Owl! there you are...", {fontsize: '72px', fill: '#FFF'});
+		menuText2 = game.add.text(game.width - 400, 835, "[SPACE] to continue", {fontsize: '72px', fill: '#FFF'}); 
+		menuText1.anchor.setTo(0.5, 0.5);
 	},
 
 	update: function()
 	{
 		//Triggers the start of the next state.
-		if(game.input.keyboard.isDown(Phaser.Keyboard.G) && game.input.keyboard.downDuration(Phaser.Keyboard.G, 1)) {
+		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
 			// if(this.continues == 0)
 			// {
 			// 	// Camera Fade in
