@@ -106,17 +106,16 @@ LevelOne.prototype = {
 		var concreteSY = [375, 505, 675, 375, 525, 225, 225]; // [525, 325, 175, 525, 275, 675];
 		for (var i = 0; i < standardY.length - 6; i++) {
 			// var x = [1200 + (2400 * 1), 800 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5)];
-			var ledge = platforms.create(standardX[i]-(256/2), game.world.height - standardY[i] - 325, "interactableBuilding");
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i] + 200, "interactableBuilding");
 			// Sets size of placeholder image.
-			// ledge.scale.setTo(8);
+			ledge.scale.setTo(1.3);
 			ledge.body.immovable = true;
 			// Setting anchor of image to center
-			//ledge.anchor.setTo(0.5, 0.5);
+			ledge.anchor.setTo(0.5, 0.5);
 		}
 		// Standard platforms for standard buildings
 		for (var i = 0; i < standardX.length; i++) {	
 			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
-			ledge.scale.setTo(0.7);
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
@@ -129,17 +128,16 @@ LevelOne.prototype = {
 		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
 		for (var i = 0; i < concreteLY.length; i++) {
 			// var x = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3)];
-			var ledge = platforms.create(longerX[i]-(384/2), game.world.height - longerY[i] - 430, "interactableBuilding");
+			var ledge = platforms.create(longerX[i], game.world.height - longerY[i] + 200, "interactableBuilding");
 			// Sets size of placeholder image.
-			ledge.scale.setTo(1.5);
+			ledge.scale.setTo(1.8);
 			ledge.body.immovable = true;
 			// Setting anchor of image to center
-			//ledge.anchor.setTo(0.5, 0.5);
+			ledge.anchor.setTo(0.5, 0.5);
 		}
 		// Longer Platforms for longer buildings
 		for (var i = 0; i < longerX.length; i++) {	
 			var ledge = platforms.create(longerX[i], game.world.height - longerY[i], "buildingPlatformTop2");
-			ledge.scale.setTo(0.7);
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
