@@ -60,12 +60,12 @@ LevelThree.prototype = {
 		var concreteSY = [375, 505, 675, 375, 525, 225, 225]; // [525, 325, 175, 525, 275, 675]; // In place of 0: 675
 		for (var i = 0; i < standardY.length; i++) {
 			// var x = [1200 + (2400 * 1), 800 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5)];
-			var ledge = platforms.create(standardX[i], game.world.height - standardY[i] + 200, "interactableBuilding"); //game.world.height - concreteSY[i]
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "interactableBuilding"); //game.world.height - concreteSY[i]
 			// Sets size of placeholder image.
-			ledge.scale.setTo(1.3);
+			ledge.scale.setTo(1);
 			ledge.body.immovable = true;
 			// Setting anchor of image to center
-			ledge.anchor.setTo(0.5, 0.5);
+			ledge.anchor.setTo(0.5, 0);
 		}
 		for (var i = 0; i < standardX.length; i++) {	
 			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
@@ -81,12 +81,12 @@ LevelThree.prototype = {
 		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
 		for (var i = 0; i < longerY.length; i++) { // Adjust length of for loop
 			// var x = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3)];
-			var ledge = platforms.create(longerX[i], game.world.height - longerY[i] + 200, "interactableBuilding");//game.world.height - concreteLY[i]
+			var ledge = platforms.create(longerX[i], game.world.height - longerY[i], "interactableBuilding");//game.world.height - concreteLY[i]
 			// Sets size of placeholder image.
-			ledge.scale.setTo(1.8);
+			ledge.scale.setTo(1.5);
 			ledge.body.immovable = true;
 			// Setting anchor of image to center
-			ledge.anchor.setTo(0.5, 0.5);
+			ledge.anchor.setTo(0.5, 0);
 		}
 		for (var i = 0; i < longerX.length; i++) {	
 			var ledge = platforms.create(longerX[i], game.world.height - longerY[i], "buildingPlatformTop2");
