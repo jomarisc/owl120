@@ -116,6 +116,7 @@ LevelOne.prototype = {
 		// Standard platforms for standard buildings
 		for (var i = 0; i < standardX.length; i++) {	
 			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
+			ledge.scale.setTo(2);
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
@@ -141,6 +142,7 @@ LevelOne.prototype = {
 		// Longer Platforms for longer buildings
 		for (var i = 0; i < longerX.length; i++) {	
 			var ledge = platforms.create(longerX[i], game.world.height - longerY[i], "buildingPlatformTop2");
+			ledge.scale.setTo(1, 1.5);
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
@@ -151,17 +153,17 @@ LevelOne.prototype = {
 		var longererY = [550];
 		for (var i = 0; i < longererY.length; i++) {
 			// var x = [1200 + (2400 * 1), 800 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5)];
-			var ledge = platforms.create(longererX[i], game.world.height - longererY[i] + 2500, "interactableBuilding");
+			var ledge = platforms.create(longererX[i], game.world.height - longererY[i], "buildingLarge");
 			// Sets size of placeholder image.
-			ledge.scale.setTo(6.5);
+			ledge.scale.setTo(1.4);
 			ledge.body.immovable = true;
 			// Setting anchor of image to center
-			ledge.anchor.setTo(0.5, 0.5);
+			ledge.anchor.setTo(0.5, 0);
 		}
 		for(var i = 0; i < longererX.length; i++)
 		{
-			var ledge = platforms.create(longererX[i], game.world.height - longererY[i], "buildingPlatformTop2");
-			ledge.scale.setTo(4, 1);
+			var ledge = platforms.create(longererX[i], game.world.height - longererY[i], "buildingPlatformTop3");
+			ledge.scale.setTo(3);
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
