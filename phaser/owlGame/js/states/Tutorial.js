@@ -1,7 +1,8 @@
+/////
 //Creating level one's state.
 //var levelComplete = false;
-var LevelOne = function(game) {};
-LevelOne.prototype = {
+var Tutorial = function(game) {};
+Tutorial.prototype = {
 	init: function() {
 		this.sky;
 		this.farBuildings;
@@ -17,12 +18,17 @@ LevelOne.prototype = {
 		game.load.image("midBuildings", "assets/img/buildings0001.png");
 		game.load.image("closeBuildings", "assets/img/buildings0002.png");
 		game.load.image("interactableBuilding", "assets/img/buildings0003.png");
+		game.load.image("tutorialBG", "assets/img/tutorialLevel3.png");
+		game.load.image("tutorialWall", "assets/img/tutorialWall.png");
+		game.load.image("tutorialCeiling", "assets/img/tutorialCeiling.png");
+		game.load.image("tutorialBedFloor", "assets/img/tutorialBedFloor.png");
+		game.load.image("tutorialGround", "assets/img/tutorialGround.png");
 		game.load.audio("levelCleared", "assets/audio/coin.mp3");
 		game.load.audio("jumpSound", "assets/audio/wingFlap.mp3");
 	},
 	create: function() {
 		// Setting up the world bounds for the camera
-		game.world.setBounds(0, 0, 24000, 1800);
+		game.world.setBounds(0, 0, 2400, 900);
 
 		// Level Sounds
 		this.levelCleared = game.add.audio("levelCleared");
@@ -40,10 +46,15 @@ LevelOne.prototype = {
 		
 		// setUpBackground(layerArray, keyArray)
 		setUpBackground(this.layerArray, this.keyArray, 1, 1);
+		
+		//Creating the house
+		//game.add.sprite(400, 140, 'tutorialBG');
+		game.add.sprite(850, 200, 'tutorialBG');
 
-		menuText1 = game.add.text(game.width / 2, 450, 'This is the first level.\nPress Q to enter the next state.', {fontsize: '72px', fill: '#000'});
-		menuText1.anchor.setTo(0.5, 0.5);
-		menuText1.align = "center";
+		// Creates text in the middle of the screen
+		// menuText1 = game.add.text(game.width / 2, 450, 'This is the first level.\nPress Q to enter the next state.', {fontsize: '72px', fill: '#000'});
+		// menuText1.anchor.setTo(0.5, 0.5);
+		// menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
 
 		// Creating platforms template
@@ -51,32 +62,48 @@ LevelOne.prototype = {
 		platforms.enableBody = true;
 		deathPlatforms = game.add.group();
 		deathPlatforms.enableBody = true;
+		housePieces = game.add.group();
+		housePieces.enableBody = true;
+		
+		// Creates the walls of the house
+		for (var i = 850; i <= 1435; i = i + 585){
+			var walls = housePieces.create(i, 200, "tutorialWall");
+			walls.body.immovable = true;
+		}	
+		// Creates the ceiling of the house
+		var ceiling = housePieces.create(850, 200, "tutorialCeiling");
+		ceiling.body.immovable = true;
+		// Creates the floor of bed area in house
+		var bedFloor = housePieces.create(865, 488, "tutorialBedFloor");
+		bedFloor.body.immovable = true;
+		// Creates the ground of the house
+		var houseGround = housePieces.create(868, 770, "tutorialGround");
+		houseGround.body.immovable = true;
 		
 		// Creating ground collidable object
 		// Remember the length of each platform is 1600px!
 		// Placing the first one will start at x position 0 in the game,
 		// and the next one will be placed as x position 1600.
 		for (var i = 0; i <= 1600; i = i + 1600){
-			var ground = platforms.create(i, game.world.height-100, "ground");
+			// var ground = platforms.create(i, game.world.height-100, "ground");
+			var ground = platforms.create(i, 800, "ground");
 			ground.body.immovable = true;
 		}
-		for (var i = 3200; i <= (game.world.width - 3200); i = i + 1600){
+		/* for (var i = 3200; i <= (game.world.width - 3200); i = i + 1600){
 			var ground = deathPlatforms.create(i, game.world.height-100, "ground");
 			ground.body.immovable = true;
 		}
 		for (var i = (game.world.width - 1600); i <= (game.world.width - 1600); i = i + 1600){
 			var ground = platforms.create(i, game.world.height-100, "ground");
 			ground.body.immovable = true;
-		}
+		} */
 		
 		// Creates roadblock collidable object
 		roadBlock = game.add.group();
 		roadBlock.enableBody = true;
-		var block = roadBlock.create(3200-25, game.world.height-275, "roadblock"); // game.world.height-200
+		var block = roadBlock.create(3200, 3200, "roadblock"); // game.world.height-200
 		block.body.immovable = true;
-		// 2nd potential roadblock may be here. Test by game feel. 
-		var block = roadBlock.create(game.world.width - 1850, game.world.height-275, "roadblock2"); // 1600
-		block.body.immovable = true;
+		
 		/* 
 		// TESTING CODE: Uncomment this code for testing the placement of the    
 		// roadblock. If change is needed, adjust death ground platform position    // accordingly
@@ -183,14 +210,15 @@ LevelOne.prototype = {
 		var ledge = platforms.create(500, 600, "buildingPlatformTop2");
 		ledge.body.immovable = true;
 		*/
-		
+
 		// Creating the end token
-		this.endToken = new endToken(game, 1000 + (2400 * 9), 200, "endToken", 0, 1, 0);
+		// this.endToken = new endToken(game, 650 + (2400 * 0), game.world.height - 200, "endToken", 0, 1, 0);
+		this.endToken = new endToken(game, 950, game.world.height - 200, "endToken", 0, 1, 0);
 		game.add.existing(this.endToken);
 
 		// Creating the player
 		// Fast overall movement for the player in level one
-		this.player = new OwlFabs(game, 300 + (2400 * 0), game.world.height - 200, "jumpSound", "normOwl", "64owl0000", 2, 1000, 300, 600, 3000, 2000, 1000);
+		this.player = new OwlFabs(game, 1100, 218, "jumpSound", "normOwl", "64owl0000", 2, 1000*(3/4), 300*(3/4), 600*(3/4), 3000*(3/4), 2000*(3/4), 1000*(3/4));
 		// this.player = new OwlFabs(game, game.world.width-200, game.world.height - 200, "jumpSound", "owl", "64owl0000", 2, 1000, 300, 600, 3000, 2000, 1000);
 		game.add.existing(this.player);
 
@@ -224,9 +252,10 @@ LevelOne.prototype = {
 
 
 		}
+		var houseCollid = game.physics.arcade.collide(this.player, housePieces);
 		var hitDeathPlatform = game.physics.arcade.collide(this.player, deathPlatforms);
 		var roadBlockCollide = game.physics.arcade.collide(roadBlock, [this.player, platforms, deathPlatforms]);
-		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
+		var coinPlatform = game.physics.arcade.collide(this.endToken, [platforms, housePieces]);
 
 		// Parallax Speed
 		var parallaxSpeed = this.player.body.velocity.x / 750;
@@ -279,7 +308,7 @@ LevelOne.prototype = {
 		}
 		
 		// Triggers the start of the next state.
-		if(game.physics.arcade.collide(this.player, this.endToken) || game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
+		if(game.physics.arcade.collide(this.player, this.endToken) || game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
 			// Used the below line to remove the hitbox and initiate the transition immediately
 			// OBSERVATION: Noticed the transition would not occur immediately when using
 			//				overlap or collide in the if statement's check.
@@ -288,7 +317,7 @@ LevelOne.prototype = {
 			this.endToken.destroy(); 
 			this.levelCleared.play();
 
-			game.state.start("CutsceneTwo", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			game.state.start("CutsceneOne", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 			// // Camera Fade
 			// game.camera.fade(0x000000, 1000, true);
 			// game.camera.onFadeComplete.add(this.finishFade, this);
@@ -319,11 +348,13 @@ LevelOne.prototype = {
 	// TESTING CODE: Uncomment this function to check hitboxes of particular sprites
 	// that utilze arcade physics
 	 
-	render: function()
+	/* render: function()
 	{
 		//Sample: game.debug.body(sprite);
 		game.debug.body(this.player);
 		game.debug.body(this.endToken);
-	}
+		//game.debug.body(housePieces);
+	
+	} */
 	
 };

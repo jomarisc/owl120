@@ -28,12 +28,19 @@ CutsceneOne.prototype = {
 		// Set up background
 		setUpBackground(this.layerArray, this.keyArray, 1, 1);
 
-		menuText1 = game.add.text(game.width / 2, 450, 'This is the first cutscene.\nYou have your job interview, but the interviewer\npulls up an image of you passed out on the floor\nholding a bottle of liquor.\nInterviewer says, "Explain this please."\nYou try to talk your way out of this embarrassing photo.\nPress A to continue.', {fontsize: '72px', fill: '#000'});
-		menuText1.anchor.setTo(0.5, 0.5);
-		menuText1.align = "center";
-		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
-
+		
+		// Creates the first cutscene image
 		game.add.sprite(0, 0, 'cutscene1');
+		
+		// Creates the text of the first cutscene
+		menuText1 = game.add.text(game.width / 2 - 10, 835, "Owl: Oh hey its Fin. Hmm gonna quickly respond and get going. Gotta hurry though for my interview or else I'll be late!", {fontsize: '72px', fill: '#FFF'});
+		menuText2 = game.add.text(game.width - 400, 835, "SPACEBAR to continue", {fontsize: '72px', fill: '#FFF'}); 
+		menuText1.anchor.setTo(0.5, 0.5);
+		//menuText1.align = "center";
+		// menuText1 = game.add.text(game.width / 2, 450, 'This is the first cutscene.\nYou have your job interview, but the interviewer\npulls up an image of you passed out on the floor\nholding a bottle of liquor.\nInterviewer says, "Explain this please."\nYou try to talk your way out of this embarrassing photo.\nPress SPACEBAR to continue.', {fontsize: '72px', fill: '#000'});
+		// menuText1.anchor.setTo(0.5, 0.5);
+		// menuText1.align = "center";
+		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
 	},
 
 	update: function()
@@ -43,8 +50,8 @@ CutsceneOne.prototype = {
 		game.camera.deadzone = new Phaser.Rectangle(128 / 2, 450, 50, 350);
 
 		//Triggers the start of the next state.
-		if(game.input.keyboard.isDown(Phaser.Keyboard.A) && game.input.keyboard.downDuration(Phaser.Keyboard.A, 1)) {
-			if(this.continues == 0)
+		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
+			/* if(this.continues == 0)
 			{
 				// Camera Fade in
 				game.camera.flash(0x000000, 1000, true);
@@ -53,9 +60,9 @@ CutsceneOne.prototype = {
 				this.continues++;
 			}
 			else
-			{
-				game.state.start('LevelTwo', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-			}
+			{ */
+				game.state.start('LevelOne', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			//}
 
 			
 			// game.camera.fade(0x000000, 1000, true);

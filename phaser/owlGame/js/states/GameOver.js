@@ -8,10 +8,12 @@ GameOver.prototype = {
 	},
 	create: function() {
 		//Check to start it all over again.
-		game.stage.backgroundColor = "#facade";
-		menuText1 = game.add.text(game.width / 2, 450, 'This is the game over state.\nPress ENTER to enter go back to the main menu.', {fontsize: '72px', fill: '#000'});
-		menuText1.anchor.setTo(0.5, 0.5);
-		menuText1.align = "center";
+		game.stage.backgroundColor = "#000"; //#facade
+		menuText = game.add.text(game.width / 2 - 680, 300, 'Thank you for playing', {font: '144px Helvetica', fill: '#FFF', align: "center"});
+		menuText = game.add.text(game.width / 2 - 350, 500, '\nPress ENTER to go back to the main menu.', {font: '36px Helvetica', fill: '#FFF', align: "center"});
+		menuText = game.add.text(game.width / 2, 700, 'OWLG120: \nJoel Mariscal\nCharles Advincula\n Alex Kuang\n Jarreau Ortega', {font: '18px Helvetica',fill: '#FFF'});
+		menuText.anchor.setTo(0.5, 0.5);
+		menuText.align = "center";
 		// menuText2 = game.add.text(500, 550, '', {fontsize: '64px', fill: '#000'});
 	},
 	update: function() {

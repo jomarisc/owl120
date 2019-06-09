@@ -34,12 +34,16 @@ CutsceneFinalC.prototype = {
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
 		var last1 = game.add.sprite(0, 0, 'finalVig');
+		
+		menuText1 = game.add.text(game.width / 2 - 20, 790, "Fin: Knew that you were trying your best. You were doing all sorts of things, chasing opportunities, working hard, trying to clean up everything but actually running away. \nAnd when everything came back... you just took off again... \n*sniff* you aren't alone, ya know... please don't take off like that again... Owl we ain't the best people but there really are people who do care about ya \nenough to know your faults, say something about em, and carry em with you. So please... Owl let's talk. \nOwl: yeah... yeah *sniff* let's go home...", {fontsize: '72px', fill: '#FFF'});
+		menuText2 = game.add.text(game.width - 400, 835, "SPACEBAR to continue", {fontsize: '72px', fill: '#FFF'}); 
+		menuText1.anchor.setTo(0.5, 0.5);
 	},
 
 	update: function()
 	{
 		//Triggers the start of the next state.
-		if(game.input.keyboard.isDown(Phaser.Keyboard.G) && game.input.keyboard.downDuration(Phaser.Keyboard.G, 1)) {
+		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
 			if(this.continues == 0)
 			{
 				// Camera Fade in

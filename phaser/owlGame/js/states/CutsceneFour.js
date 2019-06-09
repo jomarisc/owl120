@@ -39,13 +39,17 @@ CutsceneFour.prototype = {
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
 
 		var second = game.add.sprite(0, 0, 'cutscene4b');
+		
+		menuText1 = game.add.text(game.width / 2 - 20, 800, "Owl: ...they're coming back. I remember these... I thought these were gone... \nWhat's all this work been for? After all the work to learn these skills, be a part of a tech company, and start clean... \nit started to look like something good was coming. Fin even recommended me to this company to help me \ntry to land an opportunity. It's gonna go to waste... man if Fin knew all about this... he'd think I'm horrible. \nI've gotta go somewhere... please anywhere... anywhere away from here...", {fontsize: '72px', fill: '#FFF'});
+		menuText2 = game.add.text(game.width - 400, 835, "SPACEBAR to continue", {fontsize: '72px', fill: '#FFF'}); 
+		menuText1.anchor.setTo(0.5, 0.5);
 
 	},
 
 	update: function()
 	{
 		//Triggers the start of the next state.
-		if(game.input.keyboard.isDown(Phaser.Keyboard.F) && game.input.keyboard.downDuration(Phaser.Keyboard.F, 1)) {
+		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
 			// if(this.continues == 0)
 			// {
 			// 	// Camera Fade in
