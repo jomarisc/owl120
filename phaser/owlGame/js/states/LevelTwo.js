@@ -86,6 +86,7 @@ LevelTwo.prototype = {
 		var standardY = [1450, 1250, 1050, 800, 780, 780, 450, 450, 830, 578, 1200, 1070, 1370, 1370, 1070, 830, 730, 600];
 		for (var i = 0; i < standardX.length; i++) {	
 			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
+			ledge.scale.setTo(2);
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
@@ -95,6 +96,7 @@ LevelTwo.prototype = {
 		var standardY = [520, 320, 450, 830];
 		for (var i = 0; i < standardX.length; i++) {	
 			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop2");
+			ledge.scale.setTo(1, 1.5);
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
@@ -103,9 +105,9 @@ LevelTwo.prototype = {
 		var standardX = [2700 + (2400 * 0), 4500 + (2400 * 0), 5500 + (2400 * 0), 8300 + (2400 * 0)];
 		var standardY = [1050, 800, 800, 1560];
 		for (var i = 0; i < standardX.length; i++) {	
-			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop3");
 			ledge.body.immovable = true;
-			ledge.scale.setTo(4, 1);
+			ledge.scale.setTo(2);
 			ledge.anchor.setTo(0.5, 0.5);
 		}
 		

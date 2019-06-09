@@ -69,6 +69,7 @@ LevelThree.prototype = {
 		}
 		for (var i = 0; i < standardX.length; i++) {	
 			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
+			ledge.scale.setTo(2);
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}

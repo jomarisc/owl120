@@ -54,6 +54,7 @@ LevelFinal.prototype = {
 		var standardY = [400, 300, 400, 700, 600, 700, 1000, 900, 1000, 1300, 1200, 1300, 1600, 1500, 1600, 1800];  //, 1150]; // [500, 300, 150, 500, 250, 650]; // 550
 		for (var i = 0; i < standardX.length; i++) {	
 			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
+			ledge.scale.setTo(2);
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
