@@ -126,11 +126,11 @@ LevelFour.prototype = {
 		
 		// Creating the player
 		// Slower overall movement for the player in level three
-		this.player = new OwlFabs(game, game.world.width - 1000, game.world.height - 200, "jumpSound", "owl", "64sadOwl0000", 2, 1000*(2/4), 300*(2/4), 600*(2/4), 3000*(2/4), 2000*(2/4), 1000*(2/4));
+		this.player = new OwlFabs(game, game.world.width - 1000, game.world.height - 200, "jumpSound", "owl", "64sadOwl0000", 2, 1000*(2/4), 300*(2/4), 600*(3/4), 3000*(2/4), 2000*(2/4), 1000*(3/4));
 		game.add.existing(this.player);
 		
 		// // Creates two images to hover near the player
-		this.billboard2 = new Billboard2(game, game.world.width-1000, -1000, -175, -200, "streak", 0, 2, 0, this.player, this.endToken);
+		this.billboard2 = new Billboard2(game, game.world.width-1000, -1000, 525, -200, "streak", 0, 2, 0, this.player, this.endToken);
 		//this.player.x -175, this.player.y - 200
 		game.add.existing(this.billboard2);
 		this.billboard3 = new Billboard3(game, game.world.width , 1000, 175, -200, "drunk", 0, 2, 0, this.player, this.endToken);
