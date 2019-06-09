@@ -2,7 +2,7 @@
 //var levelComplete = false;
 var LevelOne = function(game) {};
 LevelOne.prototype = {
-	init: function() {
+	init: function(bgm) {
 		this.sky;
 		this.farBuildings;
 		this.farParallax = 1;
@@ -10,6 +10,7 @@ LevelOne.prototype = {
 		this.midParallax = 3;
 		this.closeBuildings;
 		this.closeParallax = 5;
+		this.bgm = bgm;
 	},
 	preload: function() {
 		game.load.image("blueSky", "assets/img/pblueSky0000.png");
@@ -21,6 +22,7 @@ LevelOne.prototype = {
 		game.load.audio("jumpSound", "assets/audio/wingFlap.mp3");
 	},
 	create: function() {
+		console.log(this.bgm.name)
 		// Setting up the world bounds for the camera
 		game.world.setBounds(0, 0, 24000, 1800);
 
@@ -289,11 +291,13 @@ LevelOne.prototype = {
 			//				Will continue to look into and change if needed.
 			this.endToken.destroy(); 
 			this.levelCleared.play();
+			this.bgm.fadeOut();
+			this.bgm.onFadeComplete.add(this.finishFade, this);
 
-			game.state.start("CutsceneTwo", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			// game.state.start("CutsceneTwo", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 			// // Camera Fade
-			// game.camera.fade(0x000000, 1000, true);
-			// game.camera.onFadeComplete.add(this.finishFade, this);
+			game.camera.fade(0x000000, 1000, true);
+			game.camera.onFadeComplete.add(this.finishFade, this);
 		};
 		
 		// First version of code that ends level and transitions to next state.
@@ -308,10 +312,10 @@ LevelOne.prototype = {
 		*/
 	},
 
-	// finishFade: function()
-	// {
-	// 	game.state.start("CutsceneOne", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
-	// },
+	finishFade: function()
+	{
+		game.state.start("CutsceneTwo", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+	},
 	
 	restart: function()
 	{

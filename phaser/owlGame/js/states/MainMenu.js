@@ -30,6 +30,7 @@ MainMenu.prototype = {
 		game.load.image("buildingPlatform", "assets/img/gPlatform0001.png");
 		game.load.image("roadblock", "assets/img/roadblockSOR_final.png");
 		game.load.image("roadblock2","assets/img/roadblockAC_final.png");
+		game.load.audio("bgm01", "assets/audio/owl_bgm_00.mp3");
 
 		// Background Assets
 		// Texture Atlas
@@ -54,6 +55,10 @@ MainMenu.prototype = {
 	},
 	create: function() {
 		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+		// Add music
+		this.bgm = game.add.audio("bgm01");
+		this.bgm.play("", 0, 0.8, true);
 
 		// Set up background
 		// Background
@@ -152,6 +157,19 @@ MainMenu.prototype = {
 		this.fadeOutText2.chain(this.fadeInText2);
 	},
 	update: function() {
+		// Switch to looping bgm when necessary
+		// if(this.bgm.currentTime >= this.bgm.duration)
+		// {
+		// 	this.bgm.play("bgm01Loop", 0, 1, false, true);
+		// }
+		// if(this.bgm.isPlaying)
+		// {
+		// 	console.log("playing")
+		// }
+		// else
+		// {
+		// 	console.log("not playing")
+		// }
 		// Scrolling backgrounds
 		parallaxScroll(this.layerArray, this.layerSpeeds, 1);
 		parallaxScroll(this.layerArrayFront, this.layerSpeeds, 1);///////////////////////////////////////////////////////
@@ -240,7 +258,7 @@ MainMenu.prototype = {
 
 		//Triggers the start of the next state.
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-			game.state.start('Tutorial',  true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			game.state.start('Tutorial',  true, false, this.bgm);
 		};
 	},
 	shutdown: function()

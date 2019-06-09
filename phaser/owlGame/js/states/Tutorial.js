@@ -3,7 +3,7 @@
 //var levelComplete = false;
 var Tutorial = function(game) {};
 Tutorial.prototype = {
-	init: function() {
+	init: function(bgm) {
 		this.sky;
 		this.farBuildings;
 		this.farParallax = 1;
@@ -11,6 +11,7 @@ Tutorial.prototype = {
 		this.midParallax = 3;
 		this.closeBuildings;
 		this.closeParallax = 5;
+		this.bgm = bgm;
 	},
 	preload: function() {
 		game.load.image("blueSky", "assets/img/pblueSky0000.png");
@@ -317,7 +318,7 @@ Tutorial.prototype = {
 			this.endToken.destroy(); 
 			this.levelCleared.play();
 
-			game.state.start("CutsceneOne", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			game.state.start("CutsceneOne", true, false, this.layerArray, this.layerSpeeds, this.keyArray, this.bgm);
 			// // Camera Fade
 			// game.camera.fade(0x000000, 1000, true);
 			// game.camera.onFadeComplete.add(this.finishFade, this);

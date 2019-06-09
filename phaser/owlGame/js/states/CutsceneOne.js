@@ -1,10 +1,11 @@
 // Creating Level One's Cutscene
 var CutsceneOne = function(game) {};
 CutsceneOne.prototype = {
-	init: function(layerArray, layerSpeeds, keyArray) {
+	init: function(layerArray, layerSpeeds, keyArray, bgm) {
 		this.layerArray = layerArray;
 		this.layerSpeeds = layerSpeeds;
 		this.keyArray = keyArray;
+		this.bgm = bgm;
 		this.continues = 0;
 	},
 
@@ -17,7 +18,7 @@ CutsceneOne.prototype = {
 
 	create: function()
 	{
-
+		console.log(this.bgm.name)
 
 		// Something
 		game.world.setBounds(0, 0, 1600, 900);
@@ -61,7 +62,7 @@ CutsceneOne.prototype = {
 			}
 			else
 			{ */
-				game.state.start('LevelOne', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+				game.state.start('LevelOne', true, false, this.bgm);
 			//}
 
 			

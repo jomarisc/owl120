@@ -216,7 +216,7 @@ OwlFabs.prototype.update = function()
 	if(this.jumps > 0 && cursors.up.downDuration(1)) // && this.body.touching.down)
 	{
 		// Jump
-		this.jumpSound.play();
+		this.jumpSound.play("", 0, 0.5);
 		// this.animations.play("sadJump");
 		if(cursors.left.isDown)
 		{
