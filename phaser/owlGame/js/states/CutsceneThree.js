@@ -12,7 +12,7 @@ CutsceneThree.prototype = {
 	{
 		// Cutscene assets
 		game.load.image("cutscene4", "assets/img/cutscene4.png");
-		game.load.image("cutscene4b", "assets/img/cutscene4b.png");
+
 	},
 
 	create: function()
@@ -37,7 +37,7 @@ CutsceneThree.prototype = {
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
 
-		var second = game.add.sprite(0, 0, 'cutscene4b');
+
 		var first = game.add.sprite(0, 0, 'cutscene4');
 	},
 

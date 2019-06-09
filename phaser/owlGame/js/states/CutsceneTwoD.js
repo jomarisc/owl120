@@ -1,6 +1,6 @@
 // Creating Level Two's Cutscene
-var CutsceneTwo = function(game) {};
-CutsceneTwo.prototype = {
+var CutsceneTwoD = function(game) {};
+CutsceneTwoD.prototype = {
 	init: function(layerArray, layerSpeeds, keyArray) {
 		this.layerArray = layerArray;
 		this.layerSpeeds = layerSpeeds;
@@ -10,7 +10,7 @@ CutsceneTwo.prototype = {
 	preload: function()
 	{
 		// Cutscene assets
-		game.load.image("cutscene2a", "assets/img/cutscene2a.png");
+		game.load.image("cutscene3", "assets/img/cutscene3.png");
 	},
 
 	create: function()
@@ -31,7 +31,8 @@ CutsceneTwo.prototype = {
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
 
-		var first = game.add.sprite(0,0,'cutscene2a');
+		var second = game.add.sprite(0,0,'cutscene3');
+
 
 	},
 
@@ -40,12 +41,11 @@ CutsceneTwo.prototype = {
 		//Triggers the start of the next state.
 		if(game.input.keyboard.isDown(Phaser.Keyboard.S)) {
 			// game.state.start('LevelThree', true);
-			game.state.start('CutsceneTwoB', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			game.state.start('LevelThree', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 			
 			// game.camera.fade(0x000000, 1000, true);
 			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
-			
 	}
 
 	// finishFade: function()
