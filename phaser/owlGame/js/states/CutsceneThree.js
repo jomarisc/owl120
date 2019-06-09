@@ -11,10 +11,13 @@ CutsceneThree.prototype = {
 	preload: function()
 	{
 		// Cutscene assets
+		game.load.image("cutscene4", "assets/img/cutscene4.png");
+		game.load.image("cutscene4b", "assets/img/cutscene4b.png");
 	},
 
 	create: function()
 	{
+
 		// Setting up the world bounds for the camera
 		game.world.setBounds(0, 0, 3200, 900);
 
@@ -33,6 +36,9 @@ CutsceneThree.prototype = {
 		menuText1.anchor.setTo(0.5, 0.5);
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
+
+		var second = game.add.sprite(0, 0, 'cutscene4b');
+		var first = game.add.sprite(0, 0, 'cutscene4');
 	},
 
 	update: function()
@@ -59,6 +65,11 @@ CutsceneThree.prototype = {
 			// game.camera.fade(0x000000, 1000, true);
 			// game.camera.onFadeComplete.add(this.finishFade, this);
 		};
+
+		if(game.input.keyboard.isDown(Phaser.Keyboard.P)) {
+			//first.sprite.alpha = 0?
+			//same idea for this one.
+		}
 	},
 
 	// finishFade: function()

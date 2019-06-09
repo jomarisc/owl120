@@ -10,6 +10,10 @@ CutsceneTwo.prototype = {
 	preload: function()
 	{
 		// Cutscene assets
+		game.load.image("cutscene2a", "assets/img/cutscene2a.png");
+		game.load.image("cutscene2b", "assets/img/cutscene2b.png");
+		game.load.image("cutscene2c", "assets/img/cutscene2c.png");
+		game.load.image("cutscene3", "assets/img/cutscene3.png");
 	},
 
 	create: function()
@@ -29,6 +33,11 @@ CutsceneTwo.prototype = {
 		menuText1.anchor.setTo(0.5, 0.5);
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
+		var fourth = game.add.sprite(0,0,'cutscene3');
+		var third = game.add.sprite(0,0,'cutscene2c');
+		var second = game.add.sprite(0,0,'cutscene2b');
+		var first = game.add.sprite(0,0,'cutscene2a');
+
 	},
 
 	update: function()
@@ -40,7 +49,14 @@ CutsceneTwo.prototype = {
 			
 			// game.camera.fade(0x000000, 1000, true);
 			// game.camera.onFadeComplete.add(this.finishFade, this);
-		}
+		};
+				
+		if(game.input.keyboard.isDown(Phaser.Keyboard.P)) {
+			///////////////////////////////////////////////////sprite.first.alpha = 0; help with this please
+			//Pressing P instantly sets the alpha of the image on top to 0. 
+			//I forgot the documentation for this one line of code ;-;
+			
+		};
 	},
 
 	// finishFade: function()

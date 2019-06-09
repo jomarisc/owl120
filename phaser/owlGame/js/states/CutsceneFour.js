@@ -14,6 +14,9 @@ CutsceneFour.prototype = {
 		game.load.image("farBuildings", "assets/img/nightbuild0000.png");
 		game.load.image("midBuildings", "assets/img/nightbuild0001.png");
 		game.load.image("closeBuildings", "assets/img/nightbuild0002.png");
+		game.load.image("cutscene5a", "assets/img/cutscene5a.png");
+		game.load.image("cutscene5b", "assets/img/cutscene5b.png");
+
 	},
 
 	create: function()
@@ -35,6 +38,9 @@ CutsceneFour.prototype = {
 		menuText1.anchor.setTo(0.5, 0.5);
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
+
+		var second = game.add.sprite(0, 0, 'cutscene5b');
+		var first =  game.add.sprite(0, 0, 'cutscene5a');
 	},
 
 	update: function()
@@ -59,5 +65,10 @@ CutsceneFour.prototype = {
 				game.state.start('LevelFinal', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 			// }
 		};
+
+		if(game.input.keyboard.isDown(Phaser.Keyboard.P)) {
+			//Set alpha to zero for subsequent images.
+			//first.sprite.alpha = 0?
+		}
 	}
 }

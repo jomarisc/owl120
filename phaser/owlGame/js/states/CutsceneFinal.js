@@ -11,6 +11,8 @@ CutsceneFinal.prototype = {
 	preload: function()
 	{
 		// Cutscene assets
+		game.load.image("finale", "assets/img/finale.png");
+		game.load.image("finaleVig", "assets/img/finalVig.png");
 	},
 
 	create: function()
@@ -32,6 +34,8 @@ CutsceneFinal.prototype = {
 		menuText1.anchor.setTo(0.5, 0.5);
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
+		var last2 = game.add.sprite(0,0,'finale');
+		var last1 = game.add.sprite(0, 0, 'finaleVig');
 	},
 
 	update: function()

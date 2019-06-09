@@ -11,10 +11,14 @@ CutsceneOne.prototype = {
 	preload: function()
 	{
 		// Cutscene assets
+		//First image
+		game.load.image("cutscene1", "assets/img/cutscene1.png");
 	},
 
 	create: function()
 	{
+
+
 		// Something
 		game.world.setBounds(0, 0, 1600, 900);
 
@@ -28,6 +32,8 @@ CutsceneOne.prototype = {
 		menuText1.anchor.setTo(0.5, 0.5);
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
+
+		game.add.sprite(0, 0, 'cutscene1');
 	},
 
 	update: function()
