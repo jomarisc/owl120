@@ -24,12 +24,17 @@ window.onload = function(){
 	game.state.add('CutsceneOne', CutsceneOne);
 	game.state.add('LevelTwo', LevelTwo);
 	game.state.add('CutsceneTwo', CutsceneTwo);
+	game.state.add('CutsceneTwoB', CutsceneTwoB);
+	game.state.add('CutsceneTwoC', CutsceneTwoC);
+	game.state.add('CutsceneTwoD', CutsceneTwoD);
 	game.state.add('LevelThree', LevelThree);
 	game.state.add('CutsceneThree', CutsceneThree);
 	game.state.add('LevelFour', LevelFour);
 	game.state.add('CutsceneFour', CutsceneFour);
 	game.state.add('LevelFinal', LevelFinal);
 	game.state.add('CutsceneFinal', CutsceneFinal);
+	game.state.add('CutsceneFinalB', CutsceneFinalB);
+	game.state.add('CutsceneFinalC', CutsceneFinalC);
 	game.state.add('GameOver', GameOver);
 
 	//As soon as the page is loaded, starts the game in the 'MainMenu' state.

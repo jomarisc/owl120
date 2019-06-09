@@ -1,6 +1,6 @@
-// Creating Level Four's Cutscene
-var CutsceneFour = function(game) {};
-CutsceneFour.prototype = {
+// Creating Level Final's Cutscene
+var CutsceneFinalB = function(game) {};
+CutsceneFinalB.prototype = {
 	init: function(layerArray, layerSpeeds, keyArray) {
 		this.layerArray = layerArray;
 		this.layerSpeeds = layerSpeeds;
@@ -11,11 +11,7 @@ CutsceneFour.prototype = {
 	preload: function()
 	{
 		// Cutscene assets
-		game.load.image("farBuildings", "assets/img/nightbuild0000.png");
-		game.load.image("midBuildings", "assets/img/nightbuild0001.png");
-		game.load.image("closeBuildings", "assets/img/nightbuild0002.png");
-		game.load.image("cutscene4b", "assets/img/cutscene4b.png");
-
+		game.load.image("cutscene5b", "assets/img/cutscene5b.png");
 	},
 
 	create: function()
@@ -33,19 +29,17 @@ CutsceneFour.prototype = {
 		// setUpBackground(layerArray, keyArray)
 		setUpBackground(this.layerArray, this.keyArray, 1, 4);
 
-		menuText1 = game.add.text(game.width / 2, 450, "It is now nighttime.\nMaybe it wasn\'t the best idea to leave your friend hanging.\nYou decide to go visit your friend.\nPress F to enter the next level.", {fontsize: '72px', fill: '#FFF'});
+		menuText1 = game.add.text(game.width / 2, 450, 'This is the Final cutscene.\nYou ring your friend\'s doorbell, but there\'s no response.\nYou call your friend, and it turns out he\'s busy at work.\nYou go back home to sulk on your rooftop.\nPress G to continue', {fontsize: '72px', fill: '#FFF'});
 		menuText1.anchor.setTo(0.5, 0.5);
 		menuText1.align = "center";
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
-
-		var second = game.add.sprite(0, 0, 'cutscene4b');
-
+		var last1 = game.add.sprite(0, 0, 'cutscene5b');
 	},
 
 	update: function()
 	{
 		//Triggers the start of the next state.
-		if(game.input.keyboard.isDown(Phaser.Keyboard.F) && game.input.keyboard.downDuration(Phaser.Keyboard.F, 1)) {
+		if(game.input.keyboard.isDown(Phaser.Keyboard.G) && game.input.keyboard.downDuration(Phaser.Keyboard.G, 1)) {
 			// if(this.continues == 0)
 			// {
 			// 	// Camera Fade in
@@ -54,20 +48,22 @@ CutsceneFour.prototype = {
 			// 	// Changing the background
 			// 	this.keyArray = ["blueSky", "farBuildings", "midBuildings", "closeBuildings"];
 			// 	setUpBackground(this.layerArray, this.keyArray, 1, 4);
-			// 	menuText1 = game.add.text(game.width / 2, 450, "It is now nighttime.\nMaybe it wasn\'t the best idea to leave your friend hanging.\nYou decide to go visit your friend.\nPress D to enter the next level.", {fontsize: '72px', fill: '#FFF'});
+			// 	menuText1 = game.add.text(game.width / 2, 450, 'The sun is rising. Your friend pulls up at your place to check in on you.\nYou talk it out, then all the photos that have been bugging you disappear.\nPress G to enter the next state.', {fontsize: '72px', fill: '#000'});
 			// 		menuText1.anchor.setTo(0.5, 0.5);
 			// 		menuText1.align = "center";
 			// 	this.continues++;
 			// }
 			// else
 			// {
-				game.state.start('LevelFinal', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+			// 	game.camera.fade(0x000000, 1000, true);
+			// 	game.camera.onFadeComplete.add(this.finishFade, this);
 			// }
+			game.state.start('CutsceneFinalC', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 		};
+	},
 
-		if(game.input.keyboard.isDown(Phaser.Keyboard.P)) {
-			//Set alpha to zero for subsequent images.
-			//first.sprite.alpha = 0?
-		}
+	finishFade: function()
+	{
+		//game.state.start('GameOver', true, true);
 	}
 }
