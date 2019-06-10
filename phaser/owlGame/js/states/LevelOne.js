@@ -49,10 +49,23 @@ LevelOne.prototype = {
 		// menuText2 = game.add.text(800, 550, '', {fontsize: '64px', fill: '#000'});
 
 		// Creating platforms template
+		var buildings = game.add.group();
+		buildings.enableBody = true;
 		platforms = game.add.group();
 		platforms.enableBody = true;
 		deathPlatforms = game.add.group();
 		deathPlatforms.enableBody = true;
+
+		// Longer platforms are 384px long
+		var longerX = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3), 65 + (2400 * 7), 130 + (2400 * 7), 195 + (2400 * 7), 260 + (2400 * 7), 325 + (2400 * 7), 390 + (2400 * 7), 774 + (2400 * 7), 839 + (2400 * 7), 1580 + (2400 * 7), (2400 * 8), 589 + (2400 * 8), 1000 + (2400 * 9)];
+		var longerY = [552, 350, 300, 350, 300, 300, 350, 400, 450, 500, 550, 550, 500, 300, 400, 500, 1000+450];// [348, 550, 600, 550, 600]; // 450
+		// Creates intentional concrete buildings for longer platforms
+		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
+		{
+			// Office building
+			var ledge = buildings.create(longerX[longerX.length - 1], game.world.height - longerY[longerX.length - 1], "buildingLarge");
+			ledge.body.immovable = true;
+		}
 		
 		// Creating ground collidable object
 		// Remember the length of each platform is 1600px!
@@ -104,6 +117,7 @@ LevelOne.prototype = {
 		// Standard platforms are 256px long
 		var standardX = [1200 + (2400 * 1), 700 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5), 1620 + (2400 * 8), 205 + (2400 * 9), 1000 + (2400 * 9), 1000 + (2400 * 9), 1000 + (2400 * 9), 2000 + (2400 * 9), 2000 + (2400 * 9), 2000 + (2400 * 9)];//, 2000 + (2400 * 9)];
 		var standardY = [400, 520, 700, 400, 550, 250, 250, 450, 350, 250, 500+175, 750+300, 400+125, 650+250, 900+375];  //, 1150]; // [500, 300, 150, 500, 250, 650]; // 550
+
 		// Creates intentional concrete buildings for standard platforms
 		var concreteSY = [375, 505, 675, 375, 525, 225, 225]; // [525, 325, 175, 525, 275, 675];
 		for (var i = 0; i < standardY.length - 6; i++) {
@@ -124,11 +138,7 @@ LevelOne.prototype = {
 		}
 		
 		// Creates intentional longer platforms 
-		// Longer platforms are 384px long
-		var longerX = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3), 65 + (2400 * 7), 130 + (2400 * 7), 195 + (2400 * 7), 260 + (2400 * 7), 325 + (2400 * 7), 390 + (2400 * 7), 774 + (2400 * 7), 839 + (2400 * 7), 1580 + (2400 * 7), (2400 * 8), 589 + (2400 * 8), 1000 + (2400 * 9)];
-		var longerY = [552, 350, 300, 350, 300, 300, 350, 400, 450, 500, 550, 550, 500, 300, 400, 500, 1000+450];// [348, 550, 600, 550, 600]; // 450
-		// Creates intentional concrete buildings for longer platforms
-		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
+		
 		for (var i = 0; i < longerY.length - 1; i++) {
 			// var x = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3)];
 			if(i > longerY.length - 5 || i < longerY.length - 12)

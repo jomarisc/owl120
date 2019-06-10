@@ -87,9 +87,9 @@ LevelFour.prototype = {
 		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
 		for (var i = 0; i < longerY.length; i++) { // Adjust length of for loop
 			// var x = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3)];
-			var ledge = platforms.create(longerX[i], game.world.height - longerY[i], "interactableBuilding");//game.world.height - concreteLY[i]
+			var ledge = platforms.create(longerX[i], game.world.height - longerY[i], "interactableBuildingL");//game.world.height - concreteLY[i]
 			// Sets size of placeholder image.
-			ledge.scale.setTo(1.5);
+			// ledge.scale.setTo(1.5);
 			ledge.body.immovable = true;
 			// Setting anchor of image to center
 			ledge.anchor.setTo(0.5, 0);

@@ -260,10 +260,10 @@ LevelThree.prototype = {
 		game.state.start("LevelThree", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
 	},
 
-	render: function()
-	{
-		//Sample: game.debug.body(sprite);
-		game.debug.body(this.player);
-		game.debug.body(this.endToken);
-	}
+	// render: function()
+	// {
+	// 	//Sample: game.debug.body(sprite);
+	// 	game.debug.body(this.player);
+	// 	game.debug.body(this.endToken);
+	// }
 };
