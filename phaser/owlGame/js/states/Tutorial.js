@@ -153,9 +153,9 @@ Tutorial.prototype = {
 		var longerX = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3), 65 + (2400 * 7), 130 + (2400 * 7), 195 + (2400 * 7), 260 + (2400 * 7), 325 + (2400 * 7), 390 + (2400 * 7), 774 + (2400 * 7), 839 + (2400 * 7), 1580 + (2400 * 7), (2400 * 8), 589 + (2400 * 8), 1000 + (2400 * 9)];
 		var longerY = [552, 350, 300, 350, 300, 300, 350, 400, 450, 500, 550, 550, 500, 300, 400, 500, 1000+450];// [348, 550, 600, 550, 600]; // 450
 		// Creates intentional concrete buildings for longer platforms
-		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// [348+30, 550+30, 600+30, 550+30, 600+30];
+		var concreteLY = [552 - 30, 350 - 30, 300 - 30, 350 - 30, 300 - 30];// 
 		for (var i = 0; i < longerY.length - 1; i++) {
-			// var x = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3)];
+			
 			if(i > longerY.length - 5 || i < longerY.length - 12)
 			{
 				var ledge = platforms.create(longerX[i], game.world.height - longerY[i] + 200, "interactableBuilding");
@@ -178,7 +178,6 @@ Tutorial.prototype = {
 		var longererX = [65 + (2400 * 6)];
 		var longererY = [550];
 		for (var i = 0; i < longererY.length; i++) {
-			// var x = [1200 + (2400 * 1), 800 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5)];
 			var ledge = platforms.create(longererX[i], game.world.height - longererY[i] + 2500, "interactableBuilding");
 			// Sets size of placeholder image.
 			ledge.scale.setTo(6.5);
@@ -309,7 +308,7 @@ Tutorial.prototype = {
 		}
 		
 		// Triggers the start of the next state.
-		if(game.physics.arcade.collide(this.player, this.endToken) || game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+		if(game.physics.arcade.collide(this.player, this.endToken)) {
 			// Used the below line to remove the hitbox and initiate the transition immediately
 			// OBSERVATION: Noticed the transition would not occur immediately when using
 			//				overlap or collide in the if statement's check.

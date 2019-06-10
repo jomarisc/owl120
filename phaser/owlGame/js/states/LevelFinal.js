@@ -200,6 +200,6 @@ LevelFinal.prototype = {
 	restart: function()
 	{
 		console.log("Restart Level Final");
-		game.state.start("LevelFinal", true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+		game.state.start("LevelFinal", true, false, this.layerArray, this.layerSpeeds, this.keyArray, this.bgm);
 	}
 }
