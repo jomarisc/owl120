@@ -325,11 +325,11 @@ LevelOne.prototype = {
 	// TESTING CODE: Uncomment this function to check hitboxes of particular sprites
 	// that utilze arcade physics
 	 
-	render: function()
-	{
-		//Sample: game.debug.body(sprite);
-		game.debug.body(this.player);
-		game.debug.body(this.endToken);
-	}
+	// render: function()
+	// {
+	// 	//Sample: game.debug.body(sprite);
+	// 	game.debug.body(this.player);
+	// 	game.debug.body(this.endToken);
+	// }
 	
 };
