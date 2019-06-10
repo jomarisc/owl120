@@ -195,7 +195,7 @@ LevelFinal.prototype = {
 	},
 	finishFade: function()
 	{
-		game.state.start('CutsceneFinal', true, false, this.layerArray, this.layerSpeeds, this.keyArray);
+		game.state.start('CutsceneFinal', true, false, this.layerArray, this.layerSpeeds, this.keyArray, this.bgm);
 	},
 	restart: function()
 	{
