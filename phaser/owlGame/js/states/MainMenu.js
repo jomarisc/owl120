@@ -27,6 +27,7 @@ MainMenu.prototype = {
 		game.load.image("buildingPlatformTop2", "assets/img/grayPlatformsLonger.png");
 		game.load.image("buildingPlatformTop3", "assets/img/grayPlatformsLongerer.png");
 		game.load.image("buildingLarge", "assets/img/buildingXL.png");
+		game.load.image("gym", "assets/img/buildingXXL.png");
 		game.load.image("buildingPlatform", "assets/img/gPlatform0001.png");
 		game.load.image("roadblock", "assets/img/roadblockSOR_final.png");
 		game.load.image("roadblock2","assets/img/roadblockAC_final.png");

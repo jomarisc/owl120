@@ -40,6 +40,8 @@ LevelTwo.prototype = {
 		// }
 		
 		// Creating platforms template
+		var buildings = game.add.group();
+		buildings.enableBody = true;
 		platforms = game.add.group();
 		platforms.enableBody = true;
 		deathPlatforms = game.add.group();
@@ -72,43 +74,82 @@ LevelTwo.prototype = {
 		block.body.immovable = true;
 		// block.scale.setTo(4);
 		
-		// Creates green platforms
-		var standardX = [300, 2000 + (2400 * 0), 5000 + (2400 * 0)];
-		var standardY = [400, 400 , 300];
+		// // Creates green platforms
+		// var standardX = [300, 2000 + (2400 * 0), 5000 + (2400 * 0)];
+		// var standardY = [400, 400 , 300];
+		// for (var i = 0; i < standardX.length; i++) {	
+		// 	var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatform");
+		// 	ledge.body.immovable = true;
+		// 	ledge.scale.setTo(3, 1.5);
+		// 	ledge.anchor.setTo(0.5, 0.5);
+		// }
+
+		// Creates longerer platforms
+		var standardX = [2700 + (2400 * 0), 4500 + (2400 * 0), 5500 + (2400 * 0), 8300 + (2400 * 0)];
+		var standardY = [1050, 800, 800, 1560];
+		for (var i = 0; i < standardY.length; i++) {
+			if(i < 1 || i > 2)
+			{
+				// var x = [1200 + (2400 * 1), 800 + (2400 * 2), 800 + (2400 * 3), 1825 + (2400 * 3), 2350 + (2400 * 3), 1515  + (2400 * 4), 565 + (2400 * 5)];
+				var ledge = buildings.create(standardX[i], game.world.height - standardY[i], "buildingLarge");
+				// Sets size of placeholder image.
+				ledge.scale.setTo(1.4);
+				ledge.body.immovable = true;
+				// Setting anchor of image to center
+				ledge.anchor.setTo(0.5, 0);
+			}
+		}
 		for (var i = 0; i < standardX.length; i++) {	
-			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatform");
+			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop3");
 			ledge.body.immovable = true;
-			ledge.scale.setTo(3, 1.5);
+			ledge.scale.setTo(2);
 			ledge.anchor.setTo(0.5, 0.5);
+		}
+		{
+			// Gym Building
+			var ledge = buildings.create(3960, 1000, "gym");
+			ledge.body.immovable = true;
 		}
 		
 		// Creates standard platforms
 		var standardX = [100 + (2400 * 0), 1025 + (2400 * 0), 100 + (2400 * 0), 1025 + (2400 * 0), 2400 + (2400 * 0), 3000 + (2400 * 0), 4300 + (2400 * 0), 5700 + (2400 * 0),7000 + (2400 * 0), 7000 + (2400 * 0), 7000 + (2400 * 0), 7700 + (2400 * 0), 7700 + (2400 * 0), 8900 + (2400 * 0), 8700 + (2400 * 0), 9300 + (2400 * 0), 12000, 13000];
 		var standardY = [1450, 1250, 1050, 800, 780, 780, 450, 450, 830, 578, 1200, 1070, 1370, 1370, 1070, 830, 730, 600];
+		for (var i = standardX.length - 3; i < standardY.length; i++) {
+			// var x = [1750 + (2400 * 1), (2400 * 2), 1600 + (2400 * 2), 1984 + (2400 * 2), 1500 + (2400 * 3)];
+				var ledge = buildings.create(standardX[i], game.world.height - standardY[i] + 200, "interactableBuilding");
+				// Sets size of placeholder image.
+				ledge.scale.setTo(1.3);
+				ledge.body.immovable = true;
+				// Setting anchor of image to center
+				ledge.anchor.setTo(0.5, 0.5);
+		}
 		for (var i = 0; i < standardX.length; i++) {	
 			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop");
 			ledge.scale.setTo(2);
 			ledge.body.immovable = true;
 			ledge.anchor.setTo(0.5, 0.5);
 		}
+		{
+			// Office building
+			var ledge = buildings.create(standardX[0] - 100, game.world.height - standardY[0], "buildingLarge");
+			ledge.body.immovable = true;
+		}
 		
 		// Creates longer platforms
 		var standardX = [2780 + (2400 * 0), 6500 + (2400 * 0), 9000, 11100];
 		var standardY = [520, 320, 450, 830];
+		{
+			var ledge = buildings.create(standardX[standardX.length - 1], game.world.height - standardY[standardY.length - 1] + 200, "interactableBuilding");
+			// Sets size of placeholder image.
+			ledge.scale.setTo(1.8);
+			ledge.body.immovable = true;
+			// Setting anchor of image to center
+			ledge.anchor.setTo(0.5, 0.5);
+		}
 		for (var i = 0; i < standardX.length; i++) {	
 			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop2");
 			ledge.scale.setTo(1, 1.5);
 			ledge.body.immovable = true;
-			ledge.anchor.setTo(0.5, 0.5);
-		}
-		
-		// Creates longerer platforms
-		var standardX = [2700 + (2400 * 0), 4500 + (2400 * 0), 5500 + (2400 * 0), 8300 + (2400 * 0)];
-		var standardY = [1050, 800, 800, 1560];
-		for (var i = 0; i < standardX.length; i++) {	
-			var ledge = platforms.create(standardX[i], game.world.height - standardY[i], "buildingPlatformTop3");
-			ledge.body.immovable = true;
-			ledge.scale.setTo(2);
 			ledge.anchor.setTo(0.5, 0.5);
 		}
 		
@@ -144,8 +185,18 @@ LevelTwo.prototype = {
 
 		// Player input checking
 		var cursors = game.input.keyboard.createCursorKeys();
-
-		var hitPlatform = game.physics.arcade.collide(this.player, platforms);
+		
+		for(var i = 0; i < platforms.length; i++)
+		{
+			if(platforms.getAt(i).body.y < 500)
+			{
+				game.physics.arcade.collide(this.player, platforms.getAt(i));
+			}
+			else if(this.player.y < platforms.getAt(i).body.y)
+			{
+				game.physics.arcade.collide(this.player, platforms.getAt(i));
+			}
+		}
 		var hitDeathPlatform = game.physics.arcade.collide(this.player, deathPlatforms);
 		var roadBlockCollide = game.physics.arcade.collide(roadBlock, [this.player, platforms, deathPlatforms]);
 		var coinPlatform = game.physics.arcade.collide(this.endToken, platforms);
